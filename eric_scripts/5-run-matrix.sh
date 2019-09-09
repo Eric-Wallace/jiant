@@ -15,13 +15,23 @@ ALL_TASKS+=( "rel-semeval" )
 echo "All tasks to run: ${ALL_TASKS[@]}"
 
 declare -a ALL_MODELS
-#ALL_MODELS+=( "None" ) # bert has pretrained_dir to None
-#ALL_MODELS+=( "RANDOM" )
-#ALL_MODELS+=( "RANDOM_WITH_GOOD_EMBEDDINGS" )
-#ALL_MODELS+=( "models/MNLI" )
-#ALL_MODELS+=( "coreference" )
-ALL_MODELS+=( "models/SST" )
-ALL_MODELS+=(" models/5-way-multiqa
+ALL_MODELS+=( "None" ) # bert has pretrained_dir to None
+ALL_MODELS+=( "RANDOM" )
+ALL_MODELS+=( "RANDOM_WITH_GOOD_EMBEDDINGS" )
+
+ALL_MODELS+=( "models/rte" )
+ALL_MODELS+=( "models/sts-b" )
+ALL_MODELS+=( "models/cola" )
+ALL_MODELS+=( "models/sst" )
+ALL_MODELS+=( "models/mrpc" )
+ALL_MODELS+=( "models/mnli" )
+ALL_MODELS+=( "models/allan-coref" )
+ALL_MODELS+=( "models/agnews" )
+ALL_MODELS+=( "models/random-memorization" )
+ALL_MODELS+=( "models/5-way-multiqa" )
+ALL_MODELS+=( "models/hotpot" )
+ALL_MODELS+=( "models/squad" )
+
 
 declare -a All_LAYERS
 All_LAYERS+=( "cat" )
