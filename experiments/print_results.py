@@ -34,6 +34,8 @@ for item in results:
         returnVal[(finetuned_model, layer)][2] = str(accuracy)
     elif probing_task == "rel semeval":
         returnVal[(finetuned_model, layer)][3] = str(accuracy)
+    elif probing_task == "pos ontonotes":
+        returnVal[(finetuned_model, layer)][4] = str(accuracy)
 
 printResults = []
 for key in returnVal:
@@ -43,5 +45,5 @@ for key in returnVal:
     temp.extend(returnVal[key])
     printResults.append(temp)
 
-print(tabulate(printResults,headers=['Finetuning Task', 'Layer', 'Dependency', 'SRL', "NER",'Rel Semeval','_'], tablefmt='orgtbl'))
+print(tabulate(printResults,headers=['Finetuning Task', 'Layer', 'Dependency', 'SRL', "NER",'Rel Semeval','POS'], tablefmt='orgtbl'))
 
