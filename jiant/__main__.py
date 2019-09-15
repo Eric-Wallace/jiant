@@ -607,6 +607,7 @@ def main(cl_arguments):
         delete_all_checkpoints(args.run_dir)
 
     log.info("Done!")
+    exit("Done exited")
 
 
 if __name__ == "__main__":
