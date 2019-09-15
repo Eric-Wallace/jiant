@@ -1,0 +1,1369 @@
+09/16 07:34:39 AM: Git branch: master
+09/16 07:34:39 AM: Git SHA: 6a6c097582fb44e9e93b08dab8c29a3ff91459bf
+09/16 07:34:40 AM: Parsed args: 
+{
+  "allow_missing_task_map": 1,
+  "allow_untrained_encoder_parameters": 1,
+  "do_pretrain": 0,
+  "exp_dir": "./experiments/rel-semeval-rte-mix/",
+  "exp_name": "experiments/rel-semeval-rte-mix",
+  "input_module": "bert-base-uncased",
+  "local_log_path": "./experiments/rel-semeval-rte-mix/run/log.log",
+  "lr_patience": 3,
+  "max_seq_len": 512,
+  "output_mode": "top",
+  "patience": 9,
+  "pretrain_tasks": "",
+  "pretrained_dir": "models/rte",
+  "pytorch_transformers_output_mode": "mix",
+  "remote_log_name": "experiments/rel-semeval-rte-mix__run",
+  "run_dir": "./experiments/rel-semeval-rte-mix/run",
+  "run_name": "run",
+  "sent_enc": "none",
+  "sep_embs_for_skip": 1,
+  "target_tasks": "edges-rel-semeval",
+  "tokenizer": "bert-base-uncased",
+  "write_preds": "val,test"
+}
+09/16 07:34:40 AM: Saved config to ./experiments/rel-semeval-rte-mix/run/params.conf
+09/16 07:34:40 AM: Using random seed 1234
+09/16 07:34:41 AM: Using GPU 0
+09/16 07:34:41 AM: Loading tasks...
+09/16 07:34:41 AM: Writing pre-preprocessed tasks to ./experiments/rel-semeval-rte-mix/
+09/16 07:34:41 AM: 	Creating task edges-rel-semeval from scratch.
+09/16 07:34:41 AM: Read=6851, Skip=0, Total=6851 from ./probing_data/edges/semeval/train.0.85.json.retokenized.bert-base-uncased
+09/16 07:34:41 AM: Read=1149, Skip=0, Total=1149 from ./probing_data/edges/semeval/dev.json.retokenized.bert-base-uncased
+09/16 07:34:41 AM: Read=2717, Skip=0, Total=2717 from ./probing_data/edges/semeval/test.json.retokenized.bert-base-uncased
+09/16 07:34:41 AM: 	Task 'edges-rel-semeval': |train|=6851 |val|=1149 |test|=2717
+09/16 07:34:41 AM: 	Finished loading tasks: edges-rel-semeval.
+09/16 07:34:41 AM: 	Building vocab from scratch.
+09/16 07:34:41 AM: 	Counting units for task edges-rel-semeval.
+09/16 07:34:41 AM: 	Task 'edges-rel-semeval': adding vocab namespace 'edges-rel-semeval_labels'
+09/16 07:34:42 AM: loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at /home/ericwallace/.cache/torch/pytorch_transformers/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+09/16 07:34:42 AM: Added pytorch_transformers vocab (bert-base-uncased): 30522 tokens
+09/16 07:34:42 AM: 	Saved vocab to ./experiments/rel-semeval-rte-mix/vocab
+09/16 07:34:42 AM: Loading token dictionary from ./experiments/rel-semeval-rte-mix/vocab.
+09/16 07:34:42 AM: 	Loaded vocab from ./experiments/rel-semeval-rte-mix/vocab
+09/16 07:34:42 AM: 	Vocab namespace bert_uncased: size 30524
+09/16 07:34:42 AM: 	Vocab namespace tokens: size 16020
+09/16 07:34:42 AM: 	Vocab namespace chars: size 59
+09/16 07:34:42 AM: 	Vocab namespace edges-rel-semeval_labels: size 19
+09/16 07:34:42 AM: 	Finished building vocab.
+09/16 07:34:42 AM: 	Task edges-rel-semeval (train): Indexing from scratch.
+09/16 07:34:43 AM: 	Task edges-rel-semeval (train): Saved 6851 instances to ./experiments/rel-semeval-rte-mix/preproc/edges-rel-semeval__train_data
+09/16 07:34:43 AM: 	Task edges-rel-semeval (val): Indexing from scratch.
+09/16 07:34:43 AM: 	Task edges-rel-semeval (val): Saved 1149 instances to ./experiments/rel-semeval-rte-mix/preproc/edges-rel-semeval__val_data
+09/16 07:34:43 AM: 	Task edges-rel-semeval (test): Indexing from scratch.
+09/16 07:34:43 AM: 	Task edges-rel-semeval (test): Saved 2717 instances to ./experiments/rel-semeval-rte-mix/preproc/edges-rel-semeval__test_data
+09/16 07:34:43 AM: 	Finished indexing tasks
+09/16 07:34:43 AM: 	Creating trimmed target-only version of edges-rel-semeval train.
+09/16 07:34:43 AM: 	  Training on 
+09/16 07:34:43 AM: 	  Evaluating on edges-rel-semeval
+09/16 07:34:43 AM: 	Finished loading tasks in 2.938s
+09/16 07:34:43 AM: 	 Tasks: ['edges-rel-semeval']
+09/16 07:34:43 AM: Building model...
+09/16 07:34:43 AM: Using BERT model (bert-base-uncased).
+09/16 07:34:43 AM: LOADING A FUNETUNED MODEL from: 
+09/16 07:34:43 AM: models/rte
+09/16 07:34:43 AM: loading configuration file models/rte/config.json
+09/16 07:34:43 AM: Model config {
+  "attention_probs_dropout_prob": 0.1,
+  "finetuning_task": "rte",
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "output_attentions": false,
+  "output_hidden_states": true,
+  "pruned_heads": {},
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "vocab_size": 30522
+}
+
+09/16 07:34:43 AM: loading weights file models/rte/pytorch_model.bin
+09/16 07:34:47 AM: https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt not found in cache or force_download set to True, downloading to /tmp/tmp0164pxx9
+09/16 07:34:48 AM: copying /tmp/tmp0164pxx9 to cache at ./experiments/rel-semeval-rte-mix/pytorch_transformers_cache/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+09/16 07:34:48 AM: creating metadata file for ./experiments/rel-semeval-rte-mix/pytorch_transformers_cache/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+09/16 07:34:48 AM: removing temp file /tmp/tmp0164pxx9
+09/16 07:34:48 AM: loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at ./experiments/rel-semeval-rte-mix/pytorch_transformers_cache/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+09/16 07:34:48 AM: NOTE: pytorch_transformers_output_mode='mix', so scalar mixing weights will be fine-tuned even if BERT model is frozen.
+09/16 07:34:48 AM: Initializing parameters
+09/16 07:34:48 AM: Done initializing parameters; the following parameters are using their default initialization from their code
+09/16 07:34:48 AM:    _text_field_embedder.model.embeddings.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.embeddings.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.embeddings.position_embeddings.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.embeddings.token_type_embeddings.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.embeddings.word_embeddings.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.0.attention.output.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.0.attention.output.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.0.attention.output.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.0.attention.output.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.0.attention.self.key.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.0.attention.self.key.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.0.attention.self.query.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.0.attention.self.query.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.0.attention.self.value.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.0.attention.self.value.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.0.intermediate.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.0.intermediate.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.0.output.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.0.output.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.0.output.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.0.output.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.1.attention.output.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.1.attention.output.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.1.attention.output.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.1.attention.output.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.1.attention.self.key.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.1.attention.self.key.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.1.attention.self.query.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.1.attention.self.query.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.1.attention.self.value.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.1.attention.self.value.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.1.intermediate.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.1.intermediate.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.1.output.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.1.output.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.1.output.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.1.output.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.10.attention.output.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.10.attention.output.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.10.attention.output.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.10.attention.output.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.10.attention.self.key.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.10.attention.self.key.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.10.attention.self.query.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.10.attention.self.query.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.10.attention.self.value.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.10.attention.self.value.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.10.intermediate.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.10.intermediate.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.10.output.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.10.output.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.10.output.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.10.output.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.11.attention.output.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.11.attention.output.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.11.attention.output.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.11.attention.output.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.11.attention.self.key.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.11.attention.self.key.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.11.attention.self.query.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.11.attention.self.query.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.11.attention.self.value.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.11.attention.self.value.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.11.intermediate.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.11.intermediate.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.11.output.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.11.output.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.11.output.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.11.output.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.2.attention.output.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.2.attention.output.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.2.attention.output.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.2.attention.output.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.2.attention.self.key.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.2.attention.self.key.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.2.attention.self.query.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.2.attention.self.query.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.2.attention.self.value.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.2.attention.self.value.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.2.intermediate.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.2.intermediate.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.2.output.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.2.output.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.2.output.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.2.output.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.3.attention.output.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.3.attention.output.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.3.attention.output.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.3.attention.output.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.3.attention.self.key.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.3.attention.self.key.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.3.attention.self.query.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.3.attention.self.query.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.3.attention.self.value.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.3.attention.self.value.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.3.intermediate.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.3.intermediate.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.3.output.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.3.output.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.3.output.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.3.output.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.4.attention.output.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.4.attention.output.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.4.attention.output.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.4.attention.output.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.4.attention.self.key.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.4.attention.self.key.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.4.attention.self.query.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.4.attention.self.query.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.4.attention.self.value.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.4.attention.self.value.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.4.intermediate.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.4.intermediate.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.4.output.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.4.output.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.4.output.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.4.output.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.5.attention.output.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.5.attention.output.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.5.attention.output.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.5.attention.output.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.5.attention.self.key.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.5.attention.self.key.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.5.attention.self.query.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.5.attention.self.query.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.5.attention.self.value.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.5.attention.self.value.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.5.intermediate.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.5.intermediate.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.5.output.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.5.output.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.5.output.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.5.output.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.6.attention.output.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.6.attention.output.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.6.attention.output.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.6.attention.output.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.6.attention.self.key.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.6.attention.self.key.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.6.attention.self.query.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.6.attention.self.query.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.6.attention.self.value.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.6.attention.self.value.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.6.intermediate.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.6.intermediate.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.6.output.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.6.output.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.6.output.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.6.output.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.7.attention.output.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.7.attention.output.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.7.attention.output.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.7.attention.output.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.7.attention.self.key.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.7.attention.self.key.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.7.attention.self.query.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.7.attention.self.query.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.7.attention.self.value.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.7.attention.self.value.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.7.intermediate.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.7.intermediate.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.7.output.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.7.output.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.7.output.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.7.output.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.8.attention.output.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.8.attention.output.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.8.attention.output.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.8.attention.output.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.8.attention.self.key.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.8.attention.self.key.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.8.attention.self.query.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.8.attention.self.query.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.8.attention.self.value.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.8.attention.self.value.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.8.intermediate.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.8.intermediate.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.8.output.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.8.output.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.8.output.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.8.output.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.9.attention.output.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.9.attention.output.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.9.attention.output.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.9.attention.output.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.9.attention.self.key.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.9.attention.self.key.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.9.attention.self.query.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.9.attention.self.query.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.9.attention.self.value.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.9.attention.self.value.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.9.intermediate.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.9.intermediate.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.9.output.LayerNorm.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.9.output.LayerNorm.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.9.output.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.encoder.layer.9.output.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.model.pooler.dense.bias
+09/16 07:34:48 AM:    _text_field_embedder.model.pooler.dense.weight
+09/16 07:34:48 AM:    _text_field_embedder.scalar_mix.gamma
+09/16 07:34:48 AM:    _text_field_embedder.scalar_mix.scalar_parameters.0
+09/16 07:34:48 AM:    _text_field_embedder.scalar_mix.scalar_parameters.1
+09/16 07:34:48 AM:    _text_field_embedder.scalar_mix.scalar_parameters.10
+09/16 07:34:48 AM:    _text_field_embedder.scalar_mix.scalar_parameters.11
+09/16 07:34:48 AM:    _text_field_embedder.scalar_mix.scalar_parameters.12
+09/16 07:34:48 AM:    _text_field_embedder.scalar_mix.scalar_parameters.2
+09/16 07:34:48 AM:    _text_field_embedder.scalar_mix.scalar_parameters.3
+09/16 07:34:48 AM:    _text_field_embedder.scalar_mix.scalar_parameters.4
+09/16 07:34:48 AM:    _text_field_embedder.scalar_mix.scalar_parameters.5
+09/16 07:34:48 AM:    _text_field_embedder.scalar_mix.scalar_parameters.6
+09/16 07:34:48 AM:    _text_field_embedder.scalar_mix.scalar_parameters.7
+09/16 07:34:48 AM:    _text_field_embedder.scalar_mix.scalar_parameters.8
+09/16 07:34:48 AM:    _text_field_embedder.scalar_mix.scalar_parameters.9
+09/16 07:34:48 AM: 	Task 'edges-rel-semeval' params: {
+  "cls_type": "mlp",
+  "d_hid": 256,
+  "pool_type": "first",
+  "d_proj": 512,
+  "shared_pair_attn": 0,
+  "attn": 0,
+  "d_hid_attn": 512,
+  "dropout": 0.3,
+  "cls_loss_fn": "sigmoid",
+  "cls_span_pooling": "attn",
+  "edgeprobe_cnn_context": 0,
+  "edgeprobe_symmetric": 0,
+  "use_classifier": "edges-rel-semeval"
+}
+09/16 07:34:53 AM: Model specification:
+09/16 07:34:53 AM: MultiTaskModel(
+  (sent_encoder): SentenceEncoder(
+    (_text_field_embedder): BertEmbedderModule(
+      (model): BertModel(
+        (embeddings): BertEmbeddings(
+          (word_embeddings): Embedding(30522, 768, padding_idx=0)
+          (position_embeddings): Embedding(512, 768)
+          (token_type_embeddings): Embedding(2, 768)
+          (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+          (dropout): Dropout(p=0.1)
+        )
+        (encoder): BertEncoder(
+          (layer): ModuleList(
+            (0): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (1): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (2): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (3): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (4): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (5): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (6): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (7): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (8): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (9): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (10): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (11): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+          )
+        )
+        (pooler): BertPooler(
+          (dense): Linear(in_features=768, out_features=768, bias=True)
+          (activation): Tanh()
+        )
+      )
+      (scalar_mix): ScalarMix(
+        (scalar_parameters): ParameterList(
+            (0): Parameter containing: [torch.cuda.FloatTensor of size 1 (GPU 0)]
+            (1): Parameter containing: [torch.cuda.FloatTensor of size 1 (GPU 0)]
+            (2): Parameter containing: [torch.cuda.FloatTensor of size 1 (GPU 0)]
+            (3): Parameter containing: [torch.cuda.FloatTensor of size 1 (GPU 0)]
+            (4): Parameter containing: [torch.cuda.FloatTensor of size 1 (GPU 0)]
+            (5): Parameter containing: [torch.cuda.FloatTensor of size 1 (GPU 0)]
+            (6): Parameter containing: [torch.cuda.FloatTensor of size 1 (GPU 0)]
+            (7): Parameter containing: [torch.cuda.FloatTensor of size 1 (GPU 0)]
+            (8): Parameter containing: [torch.cuda.FloatTensor of size 1 (GPU 0)]
+            (9): Parameter containing: [torch.cuda.FloatTensor of size 1 (GPU 0)]
+            (10): Parameter containing: [torch.cuda.FloatTensor of size 1 (GPU 0)]
+            (11): Parameter containing: [torch.cuda.FloatTensor of size 1 (GPU 0)]
+            (12): Parameter containing: [torch.cuda.FloatTensor of size 1 (GPU 0)]
+        )
+      )
+    )
+    (_highway_layer): TimeDistributed(
+      (_module): Highway(
+        (_layers): ModuleList()
+      )
+    )
+    (_phrase_layer): NullPhraseLayer()
+    (_dropout): Dropout(p=0.2)
+  )
+  (edges-rel-semeval_mdl): EdgeClassifierModule(
+    (proj1): Conv1d(768, 256, kernel_size=(1,), stride=(1,))
+    (proj2): Conv1d(768, 256, kernel_size=(1,), stride=(1,))
+    (span_extractor1): EndpointSpanExtractor()
+    (span_extractor2): EndpointSpanExtractor()
+    (classifier): Classifier(
+      (classifier): Sequential(
+        (0): Linear(in_features=1024, out_features=256, bias=True)
+        (1): Tanh()
+        (2): LayerNorm(torch.Size([256]), eps=1e-05, elementwise_affine=True)
+        (3): Dropout(p=0.3)
+        (4): Linear(in_features=256, out_features=19, bias=True)
+      )
+    )
+  )
+)
+09/16 07:34:53 AM: Model parameters:
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.embeddings.word_embeddings.weight: Non-trainable parameter, count 23440896 with torch.Size([30522, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.embeddings.position_embeddings.weight: Non-trainable parameter, count 393216 with torch.Size([512, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.embeddings.token_type_embeddings.weight: Non-trainable parameter, count 1536 with torch.Size([2, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.embeddings.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.embeddings.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.pooler.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.model.pooler.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.scalar_mix.gamma: Trainable parameter, count 1 with torch.Size([1])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.scalar_mix.scalar_parameters.0: Trainable parameter, count 1 with torch.Size([1])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.scalar_mix.scalar_parameters.1: Trainable parameter, count 1 with torch.Size([1])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.scalar_mix.scalar_parameters.2: Trainable parameter, count 1 with torch.Size([1])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.scalar_mix.scalar_parameters.3: Trainable parameter, count 1 with torch.Size([1])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.scalar_mix.scalar_parameters.4: Trainable parameter, count 1 with torch.Size([1])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.scalar_mix.scalar_parameters.5: Trainable parameter, count 1 with torch.Size([1])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.scalar_mix.scalar_parameters.6: Trainable parameter, count 1 with torch.Size([1])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.scalar_mix.scalar_parameters.7: Trainable parameter, count 1 with torch.Size([1])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.scalar_mix.scalar_parameters.8: Trainable parameter, count 1 with torch.Size([1])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.scalar_mix.scalar_parameters.9: Trainable parameter, count 1 with torch.Size([1])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.scalar_mix.scalar_parameters.10: Trainable parameter, count 1 with torch.Size([1])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.scalar_mix.scalar_parameters.11: Trainable parameter, count 1 with torch.Size([1])
+09/16 07:34:53 AM: 	sent_encoder._text_field_embedder.scalar_mix.scalar_parameters.12: Trainable parameter, count 1 with torch.Size([1])
+09/16 07:34:53 AM: 	edges-rel-semeval_mdl.proj1.weight: Trainable parameter, count 196608 with torch.Size([256, 768, 1])
+09/16 07:34:53 AM: 	edges-rel-semeval_mdl.proj1.bias: Trainable parameter, count 256 with torch.Size([256])
+09/16 07:34:53 AM: 	edges-rel-semeval_mdl.proj2.weight: Trainable parameter, count 196608 with torch.Size([256, 768, 1])
+09/16 07:34:53 AM: 	edges-rel-semeval_mdl.proj2.bias: Trainable parameter, count 256 with torch.Size([256])
+09/16 07:34:53 AM: 	edges-rel-semeval_mdl.classifier.classifier.0.weight: Trainable parameter, count 262144 with torch.Size([256, 1024])
+09/16 07:34:53 AM: 	edges-rel-semeval_mdl.classifier.classifier.0.bias: Trainable parameter, count 256 with torch.Size([256])
+09/16 07:34:53 AM: 	edges-rel-semeval_mdl.classifier.classifier.2.weight: Trainable parameter, count 256 with torch.Size([256])
+09/16 07:34:53 AM: 	edges-rel-semeval_mdl.classifier.classifier.2.bias: Trainable parameter, count 256 with torch.Size([256])
+09/16 07:34:53 AM: 	edges-rel-semeval_mdl.classifier.classifier.4.weight: Trainable parameter, count 4864 with torch.Size([19, 256])
+09/16 07:34:53 AM: 	edges-rel-semeval_mdl.classifier.classifier.4.bias: Trainable parameter, count 19 with torch.Size([19])
+09/16 07:34:53 AM: Total number of parameters: 110143777 (1.10144e+08)
+09/16 07:34:53 AM: Number of trainable parameters: 661537 (661537)
+09/16 07:34:53 AM: Finished building model in 9.347s
+09/16 07:34:53 AM: Will run the following steps for this experiment:
+Re-training model for individual target tasks 
+Evaluating model on tasks: edges-rel-semeval 
+
+09/16 07:34:54 AM: patience = 9
+09/16 07:34:54 AM: val_interval = 100
+09/16 07:34:54 AM: max_vals = 100
+09/16 07:34:54 AM: cuda_device = 0
+09/16 07:34:54 AM: grad_norm = 5.0
+09/16 07:34:54 AM: grad_clipping = None
+09/16 07:34:54 AM: lr_decay = 0.99
+09/16 07:34:54 AM: min_lr = 1e-06
+09/16 07:34:54 AM: keep_all_checkpoints = 0
+09/16 07:34:54 AM: val_data_limit = 5000
+09/16 07:34:54 AM: max_epochs = -1
+09/16 07:34:54 AM: dec_val_scale = 250
+09/16 07:34:54 AM: training_data_fraction = 1
+09/16 07:34:54 AM: type = adam
+09/16 07:34:54 AM: parameter_groups = None
+09/16 07:34:54 AM: Number of trainable parameters: 661537
+09/16 07:34:54 AM: infer_type_and_cast = True
+09/16 07:34:54 AM: Converting Params object to dict; logging of default values will not occur when dictionary parameters are used subsequently.
+09/16 07:34:54 AM: CURRENTLY DEFINED PARAMETERS: 
+09/16 07:34:54 AM: lr = 0.0001
+09/16 07:34:54 AM: amsgrad = True
+09/16 07:34:54 AM: type = reduce_on_plateau
+09/16 07:34:54 AM: Converting Params object to dict; logging of default values will not occur when dictionary parameters are used subsequently.
+09/16 07:34:54 AM: CURRENTLY DEFINED PARAMETERS: 
+09/16 07:34:54 AM: mode = max
+09/16 07:34:54 AM: factor = 0.5
+09/16 07:34:54 AM: patience = 3
+09/16 07:34:54 AM: threshold = 0.0001
+09/16 07:34:54 AM: threshold_mode = abs
+09/16 07:34:54 AM: verbose = True
+09/16 07:34:54 AM: type = adam
+09/16 07:34:54 AM: parameter_groups = None
+09/16 07:34:54 AM: Number of trainable parameters: 661537
+09/16 07:34:54 AM: infer_type_and_cast = True
+09/16 07:34:54 AM: Converting Params object to dict; logging of default values will not occur when dictionary parameters are used subsequently.
+09/16 07:34:54 AM: CURRENTLY DEFINED PARAMETERS: 
+09/16 07:34:54 AM: lr = 0.0001
+09/16 07:34:54 AM: amsgrad = True
+09/16 07:34:54 AM: type = reduce_on_plateau
+09/16 07:34:54 AM: Converting Params object to dict; logging of default values will not occur when dictionary parameters are used subsequently.
+09/16 07:34:54 AM: CURRENTLY DEFINED PARAMETERS: 
+09/16 07:34:54 AM: mode = max
+09/16 07:34:54 AM: factor = 0.5
+09/16 07:34:54 AM: patience = 3
+09/16 07:34:54 AM: threshold = 0.0001
+09/16 07:34:54 AM: threshold_mode = abs
+09/16 07:34:54 AM: verbose = True
+09/16 07:34:54 AM: Starting training without restoring from a checkpoint.
+09/16 07:34:54 AM: Training examples per task, before any subsampling: {'edges-rel-semeval': 6851}
+09/16 07:34:54 AM: Beginning training with stopping criteria based on metric: edges-rel-semeval_f1
+09/16 07:34:59 AM: ***** Step 100 / Validation 1 *****
+09/16 07:34:59 AM: edges-rel-semeval: trained on 100 batches, 0.465 epochs
+09/16 07:34:59 AM: Validating...
+09/16 07:35:01 AM: Best result seen so far for edges-rel-semeval.
+09/16 07:35:01 AM: Best result seen so far for micro.
+09/16 07:35:01 AM: Best result seen so far for macro.
+09/16 07:35:01 AM: Updating LR scheduler:
+09/16 07:35:01 AM: 	Best result seen so far for macro_avg: 0.000
+09/16 07:35:01 AM: 	# validation passes without improvement: 0
+09/16 07:35:01 AM: edges-rel-semeval_loss: training: 0.251149 validation: 0.176167
+09/16 07:35:01 AM: macro_avg: validation: 0.000000
+09/16 07:35:01 AM: micro_avg: validation: 0.000000
+09/16 07:35:01 AM: edges-rel-semeval_mcc: training: 0.009936 validation: 0.000000
+09/16 07:35:01 AM: edges-rel-semeval_acc: training: 0.001892 validation: 0.000000
+09/16 07:35:01 AM: edges-rel-semeval_precision: training: 0.067365 validation: 0.000000
+09/16 07:35:01 AM: edges-rel-semeval_recall: training: 0.028382 validation: 0.000000
+09/16 07:35:01 AM: edges-rel-semeval_f1: training: 0.039938 validation: 0.000000
+09/16 07:35:01 AM: Global learning rate: 0.0001
+09/16 07:35:01 AM: Saving checkpoints to: ./experiments/rel-semeval-rte-mix/run
+09/16 07:35:04 AM: Update 146: task edges-rel-semeval, batch 46 (146): mcc: 0.0887, acc: 0.0102, precision: 0.8333, recall: 0.0102, f1: 0.0201, edges-rel-semeval_loss: 0.1762
+09/16 07:35:06 AM: ***** Step 200 / Validation 2 *****
+09/16 07:35:06 AM: edges-rel-semeval: trained on 100 batches, 0.465 epochs
+09/16 07:35:06 AM: Validating...
+09/16 07:35:08 AM: Best result seen so far for edges-rel-semeval.
+09/16 07:35:08 AM: Best result seen so far for macro.
+09/16 07:35:08 AM: Updating LR scheduler:
+09/16 07:35:08 AM: 	Best result seen so far for macro_avg: 0.141
+09/16 07:35:08 AM: 	# validation passes without improvement: 0
+09/16 07:35:08 AM: edges-rel-semeval_loss: training: 0.168153 validation: 0.144352
+09/16 07:35:08 AM: macro_avg: validation: 0.141479
+09/16 07:35:08 AM: micro_avg: validation: 0.000000
+09/16 07:35:08 AM: edges-rel-semeval_mcc: training: 0.157883 validation: 0.258669
+09/16 07:35:08 AM: edges-rel-semeval_acc: training: 0.031563 validation: 0.076588
+09/16 07:35:08 AM: edges-rel-semeval_precision: training: 0.848740 validation: 0.926316
+09/16 07:35:08 AM: edges-rel-semeval_recall: training: 0.031562 validation: 0.076588
+09/16 07:35:08 AM: edges-rel-semeval_f1: training: 0.060862 validation: 0.141479
+09/16 07:35:08 AM: Global learning rate: 0.0001
+09/16 07:35:08 AM: Saving checkpoints to: ./experiments/rel-semeval-rte-mix/run
+09/16 07:35:14 AM: Update 287: task edges-rel-semeval, batch 87 (287): mcc: 0.3250, acc: 0.1299, precision: 0.8409, recall: 0.1343, f1: 0.2316, edges-rel-semeval_loss: 0.1427
+09/16 07:35:14 AM: ***** Step 300 / Validation 3 *****
+09/16 07:35:14 AM: edges-rel-semeval: trained on 100 batches, 0.465 epochs
+09/16 07:35:14 AM: Validating...
+09/16 07:35:17 AM: Best result seen so far for edges-rel-semeval.
+09/16 07:35:17 AM: Best result seen so far for macro.
+09/16 07:35:17 AM: Updating LR scheduler:
+09/16 07:35:17 AM: 	Best result seen so far for macro_avg: 0.310
+09/16 07:35:17 AM: 	# validation passes without improvement: 0
+09/16 07:35:17 AM: edges-rel-semeval_loss: training: 0.141538 validation: 0.123102
+09/16 07:35:17 AM: macro_avg: validation: 0.310469
+09/16 07:35:17 AM: micro_avg: validation: 0.000000
+09/16 07:35:17 AM: edges-rel-semeval_mcc: training: 0.337944 validation: 0.401864
+09/16 07:35:17 AM: edges-rel-semeval_acc: training: 0.141596 validation: 0.186249
+09/16 07:35:17 AM: edges-rel-semeval_precision: training: 0.834532 validation: 0.911017
+09/16 07:35:17 AM: edges-rel-semeval_recall: training: 0.146326 validation: 0.187119
+09/16 07:35:17 AM: edges-rel-semeval_f1: training: 0.248994 validation: 0.310469
+09/16 07:35:17 AM: Global learning rate: 0.0001
+09/16 07:35:17 AM: Saving checkpoints to: ./experiments/rel-semeval-rte-mix/run
+09/16 07:35:21 AM: ***** Step 400 / Validation 4 *****
+09/16 07:35:21 AM: edges-rel-semeval: trained on 100 batches, 0.465 epochs
+09/16 07:35:21 AM: Validating...
+09/16 07:35:24 AM: Evaluate: task edges-rel-semeval, batch 36 (36): mcc: 0.5081, acc: 0.2985, precision: 0.8906, recall: 0.3046, f1: 0.4540, edges-rel-semeval_loss: 0.1092
+09/16 07:35:24 AM: Best result seen so far for edges-rel-semeval.
+09/16 07:35:24 AM: Best result seen so far for macro.
+09/16 07:35:24 AM: Updating LR scheduler:
+09/16 07:35:24 AM: 	Best result seen so far for macro_avg: 0.454
+09/16 07:35:24 AM: 	# validation passes without improvement: 0
+09/16 07:35:24 AM: edges-rel-semeval_loss: training: 0.122519 validation: 0.109205
+09/16 07:35:24 AM: macro_avg: validation: 0.453956
+09/16 07:35:24 AM: micro_avg: validation: 0.000000
+09/16 07:35:24 AM: edges-rel-semeval_mcc: training: 0.462312 validation: 0.508091
+09/16 07:35:24 AM: edges-rel-semeval_acc: training: 0.259688 validation: 0.298520
+09/16 07:35:24 AM: edges-rel-semeval_precision: training: 0.840976 validation: 0.890585
+09/16 07:35:24 AM: edges-rel-semeval_recall: training: 0.269375 validation: 0.304613
+09/16 07:35:24 AM: edges-rel-semeval_f1: training: 0.408047 validation: 0.453956
+09/16 07:35:24 AM: Global learning rate: 0.0001
+09/16 07:35:24 AM: Saving checkpoints to: ./experiments/rel-semeval-rte-mix/run
+09/16 07:35:30 AM: ***** Step 500 / Validation 5 *****
+09/16 07:35:30 AM: edges-rel-semeval: trained on 100 batches, 0.465 epochs
+09/16 07:35:30 AM: Validating...
+09/16 07:35:32 AM: Best result seen so far for edges-rel-semeval.
+09/16 07:35:32 AM: Best result seen so far for macro.
+09/16 07:35:32 AM: Updating LR scheduler:
+09/16 07:35:32 AM: 	Best result seen so far for macro_avg: 0.543
+09/16 07:35:32 AM: 	# validation passes without improvement: 0
+09/16 07:35:32 AM: edges-rel-semeval_loss: training: 0.111884 validation: 0.099994
+09/16 07:35:32 AM: macro_avg: validation: 0.542823
+09/16 07:35:32 AM: micro_avg: validation: 0.000000
+09/16 07:35:32 AM: edges-rel-semeval_mcc: training: 0.532218 validation: 0.575309
+09/16 07:35:32 AM: edges-rel-semeval_acc: training: 0.335541 validation: 0.385553
+09/16 07:35:32 AM: edges-rel-semeval_precision: training: 0.854167 validation: 0.884086
+09/16 07:35:32 AM: edges-rel-semeval_recall: training: 0.349101 validation: 0.391645
+09/16 07:35:32 AM: edges-rel-semeval_f1: training: 0.495635 validation: 0.542823
+09/16 07:35:32 AM: Global learning rate: 0.0001
+09/16 07:35:32 AM: Saving checkpoints to: ./experiments/rel-semeval-rte-mix/run
+09/16 07:35:34 AM: Update 536: task edges-rel-semeval, batch 36 (536): mcc: 0.5845, acc: 0.4071, precision: 0.8509, recall: 0.4210, f1: 0.5633, edges-rel-semeval_loss: 0.1007
+09/16 07:35:37 AM: ***** Step 600 / Validation 6 *****
+09/16 07:35:37 AM: edges-rel-semeval: trained on 100 batches, 0.465 epochs
+09/16 07:35:37 AM: Validating...
+09/16 07:35:39 AM: Best result seen so far for edges-rel-semeval.
+09/16 07:35:39 AM: Best result seen so far for macro.
+09/16 07:35:39 AM: Updating LR scheduler:
+09/16 07:35:39 AM: 	Best result seen so far for macro_avg: 0.608
+09/16 07:35:39 AM: 	# validation passes without improvement: 0
+09/16 07:35:39 AM: edges-rel-semeval_loss: training: 0.100651 validation: 0.093243
+09/16 07:35:39 AM: macro_avg: validation: 0.607754
+09/16 07:35:39 AM: micro_avg: validation: 0.000000
+09/16 07:35:39 AM: edges-rel-semeval_mcc: training: 0.586007 validation: 0.626297
+09/16 07:35:39 AM: edges-rel-semeval_acc: training: 0.411250 validation: 0.457789
+09/16 07:35:39 AM: edges-rel-semeval_precision: training: 0.845533 validation: 0.880992
+09/16 07:35:39 AM: edges-rel-semeval_recall: training: 0.425938 validation: 0.463882
+09/16 07:35:39 AM: edges-rel-semeval_f1: training: 0.566500 validation: 0.607754
+09/16 07:35:39 AM: Global learning rate: 0.0001
+09/16 07:35:39 AM: Saving checkpoints to: ./experiments/rel-semeval-rte-mix/run
+09/16 07:35:44 AM: Update 680: task edges-rel-semeval, batch 80 (680): mcc: 0.6281, acc: 0.4583, precision: 0.8617, recall: 0.4777, f1: 0.6146, edges-rel-semeval_loss: 0.0932
+09/16 07:35:45 AM: ***** Step 700 / Validation 7 *****
+09/16 07:35:45 AM: edges-rel-semeval: trained on 100 batches, 0.465 epochs
+09/16 07:35:45 AM: Validating...
+09/16 07:35:47 AM: Best result seen so far for edges-rel-semeval.
+09/16 07:35:47 AM: Best result seen so far for macro.
+09/16 07:35:47 AM: Updating LR scheduler:
+09/16 07:35:47 AM: 	Best result seen so far for macro_avg: 0.619
+09/16 07:35:47 AM: 	# validation passes without improvement: 0
+09/16 07:35:47 AM: edges-rel-semeval_loss: training: 0.093097 validation: 0.088552
+09/16 07:35:47 AM: macro_avg: validation: 0.618834
+09/16 07:35:47 AM: micro_avg: validation: 0.000000
+09/16 07:35:47 AM: edges-rel-semeval_mcc: training: 0.628263 validation: 0.633021
+09/16 07:35:47 AM: edges-rel-semeval_acc: training: 0.458846 validation: 0.469104
+09/16 07:35:47 AM: edges-rel-semeval_precision: training: 0.861364 validation: 0.869291
+09/16 07:35:47 AM: edges-rel-semeval_recall: training: 0.478083 validation: 0.480418
+09/16 07:35:47 AM: edges-rel-semeval_f1: training: 0.614885 validation: 0.618834
+09/16 07:35:47 AM: Global learning rate: 0.0001
+09/16 07:35:47 AM: Saving checkpoints to: ./experiments/rel-semeval-rte-mix/run
+09/16 07:35:52 AM: ***** Step 800 / Validation 8 *****
+09/16 07:35:52 AM: edges-rel-semeval: trained on 100 batches, 0.465 epochs
+09/16 07:35:52 AM: Validating...
+09/16 07:35:54 AM: Best result seen so far for edges-rel-semeval.
+09/16 07:35:54 AM: Best result seen so far for macro.
+09/16 07:35:54 AM: Updating LR scheduler:
+09/16 07:35:54 AM: 	Best result seen so far for macro_avg: 0.665
+09/16 07:35:54 AM: 	# validation passes without improvement: 0
+09/16 07:35:54 AM: edges-rel-semeval_loss: training: 0.087893 validation: 0.083692
+09/16 07:35:54 AM: macro_avg: validation: 0.664862
+09/16 07:35:54 AM: micro_avg: validation: 0.000000
+09/16 07:35:54 AM: edges-rel-semeval_mcc: training: 0.650861 validation: 0.673105
+09/16 07:35:54 AM: edges-rel-semeval_acc: training: 0.491563 validation: 0.523934
+09/16 07:35:54 AM: edges-rel-semeval_precision: training: 0.858112 validation: 0.879656
+09/16 07:35:54 AM: edges-rel-semeval_recall: training: 0.514063 validation: 0.534378
+09/16 07:35:54 AM: edges-rel-semeval_f1: training: 0.642955 validation: 0.664862
+09/16 07:35:54 AM: Global learning rate: 0.0001
+09/16 07:35:54 AM: Saving checkpoints to: ./experiments/rel-semeval-rte-mix/run
+09/16 07:35:54 AM: Update 801: task edges-rel-semeval, batch 1 (801): mcc: 0.5927, acc: 0.4375, precision: 0.7895, recall: 0.4688, f1: 0.5882, edges-rel-semeval_loss: 0.0943
+09/16 07:35:59 AM: ***** Step 900 / Validation 9 *****
+09/16 07:35:59 AM: edges-rel-semeval: trained on 100 batches, 0.465 epochs
+09/16 07:35:59 AM: Validating...
+09/16 07:36:02 AM: Best result seen so far for edges-rel-semeval.
+09/16 07:36:02 AM: Best result seen so far for macro.
+09/16 07:36:02 AM: Updating LR scheduler:
+09/16 07:36:02 AM: 	Best result seen so far for macro_avg: 0.668
+09/16 07:36:02 AM: 	# validation passes without improvement: 0
+09/16 07:36:02 AM: edges-rel-semeval_loss: training: 0.084444 validation: 0.080967
+09/16 07:36:02 AM: macro_avg: validation: 0.668099
+09/16 07:36:02 AM: micro_avg: validation: 0.000000
+09/16 07:36:02 AM: edges-rel-semeval_mcc: training: 0.664566 validation: 0.674545
+09/16 07:36:02 AM: edges-rel-semeval_acc: training: 0.509303 validation: 0.528285
+09/16 07:36:02 AM: edges-rel-semeval_precision: training: 0.855349 validation: 0.872370
+09/16 07:36:02 AM: edges-rel-semeval_recall: training: 0.537055 validation: 0.541340
+09/16 07:36:02 AM: edges-rel-semeval_f1: training: 0.659822 validation: 0.668099
+09/16 07:36:02 AM: Global learning rate: 0.0001
+09/16 07:36:02 AM: Saving checkpoints to: ./experiments/rel-semeval-rte-mix/run
+09/16 07:36:04 AM: Update 949: task edges-rel-semeval, batch 49 (949): mcc: 0.7094, acc: 0.5574, precision: 0.8818, recall: 0.5899, f1: 0.7069, edges-rel-semeval_loss: 0.0781
+09/16 07:36:06 AM: ***** Step 1000 / Validation 10 *****
+09/16 07:36:06 AM: edges-rel-semeval: trained on 100 batches, 0.465 epochs
+09/16 07:36:06 AM: Validating...
+09/16 07:36:09 AM: Best result seen so far for edges-rel-semeval.
+09/16 07:36:09 AM: Best result seen so far for macro.
+09/16 07:36:09 AM: Updating LR scheduler:
+09/16 07:36:09 AM: 	Best result seen so far for macro_avg: 0.680
+09/16 07:36:09 AM: 	# validation passes without improvement: 0
+09/16 07:36:09 AM: edges-rel-semeval_loss: training: 0.077602 validation: 0.078839
+09/16 07:36:09 AM: macro_avg: validation: 0.680128
+09/16 07:36:09 AM: micro_avg: validation: 0.000000
+09/16 07:36:09 AM: edges-rel-semeval_mcc: training: 0.705006 validation: 0.684894
+09/16 07:36:09 AM: edges-rel-semeval_acc: training: 0.559688 validation: 0.539600
+09/16 07:36:09 AM: edges-rel-semeval_precision: training: 0.871310 validation: 0.873124
+09/16 07:36:09 AM: edges-rel-semeval_recall: training: 0.590312 validation: 0.557006
+09/16 07:36:09 AM: edges-rel-semeval_f1: training: 0.703800 validation: 0.680128
+09/16 07:36:09 AM: Global learning rate: 0.0001
+09/16 07:36:09 AM: Saving checkpoints to: ./experiments/rel-semeval-rte-mix/run
+09/16 07:36:14 AM: Update 1092: task edges-rel-semeval, batch 92 (1092): mcc: 0.6970, acc: 0.5564, precision: 0.8532, recall: 0.5904, f1: 0.6979, edges-rel-semeval_loss: 0.0764
+09/16 07:36:14 AM: ***** Step 1100 / Validation 11 *****
+09/16 07:36:14 AM: edges-rel-semeval: trained on 100 batches, 0.465 epochs
+09/16 07:36:14 AM: Validating...
+09/16 07:36:16 AM: Best result seen so far for edges-rel-semeval.
+09/16 07:36:16 AM: Best result seen so far for macro.
+09/16 07:36:16 AM: Updating LR scheduler:
+09/16 07:36:16 AM: 	Best result seen so far for macro_avg: 0.694
+09/16 07:36:16 AM: 	# validation passes without improvement: 0
+09/16 07:36:16 AM: edges-rel-semeval_loss: training: 0.075921 validation: 0.077062
+09/16 07:36:16 AM: macro_avg: validation: 0.693943
+09/16 07:36:16 AM: micro_avg: validation: 0.000000
+09/16 07:36:16 AM: edges-rel-semeval_mcc: training: 0.698438 validation: 0.699698
+09/16 07:36:16 AM: edges-rel-semeval_acc: training: 0.557553 validation: 0.557876
+09/16 07:36:16 AM: edges-rel-semeval_precision: training: 0.852995 validation: 0.890859
+09/16 07:36:16 AM: edges-rel-semeval_recall: training: 0.592873 validation: 0.568320
+09/16 07:36:16 AM: edges-rel-semeval_f1: training: 0.699535 validation: 0.693943
+09/16 07:36:16 AM: Global learning rate: 0.0001
+09/16 07:36:16 AM: Saving checkpoints to: ./experiments/rel-semeval-rte-mix/run
+09/16 07:36:21 AM: ***** Step 1200 / Validation 12 *****
+09/16 07:36:21 AM: edges-rel-semeval: trained on 100 batches, 0.465 epochs
+09/16 07:36:21 AM: Validating...
+09/16 07:36:23 AM: Best result seen so far for edges-rel-semeval.
+09/16 07:36:23 AM: Best result seen so far for macro.
+09/16 07:36:23 AM: Updating LR scheduler:
+09/16 07:36:23 AM: 	Best result seen so far for macro_avg: 0.699
+09/16 07:36:23 AM: 	# validation passes without improvement: 0
+09/16 07:36:23 AM: edges-rel-semeval_loss: training: 0.072384 validation: 0.075190
+09/16 07:36:23 AM: macro_avg: validation: 0.699323
+09/16 07:36:23 AM: micro_avg: validation: 0.000000
+09/16 07:36:23 AM: edges-rel-semeval_mcc: training: 0.722158 validation: 0.701131
+09/16 07:36:23 AM: edges-rel-semeval_acc: training: 0.586875 validation: 0.562228
+09/16 07:36:23 AM: edges-rel-semeval_precision: training: 0.867365 validation: 0.871429
+09/16 07:36:23 AM: edges-rel-semeval_recall: training: 0.621250 validation: 0.583986
+09/16 07:36:23 AM: edges-rel-semeval_f1: training: 0.723962 validation: 0.699323
+09/16 07:36:23 AM: Global learning rate: 0.0001
+09/16 07:36:23 AM: Saving checkpoints to: ./experiments/rel-semeval-rte-mix/run
+09/16 07:36:24 AM: Update 1208: task edges-rel-semeval, batch 8 (1208): mcc: 0.7356, acc: 0.5977, precision: 0.8564, recall: 0.6523, f1: 0.7406, edges-rel-semeval_loss: 0.0719
+09/16 07:36:29 AM: ***** Step 1300 / Validation 13 *****
+09/16 07:36:29 AM: edges-rel-semeval: trained on 100 batches, 0.465 epochs
+09/16 07:36:29 AM: Validating...
+09/16 07:36:31 AM: Best result seen so far for edges-rel-semeval.
+09/16 07:36:31 AM: Best result seen so far for macro.
+09/16 07:36:31 AM: Updating LR scheduler:
+09/16 07:36:31 AM: 	Best result seen so far for macro_avg: 0.716
+09/16 07:36:31 AM: 	# validation passes without improvement: 0
+09/16 07:36:31 AM: edges-rel-semeval_loss: training: 0.071637 validation: 0.072873
+09/16 07:36:31 AM: macro_avg: validation: 0.716403
+09/16 07:36:31 AM: micro_avg: validation: 0.000000
+09/16 07:36:31 AM: edges-rel-semeval_mcc: training: 0.721380 validation: 0.715489
+09/16 07:36:31 AM: edges-rel-semeval_acc: training: 0.585935 validation: 0.583116
+09/16 07:36:31 AM: edges-rel-semeval_precision: training: 0.866902 validation: 0.867574
+09/16 07:36:31 AM: edges-rel-semeval_recall: training: 0.620309 validation: 0.610096
+09/16 07:36:31 AM: edges-rel-semeval_f1: training: 0.723162 validation: 0.716403
+09/16 07:36:31 AM: Global learning rate: 0.0001
+09/16 07:36:31 AM: Saving checkpoints to: ./experiments/rel-semeval-rte-mix/run
+09/16 07:36:34 AM: Update 1361: task edges-rel-semeval, batch 61 (1361): mcc: 0.7375, acc: 0.6071, precision: 0.8685, recall: 0.6460, f1: 0.7409, edges-rel-semeval_loss: 0.0688
+09/16 07:36:36 AM: ***** Step 1400 / Validation 14 *****
+09/16 07:36:36 AM: edges-rel-semeval: trained on 100 batches, 0.465 epochs
+09/16 07:36:36 AM: Validating...
+09/16 07:36:38 AM: Updating LR scheduler:
+09/16 07:36:38 AM: 	Best result seen so far for macro_avg: 0.716
+09/16 07:36:38 AM: 	# validation passes without improvement: 1
+09/16 07:36:38 AM: edges-rel-semeval_loss: training: 0.067182 validation: 0.072891
+09/16 07:36:38 AM: macro_avg: validation: 0.710309
+09/16 07:36:38 AM: micro_avg: validation: 0.000000
+09/16 07:36:38 AM: edges-rel-semeval_mcc: training: 0.744450 validation: 0.710653
+09/16 07:36:38 AM: edges-rel-semeval_acc: training: 0.619375 validation: 0.583986
+09/16 07:36:38 AM: edges-rel-semeval_precision: training: 0.873175 validation: 0.871049
+09/16 07:36:38 AM: edges-rel-semeval_recall: training: 0.654063 validation: 0.599652
+09/16 07:36:38 AM: edges-rel-semeval_f1: training: 0.747901 validation: 0.710309
+09/16 07:36:38 AM: Global learning rate: 0.0001
+09/16 07:36:38 AM: Saving checkpoints to: ./experiments/rel-semeval-rte-mix/run
+09/16 07:36:42 AM: ***** Step 1500 / Validation 15 *****
+09/16 07:36:42 AM: edges-rel-semeval: trained on 100 batches, 0.465 epochs
+09/16 07:36:42 AM: Validating...
+09/16 07:36:44 AM: Evaluate: task edges-rel-semeval, batch 25 (36): mcc: 0.7355, acc: 0.6112, precision: 0.8885, recall: 0.6275, f1: 0.7355, edges-rel-semeval_loss: 0.0671
+09/16 07:36:45 AM: Updating LR scheduler:
+09/16 07:36:45 AM: 	Best result seen so far for macro_avg: 0.716
+09/16 07:36:45 AM: 	# validation passes without improvement: 2
+09/16 07:36:45 AM: edges-rel-semeval_loss: training: 0.066487 validation: 0.071007
+09/16 07:36:45 AM: macro_avg: validation: 0.713547
+09/16 07:36:45 AM: micro_avg: validation: 0.000000
+09/16 07:36:45 AM: edges-rel-semeval_mcc: training: 0.750243 validation: 0.714712
+09/16 07:36:45 AM: edges-rel-semeval_acc: training: 0.623750 validation: 0.583986
+09/16 07:36:45 AM: edges-rel-semeval_precision: training: 0.878485 validation: 0.878981
+09/16 07:36:45 AM: edges-rel-semeval_recall: training: 0.659688 validation: 0.600522
+09/16 07:36:45 AM: edges-rel-semeval_f1: training: 0.753525 validation: 0.713547
+09/16 07:36:45 AM: Global learning rate: 0.0001
+09/16 07:36:45 AM: Saving checkpoints to: ./experiments/rel-semeval-rte-mix/run
+09/16 07:36:50 AM: ***** Step 1600 / Validation 16 *****
+09/16 07:36:50 AM: edges-rel-semeval: trained on 100 batches, 0.465 epochs
+09/16 07:36:50 AM: Validating...
+09/16 07:36:52 AM: Best result seen so far for edges-rel-semeval.
+09/16 07:36:52 AM: Best result seen so far for macro.
+09/16 07:36:52 AM: Updating LR scheduler:
+09/16 07:36:52 AM: 	Best result seen so far for macro_avg: 0.725
+09/16 07:36:52 AM: 	# validation passes without improvement: 0
+09/16 07:36:52 AM: edges-rel-semeval_loss: training: 0.062266 validation: 0.071022
+09/16 07:36:52 AM: macro_avg: validation: 0.724563
+09/16 07:36:52 AM: micro_avg: validation: 0.000000
+09/16 07:36:52 AM: edges-rel-semeval_mcc: training: 0.769841 validation: 0.725229
+09/16 07:36:52 AM: edges-rel-semeval_acc: training: 0.648061 validation: 0.597911
+09/16 07:36:52 AM: edges-rel-semeval_precision: training: 0.885459 validation: 0.884567
+09/16 07:36:52 AM: edges-rel-semeval_recall: training: 0.687480 validation: 0.613577
+09/16 07:36:52 AM: edges-rel-semeval_f1: training: 0.774010 validation: 0.724563
+09/16 07:36:52 AM: Global learning rate: 0.0001
+09/16 07:36:52 AM: Saving checkpoints to: ./experiments/rel-semeval-rte-mix/run
+09/16 07:36:54 AM: Update 1636: task edges-rel-semeval, batch 36 (1636): mcc: 0.7506, acc: 0.6302, precision: 0.8673, recall: 0.6693, f1: 0.7555, edges-rel-semeval_loss: 0.0639
+09/16 07:36:57 AM: ***** Step 1700 / Validation 17 *****
+09/16 07:36:57 AM: edges-rel-semeval: trained on 100 batches, 0.465 epochs
+09/16 07:36:57 AM: Validating...
+09/16 07:36:59 AM: Updating LR scheduler:
+09/16 07:36:59 AM: 	Best result seen so far for macro_avg: 0.725
+09/16 07:36:59 AM: 	# validation passes without improvement: 1
+09/16 07:36:59 AM: edges-rel-semeval_loss: training: 0.063846 validation: 0.069942
+09/16 07:36:59 AM: macro_avg: validation: 0.719678
+09/16 07:36:59 AM: micro_avg: validation: 0.000000
+09/16 07:36:59 AM: edges-rel-semeval_mcc: training: 0.753629 validation: 0.716329
+09/16 07:36:59 AM: edges-rel-semeval_acc: training: 0.631250 validation: 0.592689
+09/16 07:36:59 AM: edges-rel-semeval_precision: training: 0.866132 validation: 0.853222
+09/16 07:36:59 AM: edges-rel-semeval_recall: training: 0.675313 validation: 0.622280
+09/16 07:36:59 AM: edges-rel-semeval_f1: training: 0.758911 validation: 0.719678
+09/16 07:36:59 AM: Global learning rate: 0.0001
+09/16 07:36:59 AM: Saving checkpoints to: ./experiments/rel-semeval-rte-mix/run
+09/16 07:37:04 AM: Update 1785: task edges-rel-semeval, batch 85 (1785): mcc: 0.7715, acc: 0.6533, precision: 0.8749, recall: 0.6990, f1: 0.7771, edges-rel-semeval_loss: 0.0603
+09/16 07:37:05 AM: ***** Step 1800 / Validation 18 *****
+09/16 07:37:05 AM: edges-rel-semeval: trained on 100 batches, 0.465 epochs
+09/16 07:37:05 AM: Validating...
+09/16 07:37:07 AM: Updating LR scheduler:
+09/16 07:37:07 AM: 	Best result seen so far for macro_avg: 0.725
+09/16 07:37:07 AM: 	# validation passes without improvement: 2
+09/16 07:37:07 AM: edges-rel-semeval_loss: training: 0.060730 validation: 0.070027
+09/16 07:37:07 AM: macro_avg: validation: 0.723664
+09/16 07:37:07 AM: micro_avg: validation: 0.000000
+09/16 07:37:07 AM: edges-rel-semeval_mcc: training: 0.766739 validation: 0.722467
+09/16 07:37:07 AM: edges-rel-semeval_acc: training: 0.645538 validation: 0.601393
+09/16 07:37:07 AM: edges-rel-semeval_precision: training: 0.871581 validation: 0.871324
+09/16 07:37:07 AM: edges-rel-semeval_recall: training: 0.693472 validation: 0.618799
+09/16 07:37:07 AM: edges-rel-semeval_f1: training: 0.772392 validation: 0.723664
+09/16 07:37:07 AM: Global learning rate: 0.0001
+09/16 07:37:07 AM: Saving checkpoints to: ./experiments/rel-semeval-rte-mix/run
+09/16 07:37:12 AM: ***** Step 1900 / Validation 19 *****
+09/16 07:37:12 AM: edges-rel-semeval: trained on 100 batches, 0.465 epochs
+09/16 07:37:12 AM: Validating...
+09/16 07:37:14 AM: Evaluate: task edges-rel-semeval, batch 34 (36): mcc: 0.7417, acc: 0.6259, precision: 0.8738, recall: 0.6489, f1: 0.7447, edges-rel-semeval_loss: 0.0654
+09/16 07:37:14 AM: Best result seen so far for edges-rel-semeval.
+09/16 07:37:14 AM: Best result seen so far for macro.
+09/16 07:37:14 AM: Updating LR scheduler:
+09/16 07:37:14 AM: 	Best result seen so far for macro_avg: 0.730
+09/16 07:37:14 AM: 	# validation passes without improvement: 0
+09/16 07:37:14 AM: edges-rel-semeval_loss: training: 0.059794 validation: 0.068295
+09/16 07:37:14 AM: macro_avg: validation: 0.730191
+09/16 07:37:14 AM: micro_avg: validation: 0.000000
+09/16 07:37:14 AM: edges-rel-semeval_mcc: training: 0.775787 validation: 0.726908
+09/16 07:37:14 AM: edges-rel-semeval_acc: training: 0.661875 validation: 0.610096
+09/16 07:37:14 AM: edges-rel-semeval_precision: training: 0.875873 validation: 0.861538
+09/16 07:37:14 AM: edges-rel-semeval_recall: training: 0.705625 validation: 0.633594
+09/16 07:37:14 AM: edges-rel-semeval_f1: training: 0.781585 validation: 0.730191
+09/16 07:37:14 AM: Global learning rate: 0.0001
+09/16 07:37:14 AM: Saving checkpoints to: ./experiments/rel-semeval-rte-mix/run
+09/16 07:37:20 AM: ***** Step 2000 / Validation 20 *****
+09/16 07:37:20 AM: edges-rel-semeval: trained on 100 batches, 0.465 epochs
+09/16 07:37:20 AM: Validating...
+09/16 07:37:22 AM: Updating LR scheduler:
+09/16 07:37:22 AM: 	Best result seen so far for macro_avg: 0.730
+09/16 07:37:22 AM: 	# validation passes without improvement: 1
+09/16 07:37:22 AM: edges-rel-semeval_loss: training: 0.057007 validation: 0.069570
+09/16 07:37:22 AM: macro_avg: validation: 0.724051
+09/16 07:37:22 AM: micro_avg: validation: 0.000000
+09/16 07:37:22 AM: edges-rel-semeval_mcc: training: 0.785547 validation: 0.721986
+09/16 07:37:22 AM: edges-rel-semeval_acc: training: 0.666982 validation: 0.601393
+09/16 07:37:22 AM: edges-rel-semeval_precision: training: 0.887363 validation: 0.865617
+09/16 07:37:22 AM: edges-rel-semeval_recall: training: 0.713024 validation: 0.622280
+09/16 07:37:22 AM: edges-rel-semeval_f1: training: 0.790698 validation: 0.724051
+09/16 07:37:22 AM: Global learning rate: 0.0001
+09/16 07:37:22 AM: Saving checkpoints to: ./experiments/rel-semeval-rte-mix/run
+09/16 07:37:24 AM: Update 2039: task edges-rel-semeval, batch 39 (2039): mcc: 0.7930, acc: 0.6835, precision: 0.8913, recall: 0.7228, f1: 0.7982, edges-rel-semeval_loss: 0.0546
+09/16 07:37:27 AM: ***** Step 2100 / Validation 21 *****
+09/16 07:37:27 AM: edges-rel-semeval: trained on 100 batches, 0.465 epochs
+09/16 07:37:27 AM: Validating...
+09/16 07:37:29 AM: Best result seen so far for edges-rel-semeval.
+09/16 07:37:29 AM: Best result seen so far for macro.
+09/16 07:37:29 AM: Updating LR scheduler:
+09/16 07:37:29 AM: 	Best result seen so far for macro_avg: 0.739
+09/16 07:37:29 AM: 	# validation passes without improvement: 0
+09/16 07:37:29 AM: edges-rel-semeval_loss: training: 0.056519 validation: 0.067482
+09/16 07:37:29 AM: macro_avg: validation: 0.739238
+09/16 07:37:29 AM: micro_avg: validation: 0.000000
+09/16 07:37:29 AM: edges-rel-semeval_mcc: training: 0.789181 validation: 0.734441
+09/16 07:37:29 AM: edges-rel-semeval_acc: training: 0.679063 validation: 0.623151
+09/16 07:37:29 AM: edges-rel-semeval_precision: training: 0.889578 validation: 0.856651
+09/16 07:37:29 AM: edges-rel-semeval_recall: training: 0.717500 validation: 0.650131
+09/16 07:37:29 AM: edges-rel-semeval_f1: training: 0.794326 validation: 0.739238
+09/16 07:37:29 AM: Global learning rate: 0.0001
+09/16 07:37:29 AM: Saving checkpoints to: ./experiments/rel-semeval-rte-mix/run
+09/16 07:37:34 AM: Update 2186: task edges-rel-semeval, batch 86 (2186): mcc: 0.7828, acc: 0.6665, precision: 0.8680, recall: 0.7246, f1: 0.7898, edges-rel-semeval_loss: 0.0561
+09/16 07:37:35 AM: ***** Step 2200 / Validation 22 *****
+09/16 07:37:35 AM: edges-rel-semeval: trained on 100 batches, 0.465 epochs
+09/16 07:37:35 AM: Validating...
+09/16 07:37:37 AM: Updating LR scheduler:
+09/16 07:37:37 AM: 	Best result seen so far for macro_avg: 0.739
+09/16 07:37:37 AM: 	# validation passes without improvement: 1
+09/16 07:37:37 AM: edges-rel-semeval_loss: training: 0.055479 validation: 0.066877
+09/16 07:37:37 AM: macro_avg: validation: 0.732623
+09/16 07:37:37 AM: micro_avg: validation: 0.000000
+09/16 07:37:37 AM: edges-rel-semeval_mcc: training: 0.788795 validation: 0.731442
+09/16 07:37:37 AM: edges-rel-semeval_acc: training: 0.674551 validation: 0.609225
+09/16 07:37:37 AM: edges-rel-semeval_precision: training: 0.876567 validation: 0.878345
+09/16 07:37:37 AM: edges-rel-semeval_recall: training: 0.727846 validation: 0.628372
+09/16 07:37:37 AM: edges-rel-semeval_f1: training: 0.795314 validation: 0.732623
+09/16 07:37:37 AM: Global learning rate: 0.0001
+09/16 07:37:37 AM: Saving checkpoints to: ./experiments/rel-semeval-rte-mix/run
+09/16 07:37:42 AM: ***** Step 2300 / Validation 23 *****
+09/16 07:37:42 AM: edges-rel-semeval: trained on 100 batches, 0.465 epochs
+09/16 07:37:42 AM: Validating...
+09/16 07:37:44 AM: Best result seen so far for edges-rel-semeval.
+09/16 07:37:44 AM: Best result seen so far for macro.
+09/16 07:37:44 AM: Updating LR scheduler:
+09/16 07:37:44 AM: 	Best result seen so far for macro_avg: 0.740
+09/16 07:37:44 AM: 	# validation passes without improvement: 0
+09/16 07:37:44 AM: edges-rel-semeval_loss: training: 0.055853 validation: 0.066467
+09/16 07:37:44 AM: macro_avg: validation: 0.739833
+09/16 07:37:44 AM: micro_avg: validation: 0.000000
+09/16 07:37:44 AM: edges-rel-semeval_mcc: training: 0.789622 validation: 0.733707
+09/16 07:37:44 AM: edges-rel-semeval_acc: training: 0.678438 validation: 0.627502
+09/16 07:37:44 AM: edges-rel-semeval_precision: training: 0.884174 validation: 0.846413
+09/16 07:37:44 AM: edges-rel-semeval_recall: training: 0.722812 validation: 0.657093
+09/16 07:37:44 AM: edges-rel-semeval_f1: training: 0.795392 validation: 0.739833
+09/16 07:37:44 AM: Global learning rate: 0.0001
+09/16 07:37:44 AM: Saving checkpoints to: ./experiments/rel-semeval-rte-mix/run
+09/16 07:37:44 AM: Update 2301: task edges-rel-semeval, batch 1 (2301): mcc: 0.8904, acc: 0.8125, precision: 0.8571, recall: 0.9375, f1: 0.8955, edges-rel-semeval_loss: 0.0450
+09/16 07:37:49 AM: ***** Step 2400 / Validation 24 *****
+09/16 07:37:49 AM: edges-rel-semeval: trained on 100 batches, 0.465 epochs
+09/16 07:37:49 AM: Validating...
