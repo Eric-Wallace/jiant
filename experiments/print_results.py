@@ -5,10 +5,16 @@ for file in os.listdir("."):
     if not file.endswith('.py'):
         probing_task = ' '.join(str(file).split('-')[0:-2])
         finetuned_model = ' '.join(str(file).split('-')[-2:-1])
+        print(probing_task)
+        print(finetuned_model)
         layer = ' '.join(str(file).split('-')[-1:])
+        accuracy = "-"
         for line in reversed(list(open(file + '/run/log.log'))):
-            if 'Best result seen so far for macro_avg' in line: 
+            if 'Best result seen so far for macro_avg' in line:
+                print(line) 
                 accuracy = float(line.strip().split(' ')[-1])
+                print(accuracy)
+                print()
                 break
 
         results.append([finetuned_model, layer, probing_task, accuracy])
@@ -26,6 +32,8 @@ for item in results:
         returnVal[(finetuned_model, layer)][1] = str(accuracy)
     elif probing_task == "ner ontonotes":
         returnVal[(finetuned_model, layer)][2] = str(accuracy)
+    elif probing_task == "rel semeval":
+        returnVal[(finetuned_model, layer)][3] = str(accuracy)
 
 printResults = []
 for key in returnVal:
@@ -35,5 +43,5 @@ for key in returnVal:
     temp.extend(returnVal[key])
     printResults.append(temp)
 
-print(tabulate(printResults,headers=['Finetuning Task', 'Layer', 'Dependency', 'SRL', "NER",'_','_'], tablefmt='orgtbl'))
+print(tabulate(printResults,headers=['Finetuning Task', 'Layer', 'Dependency', 'SRL', "NER",'Rel Semeval','_'], tablefmt='orgtbl'))
 
