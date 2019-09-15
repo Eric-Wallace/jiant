@@ -1,0 +1,1938 @@
+09/09 03:49:21 PM: Git branch: master
+09/09 03:49:21 PM: Git SHA: e26b1963b48bdbc7f001ca620a782c5a262276eb
+09/09 03:49:23 PM: Parsed args: 
+{
+  "allow_missing_task_map": 1,
+  "allow_untrained_encoder_parameters": 1,
+  "do_pretrain": 0,
+  "exp_dir": "./experiments/ner-ontonotes- models/RTE-only/",
+  "exp_name": "experiments/ner-ontonotes- models/RTE-only",
+  "input_module": "bert-base-uncased",
+  "local_log_path": "./experiments/ner-ontonotes- models/RTE-only/run/log.log",
+  "lr_patience": 5,
+  "max_seq_len": 512,
+  "output_mode": "top",
+  "patience": 20,
+  "pretrain_tasks": "",
+  "pretrained_dir": "models/RTE",
+  "pytorch_transformers_output_mode": "only",
+  "remote_log_name": "experiments/ner-ontonotes- models/RTE-only__run",
+  "run_dir": "./experiments/ner-ontonotes- models/RTE-only/run",
+  "run_name": "run",
+  "sent_enc": "none",
+  "sep_embs_for_skip": 1,
+  "target_tasks": "edges-ner-ontonotes",
+  "tokenizer": "bert-base-uncased",
+  "write_preds": "val,test"
+}
+09/09 03:49:23 PM: Saved config to ./experiments/ner-ontonotes- models/RTE-only/run/params.conf
+09/09 03:49:23 PM: Using random seed 1234
+09/09 03:49:23 PM: Using GPU 0
+09/09 03:49:23 PM: Loading tasks...
+09/09 03:49:23 PM: Writing pre-preprocessed tasks to ./experiments/ner-ontonotes- models/RTE-only/
+09/09 03:49:23 PM: 	Creating task edges-ner-ontonotes from scratch.
+09/09 03:49:25 PM: Read=49706, Skip=66106, Total=115812 from ./probing_data/edges/ontonotes/ner/train.json.retokenized.bert-base-uncased
+09/09 03:49:25 PM: Read=7610, Skip=8070, Total=15680 from ./probing_data/edges/ontonotes/ner/development.json.retokenized.bert-base-uncased
+09/09 03:49:25 PM: Read=5099, Skip=7118, Total=12217 from ./probing_data/edges/ontonotes/ner/test.json.retokenized.bert-base-uncased
+09/09 03:49:26 PM: 	Task 'edges-ner-ontonotes': |train|=49706 |val|=7610 |test|=5099
+09/09 03:49:26 PM: 	Finished loading tasks: edges-ner-ontonotes.
+09/09 03:49:26 PM: 	Building vocab from scratch.
+09/09 03:49:26 PM: 	Counting units for task edges-ner-ontonotes.
+09/09 03:49:28 PM: 	Task 'edges-ner-ontonotes': adding vocab namespace 'edges-ner-ontonotes_labels'
+09/09 03:49:28 PM: loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at /cliphomes/ewallac2/.cache/torch/pytorch_transformers/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+09/09 03:49:29 PM: Added pytorch_transformers vocab (bert-base-uncased): 30522 tokens
+09/09 03:49:29 PM: 	Saved vocab to ./experiments/ner-ontonotes- models/RTE-only/vocab
+09/09 03:49:29 PM: Loading token dictionary from ./experiments/ner-ontonotes- models/RTE-only/vocab.
+09/09 03:49:29 PM: 	Loaded vocab from ./experiments/ner-ontonotes- models/RTE-only/vocab
+09/09 03:49:29 PM: 	Vocab namespace tokens: size 22840
+09/09 03:49:29 PM: 	Vocab namespace chars: size 77
+09/09 03:49:29 PM: 	Vocab namespace edges-ner-ontonotes_labels: size 18
+09/09 03:49:29 PM: 	Vocab namespace bert_uncased: size 30524
+09/09 03:49:29 PM: 	Finished building vocab.
+09/09 03:49:29 PM: 	Task edges-ner-ontonotes (train): Indexing from scratch.
+09/09 03:49:42 PM: 	Task edges-ner-ontonotes (train): Saved 49706 instances to ./experiments/ner-ontonotes- models/RTE-only/preproc/edges-ner-ontonotes__train_data
+09/09 03:49:42 PM: 	Task edges-ner-ontonotes (val): Indexing from scratch.
+09/09 03:49:44 PM: 	Task edges-ner-ontonotes (val): Saved 7610 instances to ./experiments/ner-ontonotes- models/RTE-only/preproc/edges-ner-ontonotes__val_data
+09/09 03:49:44 PM: 	Task edges-ner-ontonotes (test): Indexing from scratch.
+09/09 03:49:45 PM: 	Task edges-ner-ontonotes (test): Saved 5099 instances to ./experiments/ner-ontonotes- models/RTE-only/preproc/edges-ner-ontonotes__test_data
+09/09 03:49:45 PM: 	Finished indexing tasks
+09/09 03:49:45 PM: 	Creating trimmed target-only version of edges-ner-ontonotes train.
+09/09 03:49:45 PM: 	  Training on 
+09/09 03:49:45 PM: 	  Evaluating on edges-ner-ontonotes
+09/09 03:49:45 PM: 	Finished loading tasks in 21.998s
+09/09 03:49:45 PM: 	 Tasks: ['edges-ner-ontonotes']
+09/09 03:49:45 PM: Building model...
+09/09 03:49:45 PM: Using BERT model (bert-base-uncased).
+09/09 03:49:45 PM: LOADING A FUNETUNED MODEL from: 
+09/09 03:49:45 PM: models/RTE
+09/09 03:49:45 PM: loading configuration file models/RTE/config.json
+09/09 03:49:45 PM: Model config {
+  "attention_probs_dropout_prob": 0.1,
+  "finetuning_task": "rte",
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "output_attentions": false,
+  "output_hidden_states": true,
+  "pruned_heads": {},
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "vocab_size": 30522
+}
+
+09/09 03:49:45 PM: loading weights file models/RTE/pytorch_model.bin
+09/09 03:49:53 PM: https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt not found in cache, downloading to /tmp/tmp5m65ohv6
+09/09 03:49:53 PM: copying /tmp/tmp5m65ohv6 to cache at ./experiments/ner-ontonotes- models/RTE-only/pytorch_transformers_cache/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+09/09 03:49:53 PM: creating metadata file for ./experiments/ner-ontonotes- models/RTE-only/pytorch_transformers_cache/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+09/09 03:49:53 PM: removing temp file /tmp/tmp5m65ohv6
+09/09 03:49:53 PM: loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at ./experiments/ner-ontonotes- models/RTE-only/pytorch_transformers_cache/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+09/09 03:49:53 PM: Initializing parameters
+09/09 03:49:53 PM: Done initializing parameters; the following parameters are using their default initialization from their code
+09/09 03:49:53 PM:    _text_field_embedder.model.embeddings.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.embeddings.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.embeddings.position_embeddings.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.embeddings.token_type_embeddings.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.embeddings.word_embeddings.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.0.attention.output.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.0.attention.output.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.0.attention.output.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.0.attention.output.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.0.attention.self.key.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.0.attention.self.key.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.0.attention.self.query.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.0.attention.self.query.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.0.attention.self.value.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.0.attention.self.value.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.0.intermediate.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.0.intermediate.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.0.output.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.0.output.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.0.output.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.0.output.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.1.attention.output.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.1.attention.output.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.1.attention.output.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.1.attention.output.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.1.attention.self.key.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.1.attention.self.key.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.1.attention.self.query.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.1.attention.self.query.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.1.attention.self.value.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.1.attention.self.value.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.1.intermediate.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.1.intermediate.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.1.output.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.1.output.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.1.output.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.1.output.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.10.attention.output.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.10.attention.output.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.10.attention.output.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.10.attention.output.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.10.attention.self.key.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.10.attention.self.key.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.10.attention.self.query.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.10.attention.self.query.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.10.attention.self.value.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.10.attention.self.value.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.10.intermediate.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.10.intermediate.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.10.output.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.10.output.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.10.output.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.10.output.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.11.attention.output.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.11.attention.output.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.11.attention.output.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.11.attention.output.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.11.attention.self.key.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.11.attention.self.key.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.11.attention.self.query.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.11.attention.self.query.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.11.attention.self.value.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.11.attention.self.value.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.11.intermediate.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.11.intermediate.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.11.output.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.11.output.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.11.output.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.11.output.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.2.attention.output.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.2.attention.output.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.2.attention.output.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.2.attention.output.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.2.attention.self.key.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.2.attention.self.key.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.2.attention.self.query.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.2.attention.self.query.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.2.attention.self.value.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.2.attention.self.value.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.2.intermediate.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.2.intermediate.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.2.output.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.2.output.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.2.output.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.2.output.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.3.attention.output.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.3.attention.output.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.3.attention.output.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.3.attention.output.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.3.attention.self.key.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.3.attention.self.key.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.3.attention.self.query.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.3.attention.self.query.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.3.attention.self.value.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.3.attention.self.value.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.3.intermediate.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.3.intermediate.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.3.output.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.3.output.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.3.output.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.3.output.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.4.attention.output.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.4.attention.output.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.4.attention.output.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.4.attention.output.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.4.attention.self.key.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.4.attention.self.key.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.4.attention.self.query.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.4.attention.self.query.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.4.attention.self.value.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.4.attention.self.value.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.4.intermediate.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.4.intermediate.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.4.output.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.4.output.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.4.output.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.4.output.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.5.attention.output.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.5.attention.output.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.5.attention.output.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.5.attention.output.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.5.attention.self.key.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.5.attention.self.key.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.5.attention.self.query.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.5.attention.self.query.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.5.attention.self.value.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.5.attention.self.value.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.5.intermediate.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.5.intermediate.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.5.output.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.5.output.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.5.output.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.5.output.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.6.attention.output.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.6.attention.output.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.6.attention.output.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.6.attention.output.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.6.attention.self.key.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.6.attention.self.key.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.6.attention.self.query.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.6.attention.self.query.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.6.attention.self.value.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.6.attention.self.value.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.6.intermediate.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.6.intermediate.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.6.output.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.6.output.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.6.output.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.6.output.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.7.attention.output.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.7.attention.output.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.7.attention.output.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.7.attention.output.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.7.attention.self.key.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.7.attention.self.key.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.7.attention.self.query.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.7.attention.self.query.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.7.attention.self.value.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.7.attention.self.value.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.7.intermediate.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.7.intermediate.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.7.output.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.7.output.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.7.output.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.7.output.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.8.attention.output.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.8.attention.output.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.8.attention.output.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.8.attention.output.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.8.attention.self.key.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.8.attention.self.key.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.8.attention.self.query.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.8.attention.self.query.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.8.attention.self.value.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.8.attention.self.value.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.8.intermediate.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.8.intermediate.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.8.output.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.8.output.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.8.output.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.8.output.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.9.attention.output.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.9.attention.output.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.9.attention.output.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.9.attention.output.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.9.attention.self.key.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.9.attention.self.key.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.9.attention.self.query.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.9.attention.self.query.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.9.attention.self.value.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.9.attention.self.value.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.9.intermediate.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.9.intermediate.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.9.output.LayerNorm.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.9.output.LayerNorm.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.9.output.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.encoder.layer.9.output.dense.weight
+09/09 03:49:53 PM:    _text_field_embedder.model.pooler.dense.bias
+09/09 03:49:53 PM:    _text_field_embedder.model.pooler.dense.weight
+09/09 03:49:53 PM: 	Task 'edges-ner-ontonotes' params: {
+  "cls_type": "mlp",
+  "d_hid": 256,
+  "pool_type": "first",
+  "d_proj": 512,
+  "shared_pair_attn": 0,
+  "attn": 0,
+  "d_hid_attn": 512,
+  "dropout": 0.3,
+  "cls_loss_fn": "sigmoid",
+  "cls_span_pooling": "attn",
+  "edgeprobe_cnn_context": 0,
+  "edgeprobe_symmetric": 0,
+  "use_classifier": "edges-ner-ontonotes"
+}
+09/09 03:50:00 PM: Model specification:
+09/09 03:50:00 PM: MultiTaskModel(
+  (sent_encoder): SentenceEncoder(
+    (_text_field_embedder): BertEmbedderModule(
+      (model): BertModel(
+        (embeddings): BertEmbeddings(
+          (word_embeddings): Embedding(30522, 768, padding_idx=0)
+          (position_embeddings): Embedding(512, 768)
+          (token_type_embeddings): Embedding(2, 768)
+          (LayerNorm): BertLayerNorm()
+          (dropout): Dropout(p=0.1)
+        )
+        (encoder): BertEncoder(
+          (layer): ModuleList(
+            (0): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): BertLayerNorm()
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): BertLayerNorm()
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (1): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): BertLayerNorm()
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): BertLayerNorm()
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (2): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): BertLayerNorm()
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): BertLayerNorm()
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (3): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): BertLayerNorm()
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): BertLayerNorm()
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (4): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): BertLayerNorm()
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): BertLayerNorm()
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (5): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): BertLayerNorm()
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): BertLayerNorm()
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (6): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): BertLayerNorm()
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): BertLayerNorm()
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (7): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): BertLayerNorm()
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): BertLayerNorm()
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (8): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): BertLayerNorm()
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): BertLayerNorm()
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (9): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): BertLayerNorm()
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): BertLayerNorm()
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (10): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): BertLayerNorm()
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): BertLayerNorm()
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (11): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): BertLayerNorm()
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): BertLayerNorm()
+                (dropout): Dropout(p=0.1)
+              )
+            )
+          )
+        )
+        (pooler): BertPooler(
+          (dense): Linear(in_features=768, out_features=768, bias=True)
+          (activation): Tanh()
+        )
+      )
+    )
+    (_highway_layer): TimeDistributed(
+      (_module): Highway(
+        (_layers): ModuleList()
+      )
+    )
+    (_phrase_layer): NullPhraseLayer()
+    (_dropout): Dropout(p=0.2)
+  )
+  (edges-ner-ontonotes_mdl): EdgeClassifierModule(
+    (proj1): Conv1d(768, 256, kernel_size=(1,), stride=(1,))
+    (span_extractor1): EndpointSpanExtractor()
+    (classifier): Classifier(
+      (classifier): Linear(in_features=512, out_features=18, bias=True)
+    )
+  )
+)
+09/09 03:50:00 PM: Model parameters:
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.embeddings.word_embeddings.weight: Non-trainable parameter, count 23440896 with torch.Size([30522, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.embeddings.position_embeddings.weight: Non-trainable parameter, count 393216 with torch.Size([512, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.embeddings.token_type_embeddings.weight: Non-trainable parameter, count 1536 with torch.Size([2, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.embeddings.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.embeddings.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.pooler.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/09 03:50:00 PM: 	sent_encoder._text_field_embedder.model.pooler.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/09 03:50:00 PM: 	edges-ner-ontonotes_mdl.proj1.weight: Trainable parameter, count 196608 with torch.Size([256, 768, 1])
+09/09 03:50:00 PM: 	edges-ner-ontonotes_mdl.proj1.bias: Trainable parameter, count 256 with torch.Size([256])
+09/09 03:50:00 PM: 	edges-ner-ontonotes_mdl.classifier.classifier.weight: Trainable parameter, count 9216 with torch.Size([18, 512])
+09/09 03:50:00 PM: 	edges-ner-ontonotes_mdl.classifier.classifier.bias: Trainable parameter, count 18 with torch.Size([18])
+09/09 03:50:00 PM: Total number of parameters: 109688338 (1.09688e+08)
+09/09 03:50:00 PM: Number of trainable parameters: 206098 (206098)
+09/09 03:50:00 PM: Finished building model in 15.507s
+09/09 03:50:00 PM: Will run the following steps for this experiment:
+Re-training model for individual target tasks 
+Evaluating model on tasks: edges-ner-ontonotes 
+
+09/09 03:50:06 PM: patience = 20
+09/09 03:50:06 PM: val_interval = 1000
+09/09 03:50:06 PM: max_vals = 250
+09/09 03:50:06 PM: cuda_device = 0
+09/09 03:50:06 PM: grad_norm = 5.0
+09/09 03:50:06 PM: grad_clipping = None
+09/09 03:50:06 PM: lr_decay = 0.99
+09/09 03:50:06 PM: min_lr = 1e-06
+09/09 03:50:06 PM: keep_all_checkpoints = 0
+09/09 03:50:06 PM: val_data_limit = 5000
+09/09 03:50:06 PM: max_epochs = -1
+09/09 03:50:06 PM: dec_val_scale = 250
+09/09 03:50:06 PM: training_data_fraction = 1
+09/09 03:50:06 PM: type = adam
+09/09 03:50:06 PM: parameter_groups = None
+09/09 03:50:06 PM: Number of trainable parameters: 206098
+09/09 03:50:06 PM: infer_type_and_cast = True
+09/09 03:50:06 PM: Converting Params object to dict; logging of default values will not occur when dictionary parameters are used subsequently.
+09/09 03:50:06 PM: CURRENTLY DEFINED PARAMETERS: 
+09/09 03:50:06 PM: lr = 0.0001
+09/09 03:50:06 PM: amsgrad = True
+09/09 03:50:06 PM: type = reduce_on_plateau
+09/09 03:50:06 PM: Converting Params object to dict; logging of default values will not occur when dictionary parameters are used subsequently.
+09/09 03:50:06 PM: CURRENTLY DEFINED PARAMETERS: 
+09/09 03:50:06 PM: mode = max
+09/09 03:50:06 PM: factor = 0.5
+09/09 03:50:06 PM: patience = 5
+09/09 03:50:06 PM: threshold = 0.0001
+09/09 03:50:06 PM: threshold_mode = abs
+09/09 03:50:06 PM: verbose = True
+09/09 03:50:06 PM: type = adam
+09/09 03:50:06 PM: parameter_groups = None
+09/09 03:50:06 PM: Number of trainable parameters: 206098
+09/09 03:50:06 PM: infer_type_and_cast = True
+09/09 03:50:06 PM: Converting Params object to dict; logging of default values will not occur when dictionary parameters are used subsequently.
+09/09 03:50:06 PM: CURRENTLY DEFINED PARAMETERS: 
+09/09 03:50:06 PM: lr = 0.0001
+09/09 03:50:06 PM: amsgrad = True
+09/09 03:50:06 PM: type = reduce_on_plateau
+09/09 03:50:06 PM: Converting Params object to dict; logging of default values will not occur when dictionary parameters are used subsequently.
+09/09 03:50:06 PM: CURRENTLY DEFINED PARAMETERS: 
+09/09 03:50:06 PM: mode = max
+09/09 03:50:06 PM: factor = 0.5
+09/09 03:50:06 PM: patience = 5
+09/09 03:50:06 PM: threshold = 0.0001
+09/09 03:50:06 PM: threshold_mode = abs
+09/09 03:50:06 PM: verbose = True
+09/09 03:50:06 PM: Starting training without restoring from a checkpoint.
+09/09 03:50:06 PM: Training examples per task, before any subsampling: {'edges-ner-ontonotes': 49706}
+09/09 03:50:06 PM: Beginning training with stopping criteria based on metric: edges-ner-ontonotes_f1
+09/09 03:50:16 PM: Update 206: task edges-ner-ontonotes, batch 206 (206): mcc: 0.3107, acc: 0.2827, precision: 0.3578, recall: 0.3383, f1: 0.3478, edges-ner-ontonotes_loss: 0.2189
+09/09 03:50:27 PM: Update 428: task edges-ner-ontonotes, batch 428 (428): mcc: 0.5287, acc: 0.4725, precision: 0.6105, recall: 0.4996, f1: 0.5495, edges-ner-ontonotes_loss: 0.1478
+09/09 03:50:37 PM: Update 665: task edges-ner-ontonotes, batch 665 (665): mcc: 0.6317, acc: 0.5659, precision: 0.7203, recall: 0.5866, f1: 0.6466, edges-ner-ontonotes_loss: 0.1178
+09/09 03:50:49 PM: Update 940: task edges-ner-ontonotes, batch 940 (940): mcc: 0.6902, acc: 0.6211, precision: 0.7751, recall: 0.6425, f1: 0.7026, edges-ner-ontonotes_loss: 0.0993
+09/09 03:50:51 PM: ***** Step 1000 / Validation 1 *****
+09/09 03:50:51 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 03:50:51 PM: Validating...
+09/09 03:50:57 PM: Best result seen so far for edges-ner-ontonotes.
+09/09 03:50:57 PM: Best result seen so far for micro.
+09/09 03:50:57 PM: Best result seen so far for macro.
+09/09 03:50:57 PM: Updating LR scheduler:
+09/09 03:50:57 PM: 	Best result seen so far for macro_avg: 0.820
+09/09 03:50:57 PM: 	# validation passes without improvement: 0
+09/09 03:50:57 PM: edges-ner-ontonotes_loss: training: 0.096704 validation: 0.058019
+09/09 03:50:57 PM: macro_avg: validation: 0.820383
+09/09 03:50:57 PM: micro_avg: validation: 0.000000
+09/09 03:50:57 PM: edges-ner-ontonotes_mcc: training: 0.698063 validation: 0.813085
+09/09 03:50:57 PM: edges-ner-ontonotes_acc: training: 0.628644 validation: 0.746209
+09/09 03:50:57 PM: edges-ner-ontonotes_precision: training: 0.782197 validation: 0.885511
+09/09 03:50:57 PM: edges-ner-ontonotes_recall: training: 0.650286 validation: 0.764180
+09/09 03:50:57 PM: edges-ner-ontonotes_f1: training: 0.710168 validation: 0.820383
+09/09 03:50:57 PM: Global learning rate: 0.0001
+09/09 03:50:57 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 03:50:59 PM: Update 1055: task edges-ner-ontonotes, batch 55 (1055): mcc: 0.8276, acc: 0.7649, precision: 0.8896, recall: 0.7866, f1: 0.8349, edges-ner-ontonotes_loss: 0.0489
+09/09 03:51:09 PM: Update 1267: task edges-ner-ontonotes, batch 267 (1267): mcc: 0.8272, acc: 0.7616, precision: 0.8896, recall: 0.7858, f1: 0.8345, edges-ner-ontonotes_loss: 0.0496
+09/09 03:51:20 PM: Update 1557: task edges-ner-ontonotes, batch 557 (1557): mcc: 0.8187, acc: 0.7538, precision: 0.8867, recall: 0.7732, f1: 0.8261, edges-ner-ontonotes_loss: 0.0550
+09/09 03:51:32 PM: Update 1870: task edges-ner-ontonotes, batch 870 (1870): mcc: 0.8321, acc: 0.7720, precision: 0.8966, recall: 0.7883, f1: 0.8390, edges-ner-ontonotes_loss: 0.0513
+09/09 03:51:36 PM: ***** Step 2000 / Validation 2 *****
+09/09 03:51:36 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 03:51:36 PM: Validating...
+09/09 03:51:41 PM: Best result seen so far for edges-ner-ontonotes.
+09/09 03:51:41 PM: Best result seen so far for macro.
+09/09 03:51:41 PM: Updating LR scheduler:
+09/09 03:51:41 PM: 	Best result seen so far for macro_avg: 0.843
+09/09 03:51:41 PM: 	# validation passes without improvement: 0
+09/09 03:51:41 PM: edges-ner-ontonotes_loss: training: 0.050704 validation: 0.049346
+09/09 03:51:41 PM: macro_avg: validation: 0.842836
+09/09 03:51:41 PM: micro_avg: validation: 0.000000
+09/09 03:51:41 PM: edges-ner-ontonotes_mcc: training: 0.833335 validation: 0.835795
+09/09 03:51:41 PM: edges-ner-ontonotes_acc: training: 0.774591 validation: 0.784653
+09/09 03:51:41 PM: edges-ner-ontonotes_precision: training: 0.896674 validation: 0.895784
+09/09 03:51:41 PM: edges-ner-ontonotes_recall: training: 0.790543 validation: 0.795799
+09/09 03:51:41 PM: edges-ner-ontonotes_f1: training: 0.840271 validation: 0.842836
+09/09 03:51:41 PM: Global learning rate: 0.0001
+09/09 03:51:41 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 03:51:42 PM: Update 2012: task edges-ner-ontonotes, batch 12 (2012): mcc: 0.8391, acc: 0.7836, precision: 0.8972, recall: 0.8005, f1: 0.8461, edges-ner-ontonotes_loss: 0.0459
+09/09 03:51:52 PM: Update 2224: task edges-ner-ontonotes, batch 224 (2224): mcc: 0.8525, acc: 0.8010, precision: 0.9046, recall: 0.8180, f1: 0.8591, edges-ner-ontonotes_loss: 0.0434
+09/09 03:52:04 PM: Update 2496: task edges-ner-ontonotes, batch 496 (2496): mcc: 0.8532, acc: 0.8011, precision: 0.8998, recall: 0.8238, f1: 0.8601, edges-ner-ontonotes_loss: 0.0421
+09/09 03:52:14 PM: Update 2775: task edges-ner-ontonotes, batch 775 (2775): mcc: 0.8538, acc: 0.8011, precision: 0.8995, recall: 0.8251, f1: 0.8607, edges-ner-ontonotes_loss: 0.0416
+09/09 03:52:24 PM: Update 2983: task edges-ner-ontonotes, batch 983 (2983): mcc: 0.8508, acc: 0.7982, precision: 0.8983, recall: 0.8207, f1: 0.8578, edges-ner-ontonotes_loss: 0.0435
+09/09 03:52:25 PM: ***** Step 3000 / Validation 3 *****
+09/09 03:52:25 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 03:52:25 PM: Validating...
+09/09 03:52:30 PM: Best result seen so far for edges-ner-ontonotes.
+09/09 03:52:30 PM: Best result seen so far for macro.
+09/09 03:52:30 PM: Updating LR scheduler:
+09/09 03:52:30 PM: 	Best result seen so far for macro_avg: 0.852
+09/09 03:52:30 PM: 	# validation passes without improvement: 0
+09/09 03:52:30 PM: edges-ner-ontonotes_loss: training: 0.043614 validation: 0.047163
+09/09 03:52:30 PM: macro_avg: validation: 0.851704
+09/09 03:52:30 PM: micro_avg: validation: 0.000000
+09/09 03:52:30 PM: edges-ner-ontonotes_mcc: training: 0.850772 validation: 0.844768
+09/09 03:52:30 PM: edges-ner-ontonotes_acc: training: 0.798121 validation: 0.794889
+09/09 03:52:30 PM: edges-ner-ontonotes_precision: training: 0.898312 validation: 0.898989
+09/09 03:52:30 PM: edges-ner-ontonotes_recall: training: 0.820735 validation: 0.809145
+09/09 03:52:30 PM: edges-ner-ontonotes_f1: training: 0.857773 validation: 0.851704
+09/09 03:52:30 PM: Global learning rate: 0.0001
+09/09 03:52:30 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 03:52:36 PM: Update 3113: task edges-ner-ontonotes, batch 113 (3113): mcc: 0.8355, acc: 0.7819, precision: 0.8903, recall: 0.8003, f1: 0.8429, edges-ner-ontonotes_loss: 0.0518
+09/09 03:52:48 PM: Update 3426: task edges-ner-ontonotes, batch 426 (3426): mcc: 0.8655, acc: 0.8221, precision: 0.9104, recall: 0.8363, f1: 0.8718, edges-ner-ontonotes_loss: 0.0423
+09/09 03:52:58 PM: Update 3715: task edges-ner-ontonotes, batch 715 (3715): mcc: 0.8651, acc: 0.8207, precision: 0.9099, recall: 0.8361, f1: 0.8715, edges-ner-ontonotes_loss: 0.0414
+09/09 03:53:08 PM: Update 3916: task edges-ner-ontonotes, batch 916 (3916): mcc: 0.8641, acc: 0.8186, precision: 0.9073, recall: 0.8367, f1: 0.8706, edges-ner-ontonotes_loss: 0.0411
+09/09 03:53:11 PM: ***** Step 4000 / Validation 4 *****
+09/09 03:53:11 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 03:53:11 PM: Validating...
+09/09 03:53:16 PM: Best result seen so far for edges-ner-ontonotes.
+09/09 03:53:16 PM: Best result seen so far for macro.
+09/09 03:53:16 PM: Updating LR scheduler:
+09/09 03:53:16 PM: 	Best result seen so far for macro_avg: 0.861
+09/09 03:53:16 PM: 	# validation passes without improvement: 0
+09/09 03:53:16 PM: edges-ner-ontonotes_loss: training: 0.040633 validation: 0.045175
+09/09 03:53:16 PM: macro_avg: validation: 0.860869
+09/09 03:53:16 PM: micro_avg: validation: 0.000000
+09/09 03:53:16 PM: edges-ner-ontonotes_mcc: training: 0.864627 validation: 0.853616
+09/09 03:53:16 PM: edges-ner-ontonotes_acc: training: 0.819166 validation: 0.810661
+09/09 03:53:16 PM: edges-ner-ontonotes_precision: training: 0.907081 validation: 0.893073
+09/09 03:53:16 PM: edges-ner-ontonotes_recall: training: 0.837924 validation: 0.830907
+09/09 03:53:16 PM: edges-ner-ontonotes_f1: training: 0.871132 validation: 0.860869
+09/09 03:53:16 PM: Global learning rate: 0.0001
+09/09 03:53:16 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 03:53:19 PM: Update 4052: task edges-ner-ontonotes, batch 52 (4052): mcc: 0.8647, acc: 0.8169, precision: 0.8987, recall: 0.8461, f1: 0.8716, edges-ner-ontonotes_loss: 0.0369
+09/09 03:53:29 PM: Update 4338: task edges-ner-ontonotes, batch 338 (4338): mcc: 0.8672, acc: 0.8184, precision: 0.9042, recall: 0.8453, f1: 0.8738, edges-ner-ontonotes_loss: 0.0370
+09/09 03:53:39 PM: Update 4569: task edges-ner-ontonotes, batch 569 (4569): mcc: 0.8582, acc: 0.8083, precision: 0.8994, recall: 0.8333, f1: 0.8651, edges-ner-ontonotes_loss: 0.0420
+09/09 03:53:49 PM: Update 4829: task edges-ner-ontonotes, batch 829 (4829): mcc: 0.8611, acc: 0.8131, precision: 0.9027, recall: 0.8356, f1: 0.8678, edges-ner-ontonotes_loss: 0.0418
+09/09 03:53:58 PM: ***** Step 5000 / Validation 5 *****
+09/09 03:53:58 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 03:53:58 PM: Validating...
+09/09 03:53:59 PM: Evaluate: task edges-ner-ontonotes, batch 56 (157): mcc: 0.8732, acc: 0.8384, precision: 0.9134, recall: 0.8479, f1: 0.8794, edges-ner-ontonotes_loss: 0.0412
+09/09 03:54:03 PM: Updating LR scheduler:
+09/09 03:54:03 PM: 	Best result seen so far for macro_avg: 0.861
+09/09 03:54:03 PM: 	# validation passes without improvement: 1
+09/09 03:54:03 PM: edges-ner-ontonotes_loss: training: 0.040934 validation: 0.044294
+09/09 03:54:03 PM: macro_avg: validation: 0.855765
+09/09 03:54:03 PM: micro_avg: validation: 0.000000
+09/09 03:54:03 PM: edges-ner-ontonotes_mcc: training: 0.863614 validation: 0.848965
+09/09 03:54:03 PM: edges-ner-ontonotes_acc: training: 0.817362 validation: 0.804747
+09/09 03:54:03 PM: edges-ner-ontonotes_precision: training: 0.904209 validation: 0.901679
+09/09 03:54:03 PM: edges-ner-ontonotes_recall: training: 0.838775 validation: 0.814301
+09/09 03:54:03 PM: edges-ner-ontonotes_f1: training: 0.870264 validation: 0.855765
+09/09 03:54:03 PM: Global learning rate: 0.0001
+09/09 03:54:03 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 03:54:09 PM: Update 5188: task edges-ner-ontonotes, batch 188 (5188): mcc: 0.8658, acc: 0.8206, precision: 0.9082, recall: 0.8389, f1: 0.8722, edges-ner-ontonotes_loss: 0.0396
+09/09 03:54:19 PM: Update 5442: task edges-ner-ontonotes, batch 442 (5442): mcc: 0.8684, acc: 0.8242, precision: 0.9059, recall: 0.8460, f1: 0.8749, edges-ner-ontonotes_loss: 0.0381
+09/09 03:54:29 PM: Update 5641: task edges-ner-ontonotes, batch 641 (5641): mcc: 0.8690, acc: 0.8241, precision: 0.9052, recall: 0.8478, f1: 0.8756, edges-ner-ontonotes_loss: 0.0375
+09/09 03:54:39 PM: Update 5919: task edges-ner-ontonotes, batch 919 (5919): mcc: 0.8696, acc: 0.8242, precision: 0.9050, recall: 0.8491, f1: 0.8761, edges-ner-ontonotes_loss: 0.0370
+09/09 03:54:44 PM: ***** Step 6000 / Validation 6 *****
+09/09 03:54:44 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 03:54:44 PM: Validating...
+09/09 03:54:49 PM: Updating LR scheduler:
+09/09 03:54:49 PM: 	Best result seen so far for macro_avg: 0.861
+09/09 03:54:49 PM: 	# validation passes without improvement: 2
+09/09 03:54:49 PM: edges-ner-ontonotes_loss: training: 0.038057 validation: 0.044598
+09/09 03:54:49 PM: macro_avg: validation: 0.860554
+09/09 03:54:49 PM: micro_avg: validation: 0.000000
+09/09 03:54:49 PM: edges-ner-ontonotes_mcc: training: 0.867064 validation: 0.853956
+09/09 03:54:49 PM: edges-ner-ontonotes_acc: training: 0.821193 validation: 0.812405
+09/09 03:54:49 PM: edges-ner-ontonotes_precision: training: 0.903587 validation: 0.905528
+09/09 03:54:49 PM: edges-ner-ontonotes_recall: training: 0.845734 validation: 0.819836
+09/09 03:54:49 PM: edges-ner-ontonotes_f1: training: 0.873704 validation: 0.860554
+09/09 03:54:49 PM: Global learning rate: 0.0001
+09/09 03:54:49 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 03:54:49 PM: Update 6016: task edges-ner-ontonotes, batch 16 (6016): mcc: 0.8615, acc: 0.8192, precision: 0.9048, recall: 0.8343, f1: 0.8682, edges-ner-ontonotes_loss: 0.0466
+09/09 03:54:59 PM: Update 6239: task edges-ner-ontonotes, batch 239 (6239): mcc: 0.8521, acc: 0.8044, precision: 0.8971, recall: 0.8243, f1: 0.8592, edges-ner-ontonotes_loss: 0.0468
+09/09 03:55:11 PM: Update 6538: task edges-ner-ontonotes, batch 538 (6538): mcc: 0.8704, acc: 0.8292, precision: 0.9095, recall: 0.8463, f1: 0.8768, edges-ner-ontonotes_loss: 0.0403
+09/09 03:55:21 PM: Update 6825: task edges-ner-ontonotes, batch 825 (6825): mcc: 0.8725, acc: 0.8311, precision: 0.9103, recall: 0.8493, f1: 0.8787, edges-ner-ontonotes_loss: 0.0390
+09/09 03:55:29 PM: ***** Step 7000 / Validation 7 *****
+09/09 03:55:29 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 03:55:29 PM: Validating...
+09/09 03:55:31 PM: Evaluate: task edges-ner-ontonotes, batch 54 (157): mcc: 0.8481, acc: 0.8179, precision: 0.8806, recall: 0.8327, f1: 0.8560, edges-ner-ontonotes_loss: 0.0475
+09/09 03:55:35 PM: Best result seen so far for edges-ner-ontonotes.
+09/09 03:55:35 PM: Best result seen so far for macro.
+09/09 03:55:35 PM: Updating LR scheduler:
+09/09 03:55:35 PM: 	Best result seen so far for macro_avg: 0.862
+09/09 03:55:35 PM: 	# validation passes without improvement: 0
+09/09 03:55:35 PM: edges-ner-ontonotes_loss: training: 0.038621 validation: 0.044174
+09/09 03:55:35 PM: macro_avg: validation: 0.862219
+09/09 03:55:35 PM: micro_avg: validation: 0.000000
+09/09 03:55:35 PM: edges-ner-ontonotes_mcc: training: 0.871192 validation: 0.854882
+09/09 03:55:35 PM: edges-ner-ontonotes_acc: training: 0.828590 validation: 0.814907
+09/09 03:55:35 PM: edges-ner-ontonotes_precision: training: 0.908115 validation: 0.890839
+09/09 03:55:35 PM: edges-ner-ontonotes_recall: training: 0.849045 validation: 0.835381
+09/09 03:55:35 PM: edges-ner-ontonotes_f1: training: 0.877587 validation: 0.862219
+09/09 03:55:35 PM: Global learning rate: 0.0001
+09/09 03:55:35 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 03:55:43 PM: Update 7164: task edges-ner-ontonotes, batch 164 (7164): mcc: 0.8735, acc: 0.8276, precision: 0.9047, recall: 0.8567, f1: 0.8800, edges-ner-ontonotes_loss: 0.0354
+09/09 03:55:53 PM: Update 7446: task edges-ner-ontonotes, batch 446 (7446): mcc: 0.8727, acc: 0.8266, precision: 0.9047, recall: 0.8550, f1: 0.8792, edges-ner-ontonotes_loss: 0.0355
+09/09 03:56:03 PM: Update 7699: task edges-ner-ontonotes, batch 699 (7699): mcc: 0.8651, acc: 0.8180, precision: 0.9012, recall: 0.8444, f1: 0.8719, edges-ner-ontonotes_loss: 0.0395
+09/09 03:56:13 PM: Update 7933: task edges-ner-ontonotes, batch 933 (7933): mcc: 0.8675, acc: 0.8218, precision: 0.9037, recall: 0.8464, f1: 0.8741, edges-ner-ontonotes_loss: 0.0393
+09/09 03:56:15 PM: ***** Step 8000 / Validation 8 *****
+09/09 03:56:15 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 03:56:15 PM: Validating...
+09/09 03:56:20 PM: Updating LR scheduler:
+09/09 03:56:20 PM: 	Best result seen so far for macro_avg: 0.862
+09/09 03:56:20 PM: 	# validation passes without improvement: 1
+09/09 03:56:20 PM: edges-ner-ontonotes_loss: training: 0.038814 validation: 0.044877
+09/09 03:56:20 PM: macro_avg: validation: 0.857848
+09/09 03:56:20 PM: micro_avg: validation: 0.000000
+09/09 03:56:20 PM: edges-ner-ontonotes_mcc: training: 0.869090 validation: 0.851079
+09/09 03:56:20 PM: edges-ner-ontonotes_acc: training: 0.824072 validation: 0.808462
+09/09 03:56:20 PM: edges-ner-ontonotes_precision: training: 0.904975 validation: 0.902402
+09/09 03:56:20 PM: edges-ner-ontonotes_recall: training: 0.848156 validation: 0.817486
+09/09 03:56:20 PM: edges-ner-ontonotes_f1: training: 0.875645 validation: 0.857848
+09/09 03:56:20 PM: Global learning rate: 0.0001
+09/09 03:56:20 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 03:56:23 PM: Update 8089: task edges-ner-ontonotes, batch 89 (8089): mcc: 0.8937, acc: 0.8584, precision: 0.9240, recall: 0.8754, f1: 0.8991, edges-ner-ontonotes_loss: 0.0330
+09/09 03:56:33 PM: Update 8315: task edges-ner-ontonotes, batch 315 (8315): mcc: 0.8791, acc: 0.8407, precision: 0.9124, recall: 0.8595, f1: 0.8852, edges-ner-ontonotes_loss: 0.0357
+09/09 03:56:43 PM: Update 8534: task edges-ner-ontonotes, batch 534 (8534): mcc: 0.8756, acc: 0.8348, precision: 0.9079, recall: 0.8575, f1: 0.8820, edges-ner-ontonotes_loss: 0.0362
+09/09 03:56:53 PM: Update 8771: task edges-ner-ontonotes, batch 771 (8771): mcc: 0.8751, acc: 0.8326, precision: 0.9068, recall: 0.8575, f1: 0.8815, edges-ner-ontonotes_loss: 0.0357
+09/09 03:57:01 PM: ***** Step 9000 / Validation 9 *****
+09/09 03:57:01 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 03:57:01 PM: Validating...
+09/09 03:57:03 PM: Evaluate: task edges-ner-ontonotes, batch 66 (157): mcc: 0.8511, acc: 0.8111, precision: 0.8951, recall: 0.8244, f1: 0.8583, edges-ner-ontonotes_loss: 0.0509
+09/09 03:57:07 PM: Best result seen so far for edges-ner-ontonotes.
+09/09 03:57:07 PM: Best result seen so far for macro.
+09/09 03:57:07 PM: Updating LR scheduler:
+09/09 03:57:07 PM: 	Best result seen so far for macro_avg: 0.868
+09/09 03:57:07 PM: 	# validation passes without improvement: 0
+09/09 03:57:07 PM: edges-ner-ontonotes_loss: training: 0.035557 validation: 0.043756
+09/09 03:57:07 PM: macro_avg: validation: 0.867600
+09/09 03:57:07 PM: micro_avg: validation: 0.000000
+09/09 03:57:07 PM: edges-ner-ontonotes_mcc: training: 0.875401 validation: 0.860768
+09/09 03:57:07 PM: edges-ner-ontonotes_acc: training: 0.832412 validation: 0.818850
+09/09 03:57:07 PM: edges-ner-ontonotes_precision: training: 0.906851 validation: 0.900816
+09/09 03:57:07 PM: edges-ner-ontonotes_recall: training: 0.858055 validation: 0.836746
+09/09 03:57:07 PM: edges-ner-ontonotes_f1: training: 0.881778 validation: 0.867600
+09/09 03:57:07 PM: Global learning rate: 0.0001
+09/09 03:57:07 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 03:57:13 PM: Update 9109: task edges-ner-ontonotes, batch 109 (9109): mcc: 0.8568, acc: 0.8096, precision: 0.8936, recall: 0.8364, f1: 0.8640, edges-ner-ontonotes_loss: 0.0442
+09/09 03:57:23 PM: Update 9375: task edges-ner-ontonotes, batch 375 (9375): mcc: 0.8571, acc: 0.8099, precision: 0.8973, recall: 0.8333, f1: 0.8641, edges-ner-ontonotes_loss: 0.0446
+09/09 03:57:34 PM: Update 9650: task edges-ner-ontonotes, batch 650 (9650): mcc: 0.8710, acc: 0.8285, precision: 0.9076, recall: 0.8491, f1: 0.8774, edges-ner-ontonotes_loss: 0.0398
+09/09 03:57:44 PM: Update 9942: task edges-ner-ontonotes, batch 942 (9942): mcc: 0.8734, acc: 0.8319, precision: 0.9091, recall: 0.8521, f1: 0.8797, edges-ner-ontonotes_loss: 0.0386
+09/09 03:57:48 PM: ***** Step 10000 / Validation 10 *****
+09/09 03:57:48 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 03:57:48 PM: Validating...
+09/09 03:57:53 PM: Updating LR scheduler:
+09/09 03:57:53 PM: 	Best result seen so far for macro_avg: 0.868
+09/09 03:57:53 PM: 	# validation passes without improvement: 1
+09/09 03:57:53 PM: edges-ner-ontonotes_loss: training: 0.038475 validation: 0.043517
+09/09 03:57:53 PM: macro_avg: validation: 0.862777
+09/09 03:57:53 PM: micro_avg: validation: 0.000000
+09/09 03:57:53 PM: edges-ner-ontonotes_mcc: training: 0.873350 validation: 0.855470
+09/09 03:57:53 PM: edges-ner-ontonotes_acc: training: 0.831908 validation: 0.818623
+09/09 03:57:53 PM: edges-ner-ontonotes_precision: training: 0.908805 validation: 0.891341
+09/09 03:57:53 PM: edges-ner-ontonotes_recall: training: 0.852376 validation: 0.835987
+09/09 03:57:53 PM: edges-ner-ontonotes_f1: training: 0.879687 validation: 0.862777
+09/09 03:57:53 PM: Global learning rate: 0.0001
+09/09 03:57:53 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 03:57:54 PM: Update 10023: task edges-ner-ontonotes, batch 23 (10023): mcc: 0.8706, acc: 0.8170, precision: 0.8993, recall: 0.8564, f1: 0.8773, edges-ner-ontonotes_loss: 0.0357
+09/09 03:58:05 PM: Update 10276: task edges-ner-ontonotes, batch 276 (10276): mcc: 0.8736, acc: 0.8285, precision: 0.9028, recall: 0.8587, f1: 0.8802, edges-ner-ontonotes_loss: 0.0350
+09/09 03:58:15 PM: Update 10562: task edges-ner-ontonotes, batch 562 (10562): mcc: 0.8739, acc: 0.8284, precision: 0.9035, recall: 0.8585, f1: 0.8804, edges-ner-ontonotes_loss: 0.0348
+09/09 03:58:25 PM: Update 10798: task edges-ner-ontonotes, batch 798 (10798): mcc: 0.8696, acc: 0.8240, precision: 0.9018, recall: 0.8521, f1: 0.8762, edges-ner-ontonotes_loss: 0.0376
+09/09 03:58:33 PM: ***** Step 11000 / Validation 11 *****
+09/09 03:58:33 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 03:58:33 PM: Validating...
+09/09 03:58:35 PM: Evaluate: task edges-ner-ontonotes, batch 61 (157): mcc: 0.8742, acc: 0.8403, precision: 0.9121, recall: 0.8508, f1: 0.8804, edges-ner-ontonotes_loss: 0.0408
+09/09 03:58:38 PM: Updating LR scheduler:
+09/09 03:58:38 PM: 	Best result seen so far for macro_avg: 0.868
+09/09 03:58:38 PM: 	# validation passes without improvement: 2
+09/09 03:58:38 PM: edges-ner-ontonotes_loss: training: 0.038172 validation: 0.043934
+09/09 03:58:38 PM: macro_avg: validation: 0.859846
+09/09 03:58:38 PM: micro_avg: validation: 0.000000
+09/09 03:58:38 PM: edges-ner-ontonotes_mcc: training: 0.869963 validation: 0.853138
+09/09 03:58:38 PM: edges-ner-ontonotes_acc: training: 0.825044 validation: 0.810510
+09/09 03:58:38 PM: edges-ner-ontonotes_precision: training: 0.902821 validation: 0.903592
+09/09 03:58:38 PM: edges-ner-ontonotes_recall: training: 0.851839 validation: 0.820140
+09/09 03:58:38 PM: edges-ner-ontonotes_f1: training: 0.876590 validation: 0.859846
+09/09 03:58:38 PM: Global learning rate: 0.0001
+09/09 03:58:38 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 03:58:47 PM: Update 11206: task edges-ner-ontonotes, batch 206 (11206): mcc: 0.8966, acc: 0.8638, precision: 0.9247, recall: 0.8801, f1: 0.9019, edges-ner-ontonotes_loss: 0.0316
+09/09 03:58:57 PM: Update 11499: task edges-ner-ontonotes, batch 499 (11499): mcc: 0.8856, acc: 0.8484, precision: 0.9168, recall: 0.8674, f1: 0.8914, edges-ner-ontonotes_loss: 0.0339
+09/09 03:59:07 PM: Update 11699: task edges-ner-ontonotes, batch 699 (11699): mcc: 0.8821, acc: 0.8429, precision: 0.9127, recall: 0.8648, f1: 0.8881, edges-ner-ontonotes_loss: 0.0344
+09/09 03:59:17 PM: Update 11941: task edges-ner-ontonotes, batch 941 (11941): mcc: 0.8804, acc: 0.8400, precision: 0.9105, recall: 0.8639, f1: 0.8866, edges-ner-ontonotes_loss: 0.0342
+09/09 03:59:19 PM: ***** Step 12000 / Validation 12 *****
+09/09 03:59:19 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 03:59:19 PM: Validating...
+09/09 03:59:24 PM: Best result seen so far for edges-ner-ontonotes.
+09/09 03:59:24 PM: Best result seen so far for macro.
+09/09 03:59:24 PM: Updating LR scheduler:
+09/09 03:59:24 PM: 	Best result seen so far for macro_avg: 0.868
+09/09 03:59:24 PM: 	# validation passes without improvement: 0
+09/09 03:59:24 PM: edges-ner-ontonotes_loss: training: 0.034292 validation: 0.043608
+09/09 03:59:24 PM: macro_avg: validation: 0.867734
+09/09 03:59:24 PM: micro_avg: validation: 0.000000
+09/09 03:59:24 PM: edges-ner-ontonotes_mcc: training: 0.880369 validation: 0.860727
+09/09 03:59:24 PM: edges-ner-ontonotes_acc: training: 0.839808 validation: 0.820594
+09/09 03:59:24 PM: edges-ner-ontonotes_precision: training: 0.910049 validation: 0.896836
+09/09 03:59:24 PM: edges-ner-ontonotes_recall: training: 0.864200 validation: 0.840461
+09/09 03:59:24 PM: edges-ner-ontonotes_f1: training: 0.886532 validation: 0.867734
+09/09 03:59:24 PM: Global learning rate: 0.0001
+09/09 03:59:24 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 03:59:27 PM: Update 12083: task edges-ner-ontonotes, batch 83 (12083): mcc: 0.8798, acc: 0.8346, precision: 0.9097, recall: 0.8634, f1: 0.8860, edges-ner-ontonotes_loss: 0.0328
+09/09 03:59:37 PM: Update 12313: task edges-ner-ontonotes, batch 313 (12313): mcc: 0.8671, acc: 0.8207, precision: 0.9025, recall: 0.8469, f1: 0.8738, edges-ner-ontonotes_loss: 0.0401
+09/09 03:59:47 PM: Update 12552: task edges-ner-ontonotes, batch 552 (12552): mcc: 0.8678, acc: 0.8230, precision: 0.9033, recall: 0.8474, f1: 0.8745, edges-ner-ontonotes_loss: 0.0403
+09/09 03:59:57 PM: Update 12806: task edges-ner-ontonotes, batch 806 (12806): mcc: 0.8738, acc: 0.8316, precision: 0.9073, recall: 0.8547, f1: 0.8802, edges-ner-ontonotes_loss: 0.0381
+09/09 04:00:04 PM: ***** Step 13000 / Validation 13 *****
+09/09 04:00:04 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:00:04 PM: Validating...
+09/09 04:00:07 PM: Evaluate: task edges-ner-ontonotes, batch 110 (157): mcc: 0.8586, acc: 0.8232, precision: 0.8965, recall: 0.8368, f1: 0.8657, edges-ner-ontonotes_loss: 0.0450
+09/09 04:00:09 PM: Updating LR scheduler:
+09/09 04:00:09 PM: 	Best result seen so far for macro_avg: 0.868
+09/09 04:00:09 PM: 	# validation passes without improvement: 1
+09/09 04:00:09 PM: edges-ner-ontonotes_loss: training: 0.037521 validation: 0.042865
+09/09 04:00:09 PM: macro_avg: validation: 0.865858
+09/09 04:00:09 PM: micro_avg: validation: 0.000000
+09/09 04:00:09 PM: edges-ner-ontonotes_mcc: training: 0.875747 validation: 0.858707
+09/09 04:00:09 PM: edges-ner-ontonotes_acc: training: 0.834110 validation: 0.823779
+09/09 04:00:09 PM: edges-ner-ontonotes_precision: training: 0.909069 validation: 0.894040
+09/09 04:00:09 PM: edges-ner-ontonotes_recall: training: 0.856563 validation: 0.839399
+09/09 04:00:09 PM: edges-ner-ontonotes_f1: training: 0.882035 validation: 0.865858
+09/09 04:00:09 PM: Global learning rate: 0.0001
+09/09 04:00:09 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:00:17 PM: Update 13183: task edges-ner-ontonotes, batch 183 (13183): mcc: 0.8775, acc: 0.8347, precision: 0.9055, recall: 0.8632, f1: 0.8838, edges-ner-ontonotes_loss: 0.0346
+09/09 04:00:27 PM: Update 13404: task edges-ner-ontonotes, batch 404 (13404): mcc: 0.8763, acc: 0.8328, precision: 0.9043, recall: 0.8622, f1: 0.8827, edges-ner-ontonotes_loss: 0.0346
+09/09 04:00:37 PM: Update 13688: task edges-ner-ontonotes, batch 688 (13688): mcc: 0.8768, acc: 0.8331, precision: 0.9050, recall: 0.8624, f1: 0.8832, edges-ner-ontonotes_loss: 0.0342
+09/09 04:00:47 PM: Update 13940: task edges-ner-ontonotes, batch 940 (13940): mcc: 0.8712, acc: 0.8268, precision: 0.9017, recall: 0.8552, f1: 0.8779, edges-ner-ontonotes_loss: 0.0371
+09/09 04:00:49 PM: ***** Step 14000 / Validation 14 *****
+09/09 04:00:49 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:00:49 PM: Validating...
+09/09 04:00:54 PM: Updating LR scheduler:
+09/09 04:00:54 PM: 	Best result seen so far for macro_avg: 0.868
+09/09 04:00:54 PM: 	# validation passes without improvement: 2
+09/09 04:00:54 PM: edges-ner-ontonotes_loss: training: 0.037452 validation: 0.044777
+09/09 04:00:54 PM: macro_avg: validation: 0.859226
+09/09 04:00:54 PM: micro_avg: validation: 0.000000
+09/09 04:00:54 PM: edges-ner-ontonotes_mcc: training: 0.870813 validation: 0.852320
+09/09 04:00:54 PM: edges-ner-ontonotes_acc: training: 0.826259 validation: 0.812102
+09/09 04:00:54 PM: edges-ner-ontonotes_precision: training: 0.901923 validation: 0.900033
+09/09 04:00:54 PM: edges-ner-ontonotes_recall: training: 0.854283 validation: 0.821959
+09/09 04:00:54 PM: edges-ner-ontonotes_f1: training: 0.877457 validation: 0.859226
+09/09 04:00:54 PM: Global learning rate: 0.0001
+09/09 04:00:54 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:00:57 PM: Update 14042: task edges-ner-ontonotes, batch 42 (14042): mcc: 0.8867, acc: 0.8477, precision: 0.9148, recall: 0.8713, f1: 0.8925, edges-ner-ontonotes_loss: 0.0348
+09/09 04:01:08 PM: Update 14318: task edges-ner-ontonotes, batch 318 (14318): mcc: 0.8943, acc: 0.8615, precision: 0.9200, recall: 0.8804, f1: 0.8998, edges-ner-ontonotes_loss: 0.0328
+09/09 04:01:18 PM: Update 14614: task edges-ner-ontonotes, batch 614 (14614): mcc: 0.8874, acc: 0.8513, precision: 0.9164, recall: 0.8711, f1: 0.8932, edges-ner-ontonotes_loss: 0.0337
+09/09 04:01:28 PM: Update 14814: task edges-ner-ontonotes, batch 814 (14814): mcc: 0.8837, acc: 0.8452, precision: 0.9122, recall: 0.8682, f1: 0.8897, edges-ner-ontonotes_loss: 0.0339
+09/09 04:01:36 PM: ***** Step 15000 / Validation 15 *****
+09/09 04:01:36 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:01:36 PM: Validating...
+09/09 04:01:38 PM: Evaluate: task edges-ner-ontonotes, batch 66 (157): mcc: 0.8552, acc: 0.8186, precision: 0.8937, recall: 0.8332, f1: 0.8624, edges-ner-ontonotes_loss: 0.0499
+09/09 04:01:41 PM: Best result seen so far for edges-ner-ontonotes.
+09/09 04:01:41 PM: Best result seen so far for macro.
+09/09 04:01:41 PM: Updating LR scheduler:
+09/09 04:01:41 PM: 	Best result seen so far for macro_avg: 0.868
+09/09 04:01:41 PM: 	# validation passes without improvement: 0
+09/09 04:01:41 PM: edges-ner-ontonotes_loss: training: 0.033863 validation: 0.043455
+09/09 04:01:41 PM: macro_avg: validation: 0.868282
+09/09 04:01:41 PM: micro_avg: validation: 0.000000
+09/09 04:01:41 PM: edges-ner-ontonotes_mcc: training: 0.882513 validation: 0.861191
+09/09 04:01:41 PM: edges-ner-ontonotes_acc: training: 0.842943 validation: 0.822490
+09/09 04:01:41 PM: edges-ner-ontonotes_precision: training: 0.910698 validation: 0.894572
+09/09 04:01:41 PM: edges-ner-ontonotes_recall: training: 0.867563 validation: 0.843494
+09/09 04:01:41 PM: edges-ner-ontonotes_f1: training: 0.888607 validation: 0.868282
+09/09 04:01:41 PM: Global learning rate: 0.0001
+09/09 04:01:41 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:01:48 PM: Update 15195: task edges-ner-ontonotes, batch 195 (15195): mcc: 0.8769, acc: 0.8324, precision: 0.9053, recall: 0.8624, f1: 0.8833, edges-ner-ontonotes_loss: 0.0335
+09/09 04:01:58 PM: Update 15421: task edges-ner-ontonotes, batch 421 (15421): mcc: 0.8694, acc: 0.8247, precision: 0.9016, recall: 0.8520, f1: 0.8761, edges-ner-ontonotes_loss: 0.0380
+09/09 04:02:08 PM: Update 15664: task edges-ner-ontonotes, batch 664 (15664): mcc: 0.8694, acc: 0.8262, precision: 0.9019, recall: 0.8517, f1: 0.8761, edges-ner-ontonotes_loss: 0.0387
+09/09 04:02:18 PM: Update 15916: task edges-ner-ontonotes, batch 916 (15916): mcc: 0.8747, acc: 0.8335, precision: 0.9065, recall: 0.8572, f1: 0.8812, edges-ner-ontonotes_loss: 0.0370
+09/09 04:02:21 PM: ***** Step 16000 / Validation 16 *****
+09/09 04:02:21 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:02:21 PM: Validating...
+09/09 04:02:26 PM: Updating LR scheduler:
+09/09 04:02:26 PM: 	Best result seen so far for macro_avg: 0.868
+09/09 04:02:26 PM: 	# validation passes without improvement: 1
+09/09 04:02:26 PM: edges-ner-ontonotes_loss: training: 0.036643 validation: 0.043375
+09/09 04:02:26 PM: macro_avg: validation: 0.865879
+09/09 04:02:26 PM: micro_avg: validation: 0.000000
+09/09 04:02:26 PM: edges-ner-ontonotes_mcc: training: 0.875989 validation: 0.858881
+09/09 04:02:26 PM: edges-ner-ontonotes_acc: training: 0.834835 validation: 0.824386
+09/09 04:02:26 PM: edges-ner-ontonotes_precision: training: 0.907653 validation: 0.897551
+09/09 04:02:26 PM: edges-ner-ontonotes_recall: training: 0.858374 validation: 0.836366
+09/09 04:02:26 PM: edges-ner-ontonotes_f1: training: 0.882326 validation: 0.865879
+09/09 04:02:26 PM: Global learning rate: 0.0001
+09/09 04:02:26 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:02:28 PM: Update 16061: task edges-ner-ontonotes, batch 61 (16061): mcc: 0.8897, acc: 0.8530, precision: 0.9198, recall: 0.8721, f1: 0.8953, edges-ner-ontonotes_loss: 0.0332
+09/09 04:02:38 PM: Update 16285: task edges-ner-ontonotes, batch 285 (16285): mcc: 0.8764, acc: 0.8353, precision: 0.9062, recall: 0.8606, f1: 0.8828, edges-ner-ontonotes_loss: 0.0355
+09/09 04:02:48 PM: Update 16501: task edges-ner-ontonotes, batch 501 (16501): mcc: 0.8775, acc: 0.8354, precision: 0.9061, recall: 0.8627, f1: 0.8839, edges-ner-ontonotes_loss: 0.0344
+09/09 04:02:58 PM: Update 16783: task edges-ner-ontonotes, batch 783 (16783): mcc: 0.8777, acc: 0.8344, precision: 0.9059, recall: 0.8632, f1: 0.8840, edges-ner-ontonotes_loss: 0.0342
+09/09 04:03:07 PM: ***** Step 17000 / Validation 17 *****
+09/09 04:03:07 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:03:07 PM: Validating...
+09/09 04:03:08 PM: Evaluate: task edges-ner-ontonotes, batch 47 (157): mcc: 0.8711, acc: 0.8408, precision: 0.9036, recall: 0.8533, f1: 0.8777, edges-ner-ontonotes_loss: 0.0449
+09/09 04:03:12 PM: Updating LR scheduler:
+09/09 04:03:12 PM: 	Best result seen so far for macro_avg: 0.868
+09/09 04:03:12 PM: 	# validation passes without improvement: 2
+09/09 04:03:12 PM: edges-ner-ontonotes_loss: training: 0.036197 validation: 0.044610
+09/09 04:03:12 PM: macro_avg: validation: 0.863925
+09/09 04:03:12 PM: micro_avg: validation: 0.000000
+09/09 04:03:12 PM: edges-ner-ontonotes_mcc: training: 0.873759 validation: 0.857112
+09/09 04:03:12 PM: edges-ner-ontonotes_acc: training: 0.830098 validation: 0.820443
+09/09 04:03:12 PM: edges-ner-ontonotes_precision: training: 0.904057 validation: 0.901641
+09/09 04:03:12 PM: edges-ner-ontonotes_recall: training: 0.857699 validation: 0.829239
+09/09 04:03:12 PM: edges-ner-ontonotes_f1: training: 0.880268 validation: 0.863925
+09/09 04:03:12 PM: Global learning rate: 0.0001
+09/09 04:03:12 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:03:18 PM: Update 17141: task edges-ner-ontonotes, batch 141 (17141): mcc: 0.8650, acc: 0.8198, precision: 0.9027, recall: 0.8428, f1: 0.8717, edges-ner-ontonotes_loss: 0.0415
+09/09 04:03:29 PM: Update 17430: task edges-ner-ontonotes, batch 430 (17430): mcc: 0.8861, acc: 0.8488, precision: 0.9160, recall: 0.8691, f1: 0.8920, edges-ner-ontonotes_loss: 0.0349
+09/09 04:03:39 PM: Update 17720: task edges-ner-ontonotes, batch 720 (17720): mcc: 0.8838, acc: 0.8454, precision: 0.9143, recall: 0.8664, f1: 0.8897, edges-ner-ontonotes_loss: 0.0349
+09/09 04:03:49 PM: Update 17920: task edges-ner-ontonotes, batch 920 (17920): mcc: 0.8810, acc: 0.8414, precision: 0.9108, recall: 0.8646, f1: 0.8871, edges-ner-ontonotes_loss: 0.0350
+09/09 04:03:52 PM: ***** Step 18000 / Validation 18 *****
+09/09 04:03:52 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:03:52 PM: Validating...
+09/09 04:03:57 PM: Updating LR scheduler:
+09/09 04:03:57 PM: 	Best result seen so far for macro_avg: 0.868
+09/09 04:03:57 PM: 	# validation passes without improvement: 3
+09/09 04:03:57 PM: edges-ner-ontonotes_loss: training: 0.034589 validation: 0.043779
+09/09 04:03:57 PM: macro_avg: validation: 0.867564
+09/09 04:03:57 PM: micro_avg: validation: 0.000000
+09/09 04:03:57 PM: edges-ner-ontonotes_mcc: training: 0.881779 validation: 0.860413
+09/09 04:03:57 PM: edges-ner-ontonotes_acc: training: 0.842012 validation: 0.820898
+09/09 04:03:57 PM: edges-ner-ontonotes_precision: training: 0.911061 validation: 0.893388
+09/09 04:03:57 PM: edges-ner-ontonotes_recall: training: 0.865845 validation: 0.843191
+09/09 04:03:57 PM: edges-ner-ontonotes_f1: training: 0.887878 validation: 0.867564
+09/09 04:03:57 PM: Global learning rate: 0.0001
+09/09 04:03:57 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:04:00 PM: Update 18056: task edges-ner-ontonotes, batch 56 (18056): mcc: 0.8781, acc: 0.8338, precision: 0.9046, recall: 0.8653, f1: 0.8845, edges-ner-ontonotes_loss: 0.0331
+09/09 04:04:10 PM: Update 18339: task edges-ner-ontonotes, batch 339 (18339): mcc: 0.8779, acc: 0.8331, precision: 0.9051, recall: 0.8644, f1: 0.8843, edges-ner-ontonotes_loss: 0.0332
+09/09 04:04:20 PM: Update 18570: task edges-ner-ontonotes, batch 570 (18570): mcc: 0.8706, acc: 0.8254, precision: 0.9014, recall: 0.8545, f1: 0.8773, edges-ner-ontonotes_loss: 0.0376
+09/09 04:04:30 PM: Update 18813: task edges-ner-ontonotes, batch 813 (18813): mcc: 0.8730, acc: 0.8295, precision: 0.9040, recall: 0.8564, f1: 0.8796, edges-ner-ontonotes_loss: 0.0375
+09/09 04:04:38 PM: ***** Step 19000 / Validation 19 *****
+09/09 04:04:38 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:04:38 PM: Validating...
+09/09 04:04:40 PM: Evaluate: task edges-ner-ontonotes, batch 73 (157): mcc: 0.8695, acc: 0.8308, precision: 0.9103, recall: 0.8439, f1: 0.8758, edges-ner-ontonotes_loss: 0.0434
+09/09 04:04:43 PM: Updating LR scheduler:
+09/09 04:04:43 PM: 	Best result seen so far for macro_avg: 0.868
+09/09 04:04:43 PM: 	# validation passes without improvement: 4
+09/09 04:04:43 PM: edges-ner-ontonotes_loss: training: 0.036259 validation: 0.043637
+09/09 04:04:43 PM: macro_avg: validation: 0.861969
+09/09 04:04:43 PM: micro_avg: validation: 0.000000
+09/09 04:04:43 PM: edges-ner-ontonotes_mcc: training: 0.877164 validation: 0.855247
+09/09 04:04:43 PM: edges-ner-ontonotes_acc: training: 0.835288 validation: 0.813543
+09/09 04:04:43 PM: edges-ner-ontonotes_precision: training: 0.907071 validation: 0.903416
+09/09 04:04:43 PM: edges-ner-ontonotes_recall: training: 0.861118 validation: 0.824158
+09/09 04:04:43 PM: edges-ner-ontonotes_f1: training: 0.883497 validation: 0.861969
+09/09 04:04:43 PM: Global learning rate: 0.0001
+09/09 04:04:43 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:04:50 PM: Update 19206: task edges-ner-ontonotes, batch 206 (19206): mcc: 0.8765, acc: 0.8358, precision: 0.9069, recall: 0.8600, f1: 0.8829, edges-ner-ontonotes_loss: 0.0350
+09/09 04:05:00 PM: Update 19430: task edges-ner-ontonotes, batch 430 (19430): mcc: 0.8785, acc: 0.8373, precision: 0.9078, recall: 0.8629, f1: 0.8848, edges-ner-ontonotes_loss: 0.0344
+09/09 04:05:10 PM: Update 19648: task edges-ner-ontonotes, batch 648 (19648): mcc: 0.8772, acc: 0.8355, precision: 0.9057, recall: 0.8625, f1: 0.8835, edges-ner-ontonotes_loss: 0.0341
+09/09 04:05:21 PM: Update 19925: task edges-ner-ontonotes, batch 925 (19925): mcc: 0.8780, acc: 0.8353, precision: 0.9060, recall: 0.8638, f1: 0.8844, edges-ner-ontonotes_loss: 0.0338
+09/09 04:05:24 PM: ***** Step 20000 / Validation 20 *****
+09/09 04:05:24 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:05:24 PM: Validating...
+09/09 04:05:29 PM: Updating LR scheduler:
+09/09 04:05:29 PM: 	Best result seen so far for macro_avg: 0.868
+09/09 04:05:29 PM: 	# validation passes without improvement: 5
+09/09 04:05:29 PM: edges-ner-ontonotes_loss: training: 0.034882 validation: 0.043065
+09/09 04:05:29 PM: macro_avg: validation: 0.867162
+09/09 04:05:29 PM: micro_avg: validation: 0.000000
+09/09 04:05:29 PM: edges-ner-ontonotes_mcc: training: 0.875967 validation: 0.860821
+09/09 04:05:29 PM: edges-ner-ontonotes_acc: training: 0.833034 validation: 0.819230
+09/09 04:05:29 PM: edges-ner-ontonotes_precision: training: 0.904503 validation: 0.910364
+09/09 04:05:29 PM: edges-ner-ontonotes_recall: training: 0.861377 validation: 0.827874
+09/09 04:05:29 PM: edges-ner-ontonotes_f1: training: 0.882413 validation: 0.867162
+09/09 04:05:29 PM: Global learning rate: 0.0001
+09/09 04:05:29 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:05:31 PM: Update 20076: task edges-ner-ontonotes, batch 76 (20076): mcc: 0.8571, acc: 0.8103, precision: 0.8964, recall: 0.8342, f1: 0.8642, edges-ner-ontonotes_loss: 0.0433
+09/09 04:05:42 PM: Update 20329: task edges-ner-ontonotes, batch 329 (20329): mcc: 0.8707, acc: 0.8286, precision: 0.9055, recall: 0.8507, f1: 0.8772, edges-ner-ontonotes_loss: 0.0398
+09/09 04:05:52 PM: Update 20555: task edges-ner-ontonotes, batch 555 (20555): mcc: 0.8800, acc: 0.8412, precision: 0.9116, recall: 0.8621, f1: 0.8862, edges-ner-ontonotes_loss: 0.0367
+09/09 04:06:02 PM: Update 20846: task edges-ner-ontonotes, batch 846 (20846): mcc: 0.8819, acc: 0.8437, precision: 0.9127, recall: 0.8645, f1: 0.8879, edges-ner-ontonotes_loss: 0.0357
+09/09 04:06:08 PM: ***** Step 21000 / Validation 21 *****
+09/09 04:06:08 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:06:08 PM: Validating...
+09/09 04:06:12 PM: Evaluate: task edges-ner-ontonotes, batch 104 (157): mcc: 0.8566, acc: 0.8205, precision: 0.8962, recall: 0.8335, f1: 0.8637, edges-ner-ontonotes_loss: 0.0474
+09/09 04:06:13 PM: Best result seen so far for edges-ner-ontonotes.
+09/09 04:06:13 PM: Best result seen so far for macro.
+09/09 04:06:13 PM: Updating LR scheduler:
+09/09 04:06:13 PM: 	Best result seen so far for macro_avg: 0.870
+09/09 04:06:13 PM: 	# validation passes without improvement: 0
+09/09 04:06:13 PM: edges-ner-ontonotes_loss: training: 0.035466 validation: 0.043277
+09/09 04:06:13 PM: macro_avg: validation: 0.870098
+09/09 04:06:13 PM: micro_avg: validation: 0.000000
+09/09 04:06:13 PM: edges-ner-ontonotes_mcc: training: 0.880665 validation: 0.863139
+09/09 04:06:13 PM: edges-ner-ontonotes_acc: training: 0.841269 validation: 0.826281
+09/09 04:06:13 PM: edges-ner-ontonotes_precision: training: 0.910560 validation: 0.897149
+09/09 04:06:13 PM: edges-ner-ontonotes_recall: training: 0.864258 validation: 0.844631
+09/09 04:06:13 PM: edges-ner-ontonotes_f1: training: 0.886805 validation: 0.870098
+09/09 04:06:13 PM: Global learning rate: 0.0001
+09/09 04:06:13 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:06:22 PM: Update 21170: task edges-ner-ontonotes, batch 170 (21170): mcc: 0.8779, acc: 0.8346, precision: 0.9066, recall: 0.8630, f1: 0.8843, edges-ner-ontonotes_loss: 0.0333
+09/09 04:06:32 PM: Update 21456: task edges-ner-ontonotes, batch 456 (21456): mcc: 0.8781, acc: 0.8339, precision: 0.9061, recall: 0.8638, f1: 0.8844, edges-ner-ontonotes_loss: 0.0333
+09/09 04:06:42 PM: Update 21694: task edges-ner-ontonotes, batch 694 (21694): mcc: 0.8723, acc: 0.8277, precision: 0.9028, recall: 0.8561, f1: 0.8789, edges-ner-ontonotes_loss: 0.0367
+09/09 04:06:52 PM: Update 21939: task edges-ner-ontonotes, batch 939 (21939): mcc: 0.8735, acc: 0.8301, precision: 0.9042, recall: 0.8570, f1: 0.8800, edges-ner-ontonotes_loss: 0.0367
+09/09 04:06:54 PM: ***** Step 22000 / Validation 22 *****
+09/09 04:06:54 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:06:54 PM: Validating...
+09/09 04:06:59 PM: Updating LR scheduler:
+09/09 04:06:59 PM: 	Best result seen so far for macro_avg: 0.870
+09/09 04:06:59 PM: 	# validation passes without improvement: 1
+09/09 04:06:59 PM: edges-ner-ontonotes_loss: training: 0.036353 validation: 0.043926
+09/09 04:06:59 PM: macro_avg: validation: 0.860709
+09/09 04:06:59 PM: micro_avg: validation: 0.000000
+09/09 04:06:59 PM: edges-ner-ontonotes_mcc: training: 0.875235 validation: 0.853718
+09/09 04:06:59 PM: edges-ner-ontonotes_acc: training: 0.832518 validation: 0.816955
+09/09 04:06:59 PM: edges-ner-ontonotes_precision: training: 0.905645 validation: 0.898400
+09/09 04:06:59 PM: edges-ner-ontonotes_recall: training: 0.858909 validation: 0.826054
+09/09 04:06:59 PM: edges-ner-ontonotes_f1: training: 0.881658 validation: 0.860709
+09/09 04:06:59 PM: Global learning rate: 0.0001
+09/09 04:06:59 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:07:02 PM: Update 22097: task edges-ner-ontonotes, batch 97 (22097): mcc: 0.9052, acc: 0.8754, precision: 0.9281, recall: 0.8930, f1: 0.9102, edges-ner-ontonotes_loss: 0.0296
+09/09 04:07:12 PM: Update 22323: task edges-ner-ontonotes, batch 323 (22323): mcc: 0.8876, acc: 0.8513, precision: 0.9169, recall: 0.8710, f1: 0.8934, edges-ner-ontonotes_loss: 0.0330
+09/09 04:07:22 PM: Update 22543: task edges-ner-ontonotes, batch 543 (22543): mcc: 0.8829, acc: 0.8440, precision: 0.9122, recall: 0.8668, f1: 0.8890, edges-ner-ontonotes_loss: 0.0337
+09/09 04:07:32 PM: Update 22765: task edges-ner-ontonotes, batch 765 (22765): mcc: 0.8822, acc: 0.8416, precision: 0.9106, recall: 0.8671, f1: 0.8883, edges-ner-ontonotes_loss: 0.0332
+09/09 04:07:40 PM: ***** Step 23000 / Validation 23 *****
+09/09 04:07:40 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:07:40 PM: Validating...
+09/09 04:07:42 PM: Evaluate: task edges-ner-ontonotes, batch 58 (157): mcc: 0.8616, acc: 0.8323, precision: 0.8911, recall: 0.8476, f1: 0.8688, edges-ner-ontonotes_loss: 0.0466
+09/09 04:07:45 PM: Best result seen so far for edges-ner-ontonotes.
+09/09 04:07:45 PM: Best result seen so far for macro.
+09/09 04:07:45 PM: Updating LR scheduler:
+09/09 04:07:45 PM: 	Best result seen so far for macro_avg: 0.872
+09/09 04:07:45 PM: 	# validation passes without improvement: 0
+09/09 04:07:45 PM: edges-ner-ontonotes_loss: training: 0.033181 validation: 0.043368
+09/09 04:07:45 PM: macro_avg: validation: 0.871765
+09/09 04:07:45 PM: micro_avg: validation: 0.000000
+09/09 04:07:45 PM: edges-ner-ontonotes_mcc: training: 0.881588 validation: 0.864773
+09/09 04:07:45 PM: edges-ner-ontonotes_acc: training: 0.839936 validation: 0.826888
+09/09 04:07:45 PM: edges-ner-ontonotes_precision: training: 0.909817 validation: 0.895499
+09/09 04:07:45 PM: edges-ner-ontonotes_recall: training: 0.866694 validation: 0.849257
+09/09 04:07:45 PM: edges-ner-ontonotes_f1: training: 0.887732 validation: 0.871765
+09/09 04:07:45 PM: Global learning rate: 0.0001
+09/09 04:07:45 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:07:52 PM: Update 23159: task edges-ner-ontonotes, batch 159 (23159): mcc: 0.8592, acc: 0.8139, precision: 0.8948, recall: 0.8396, f1: 0.8663, edges-ner-ontonotes_loss: 0.0430
+09/09 04:08:02 PM: Update 23406: task edges-ner-ontonotes, batch 406 (23406): mcc: 0.8667, acc: 0.8232, precision: 0.9008, recall: 0.8477, f1: 0.8734, edges-ner-ontonotes_loss: 0.0410
+09/09 04:08:12 PM: Update 23666: task edges-ner-ontonotes, batch 666 (23666): mcc: 0.8764, acc: 0.8364, precision: 0.9074, recall: 0.8593, f1: 0.8827, edges-ner-ontonotes_loss: 0.0374
+09/09 04:08:22 PM: Update 23958: task edges-ner-ontonotes, batch 958 (23958): mcc: 0.8789, acc: 0.8393, precision: 0.9096, recall: 0.8619, f1: 0.8851, edges-ner-ontonotes_loss: 0.0363
+09/09 04:08:26 PM: ***** Step 24000 / Validation 24 *****
+09/09 04:08:26 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:08:26 PM: Validating...
+09/09 04:08:31 PM: Updating LR scheduler:
+09/09 04:08:31 PM: 	Best result seen so far for macro_avg: 0.872
+09/09 04:08:31 PM: 	# validation passes without improvement: 1
+09/09 04:08:31 PM: edges-ner-ontonotes_loss: training: 0.036214 validation: 0.043088
+09/09 04:08:31 PM: macro_avg: validation: 0.869372
+09/09 04:08:31 PM: micro_avg: validation: 0.000000
+09/09 04:08:31 PM: edges-ner-ontonotes_mcc: training: 0.878556 validation: 0.862300
+09/09 04:08:31 PM: edges-ner-ontonotes_acc: training: 0.838710 validation: 0.825902
+09/09 04:08:31 PM: edges-ner-ontonotes_precision: training: 0.909040 validation: 0.894585
+09/09 04:08:31 PM: edges-ner-ontonotes_recall: training: 0.861805 validation: 0.845541
+09/09 04:08:31 PM: edges-ner-ontonotes_f1: training: 0.884792 validation: 0.869372
+09/09 04:08:31 PM: Global learning rate: 0.0001
+09/09 04:08:31 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:08:32 PM: Update 24016: task edges-ner-ontonotes, batch 16 (24016): mcc: 0.8895, acc: 0.8407, precision: 0.9144, recall: 0.8769, f1: 0.8953, edges-ner-ontonotes_loss: 0.0328
+09/09 04:08:43 PM: Update 24280: task edges-ner-ontonotes, batch 280 (24280): mcc: 0.8807, acc: 0.8363, precision: 0.9066, recall: 0.8683, f1: 0.8870, edges-ner-ontonotes_loss: 0.0329
+09/09 04:08:53 PM: Update 24559: task edges-ner-ontonotes, batch 559 (24559): mcc: 0.8786, acc: 0.8331, precision: 0.9050, recall: 0.8658, f1: 0.8850, edges-ner-ontonotes_loss: 0.0330
+09/09 04:09:03 PM: Update 24794: task edges-ner-ontonotes, batch 794 (24794): mcc: 0.8743, acc: 0.8292, precision: 0.9031, recall: 0.8596, f1: 0.8808, edges-ner-ontonotes_loss: 0.0358
+09/09 04:09:12 PM: ***** Step 25000 / Validation 25 *****
+09/09 04:09:12 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:09:12 PM: Validating...
+09/09 04:09:13 PM: Evaluate: task edges-ner-ontonotes, batch 34 (157): mcc: 0.8577, acc: 0.8260, precision: 0.8920, recall: 0.8396, f1: 0.8650, edges-ner-ontonotes_loss: 0.0471
+09/09 04:09:17 PM: Updating LR scheduler:
+09/09 04:09:17 PM: 	Best result seen so far for macro_avg: 0.872
+09/09 04:09:17 PM: 	# validation passes without improvement: 2
+09/09 04:09:17 PM: edges-ner-ontonotes_loss: training: 0.036143 validation: 0.043965
+09/09 04:09:17 PM: macro_avg: validation: 0.862032
+09/09 04:09:17 PM: micro_avg: validation: 0.000000
+09/09 04:09:17 PM: edges-ner-ontonotes_mcc: training: 0.874814 validation: 0.855384
+09/09 04:09:17 PM: edges-ner-ontonotes_acc: training: 0.830813 validation: 0.814377
+09/09 04:09:17 PM: edges-ner-ontonotes_precision: training: 0.904002 validation: 0.904742
+09/09 04:09:17 PM: edges-ner-ontonotes_recall: training: 0.859715 validation: 0.823173
+09/09 04:09:17 PM: edges-ner-ontonotes_f1: training: 0.881302 validation: 0.862032
+09/09 04:09:17 PM: Global learning rate: 0.0001
+09/09 04:09:17 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:09:23 PM: Update 25189: task edges-ner-ontonotes, batch 189 (25189): mcc: 0.9021, acc: 0.8727, precision: 0.9260, recall: 0.8892, f1: 0.9072, edges-ner-ontonotes_loss: 0.0305
+09/09 04:09:33 PM: Update 25418: task edges-ner-ontonotes, batch 418 (25418): mcc: 0.8910, acc: 0.8560, precision: 0.9179, recall: 0.8764, f1: 0.8967, edges-ner-ontonotes_loss: 0.0324
+09/09 04:09:43 PM: Update 25642: task edges-ner-ontonotes, batch 642 (25642): mcc: 0.8864, acc: 0.8489, precision: 0.9139, recall: 0.8717, f1: 0.8923, edges-ner-ontonotes_loss: 0.0330
+09/09 04:09:53 PM: Update 25861: task edges-ner-ontonotes, batch 861 (25861): mcc: 0.8848, acc: 0.8454, precision: 0.9119, recall: 0.8706, f1: 0.8908, edges-ner-ontonotes_loss: 0.0329
+09/09 04:09:58 PM: ***** Step 26000 / Validation 26 *****
+09/09 04:09:58 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:09:58 PM: Validating...
+09/09 04:10:03 PM: Updating LR scheduler:
+09/09 04:10:03 PM: 	Best result seen so far for macro_avg: 0.872
+09/09 04:10:03 PM: 	# validation passes without improvement: 3
+09/09 04:10:03 PM: edges-ner-ontonotes_loss: training: 0.032907 validation: 0.043404
+09/09 04:10:03 PM: macro_avg: validation: 0.868488
+09/09 04:10:03 PM: micro_avg: validation: 0.000000
+09/09 04:10:03 PM: edges-ner-ontonotes_mcc: training: 0.883969 validation: 0.861713
+09/09 04:10:03 PM: edges-ner-ontonotes_acc: training: 0.843934 validation: 0.823703
+09/09 04:10:03 PM: edges-ner-ontonotes_precision: training: 0.911216 validation: 0.901854
+09/09 04:10:03 PM: edges-ner-ontonotes_recall: training: 0.869772 validation: 0.837504
+09/09 04:10:03 PM: edges-ner-ontonotes_f1: training: 0.890012 validation: 0.868488
+09/09 04:10:03 PM: Global learning rate: 0.0001
+09/09 04:10:03 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:10:03 PM: Update 26002: task edges-ner-ontonotes, batch 2 (26002): mcc: 0.9080, acc: 0.8596, precision: 0.9438, recall: 0.8830, f1: 0.9124, edges-ner-ontonotes_loss: 0.0236
+09/09 04:10:13 PM: Update 26251: task edges-ner-ontonotes, batch 251 (26251): mcc: 0.8713, acc: 0.8265, precision: 0.9025, recall: 0.8547, f1: 0.8779, edges-ner-ontonotes_loss: 0.0377
+09/09 04:10:23 PM: Update 26500: task edges-ner-ontonotes, batch 500 (26500): mcc: 0.8708, acc: 0.8272, precision: 0.9036, recall: 0.8526, f1: 0.8774, edges-ner-ontonotes_loss: 0.0391
+09/09 04:10:33 PM: Update 26766: task edges-ner-ontonotes, batch 766 (26766): mcc: 0.8797, acc: 0.8395, precision: 0.9094, recall: 0.8636, f1: 0.8859, edges-ner-ontonotes_loss: 0.0363
+09/09 04:10:41 PM: ***** Step 27000 / Validation 27 *****
+09/09 04:10:41 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:10:41 PM: Validating...
+09/09 04:10:43 PM: Evaluate: task edges-ner-ontonotes, batch 48 (157): mcc: 0.8611, acc: 0.8332, precision: 0.8925, recall: 0.8455, f1: 0.8683, edges-ner-ontonotes_loss: 0.0442
+09/09 04:10:47 PM: Updating LR scheduler:
+09/09 04:10:47 PM: 	Best result seen so far for macro_avg: 0.872
+09/09 04:10:47 PM: 	# validation passes without improvement: 4
+09/09 04:10:47 PM: edges-ner-ontonotes_loss: training: 0.035766 validation: 0.043121
+09/09 04:10:47 PM: macro_avg: validation: 0.867887
+09/09 04:10:47 PM: micro_avg: validation: 0.000000
+09/09 04:10:47 PM: edges-ner-ontonotes_mcc: training: 0.880336 validation: 0.861055
+09/09 04:10:47 PM: edges-ner-ontonotes_acc: training: 0.840694 validation: 0.825675
+09/09 04:10:47 PM: edges-ner-ontonotes_precision: training: 0.909890 validation: 0.900734
+09/09 04:10:47 PM: edges-ner-ontonotes_recall: training: 0.864293 validation: 0.837352
+09/09 04:10:47 PM: edges-ner-ontonotes_f1: training: 0.886506 validation: 0.867887
+09/09 04:10:47 PM: Global learning rate: 0.0001
+09/09 04:10:47 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:10:53 PM: Update 27117: task edges-ner-ontonotes, batch 117 (27117): mcc: 0.8827, acc: 0.8437, precision: 0.9087, recall: 0.8697, f1: 0.8888, edges-ner-ontonotes_loss: 0.0343
+09/09 04:11:04 PM: Update 27392: task edges-ner-ontonotes, batch 392 (27392): mcc: 0.8803, acc: 0.8377, precision: 0.9065, recall: 0.8675, f1: 0.8866, edges-ner-ontonotes_loss: 0.0334
+09/09 04:11:14 PM: Update 27676: task edges-ner-ontonotes, batch 676 (27676): mcc: 0.8801, acc: 0.8373, precision: 0.9061, recall: 0.8676, f1: 0.8864, edges-ner-ontonotes_loss: 0.0330
+09/09 04:11:24 PM: Update 27909: task edges-ner-ontonotes, batch 909 (27909): mcc: 0.8758, acc: 0.8327, precision: 0.9037, recall: 0.8618, f1: 0.8823, edges-ner-ontonotes_loss: 0.0354
+09/09 04:11:27 PM: ***** Step 28000 / Validation 28 *****
+09/09 04:11:27 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:11:27 PM: Validating...
+09/09 04:11:33 PM: Updating LR scheduler:
+09/09 04:11:33 PM: 	Best result seen so far for macro_avg: 0.872
+09/09 04:11:33 PM: 	# validation passes without improvement: 5
+09/09 04:11:33 PM: edges-ner-ontonotes_loss: training: 0.036169 validation: 0.044605
+09/09 04:11:33 PM: macro_avg: validation: 0.863921
+09/09 04:11:33 PM: micro_avg: validation: 0.000000
+09/09 04:11:33 PM: edges-ner-ontonotes_mcc: training: 0.874617 validation: 0.857339
+09/09 04:11:33 PM: edges-ner-ontonotes_acc: training: 0.831741 validation: 0.817258
+09/09 04:11:33 PM: edges-ner-ontonotes_precision: training: 0.902686 validation: 0.905974
+09/09 04:11:33 PM: edges-ner-ontonotes_recall: training: 0.860624 validation: 0.825599
+09/09 04:11:33 PM: edges-ner-ontonotes_f1: training: 0.881153 validation: 0.863921
+09/09 04:11:33 PM: Global learning rate: 0.0001
+09/09 04:11:33 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:11:35 PM: Update 28009: task edges-ner-ontonotes, batch 9 (28009): mcc: 0.8473, acc: 0.7921, precision: 0.8966, recall: 0.8160, f1: 0.8544, edges-ner-ontonotes_loss: 0.0445
+09/09 04:11:47 PM: Update 28322: task edges-ner-ontonotes, batch 322 (28322): mcc: 0.8961, acc: 0.8624, precision: 0.9210, recall: 0.8829, f1: 0.9015, edges-ner-ontonotes_loss: 0.0318
+09/09 04:11:57 PM: Update 28614: task edges-ner-ontonotes, batch 614 (28614): mcc: 0.8889, acc: 0.8526, precision: 0.9163, recall: 0.8740, f1: 0.8946, edges-ner-ontonotes_loss: 0.0330
+09/09 04:12:07 PM: Update 28858: task edges-ner-ontonotes, batch 858 (28858): mcc: 0.8850, acc: 0.8463, precision: 0.9119, recall: 0.8710, f1: 0.8910, edges-ner-ontonotes_loss: 0.0331
+09/09 04:12:14 PM: ***** Step 29000 / Validation 29 *****
+09/09 04:12:14 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:12:14 PM: Validating...
+09/09 04:12:17 PM: Evaluate: task edges-ner-ontonotes, batch 70 (157): mcc: 0.8609, acc: 0.8291, precision: 0.8959, recall: 0.8417, f1: 0.8680, edges-ner-ontonotes_loss: 0.0485
+09/09 04:12:20 PM: Updating LR scheduler:
+09/09 04:12:20 PM: 	Best result seen so far for macro_avg: 0.872
+09/09 04:12:20 PM: 	# validation passes without improvement: 0
+09/09 04:12:20 PM: edges-ner-ontonotes_loss: training: 0.033109 validation: 0.043280
+09/09 04:12:20 PM: macro_avg: validation: 0.870678
+09/09 04:12:20 PM: micro_avg: validation: 0.000000
+09/09 04:12:20 PM: edges-ner-ontonotes_mcc: training: 0.884090 validation: 0.863720
+09/09 04:12:20 PM: edges-ner-ontonotes_acc: training: 0.844637 validation: 0.831589
+09/09 04:12:20 PM: edges-ner-ontonotes_precision: training: 0.910740 validation: 0.896929
+09/09 04:12:20 PM: edges-ner-ontonotes_recall: training: 0.870460 validation: 0.845921
+09/09 04:12:20 PM: edges-ner-ontonotes_f1: training: 0.890145 validation: 0.870678
+09/09 04:12:20 PM: Global learning rate: 5e-05
+09/09 04:12:20 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:12:27 PM: Update 29202: task edges-ner-ontonotes, batch 202 (29202): mcc: 0.8793, acc: 0.8357, precision: 0.9066, recall: 0.8655, f1: 0.8856, edges-ner-ontonotes_loss: 0.0334
+09/09 04:12:37 PM: Update 29431: task edges-ner-ontonotes, batch 431 (29431): mcc: 0.8726, acc: 0.8283, precision: 0.9027, recall: 0.8568, f1: 0.8792, edges-ner-ontonotes_loss: 0.0373
+09/09 04:12:47 PM: Update 29707: task edges-ner-ontonotes, batch 707 (29707): mcc: 0.8740, acc: 0.8317, precision: 0.9042, recall: 0.8581, f1: 0.8805, edges-ner-ontonotes_loss: 0.0373
+09/09 04:12:57 PM: Update 29955: task edges-ner-ontonotes, batch 955 (29955): mcc: 0.8780, acc: 0.8374, precision: 0.9077, recall: 0.8621, f1: 0.8843, edges-ner-ontonotes_loss: 0.0360
+09/09 04:12:59 PM: ***** Step 30000 / Validation 30 *****
+09/09 04:12:59 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:12:59 PM: Validating...
+09/09 04:13:04 PM: Updating LR scheduler:
+09/09 04:13:04 PM: 	Best result seen so far for macro_avg: 0.872
+09/09 04:13:04 PM: 	# validation passes without improvement: 1
+09/09 04:13:04 PM: edges-ner-ontonotes_loss: training: 0.035884 validation: 0.042428
+09/09 04:13:04 PM: macro_avg: validation: 0.870057
+09/09 04:13:04 PM: micro_avg: validation: 0.000000
+09/09 04:13:04 PM: edges-ner-ontonotes_mcc: training: 0.878485 validation: 0.863279
+09/09 04:13:04 PM: edges-ner-ontonotes_acc: training: 0.838099 validation: 0.828784
+09/09 04:13:04 PM: edges-ner-ontonotes_precision: training: 0.908102 validation: 0.901463
+09/09 04:13:04 PM: edges-ner-ontonotes_recall: training: 0.862579 validation: 0.840764
+09/09 04:13:04 PM: edges-ner-ontonotes_f1: training: 0.884756 validation: 0.870057
+09/09 04:13:04 PM: Global learning rate: 5e-05
+09/09 04:13:04 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:13:07 PM: Update 30106: task edges-ner-ontonotes, batch 106 (30106): mcc: 0.8861, acc: 0.8517, precision: 0.9106, recall: 0.8743, f1: 0.8921, edges-ner-ontonotes_loss: 0.0335
+09/09 04:13:17 PM: Update 30324: task edges-ner-ontonotes, batch 324 (30324): mcc: 0.8813, acc: 0.8406, precision: 0.9089, recall: 0.8671, f1: 0.8875, edges-ner-ontonotes_loss: 0.0337
+09/09 04:13:27 PM: Update 30543: task edges-ner-ontonotes, batch 543 (30543): mcc: 0.8812, acc: 0.8395, precision: 0.9075, recall: 0.8682, f1: 0.8874, edges-ner-ontonotes_loss: 0.0332
+09/09 04:13:39 PM: Update 30817: task edges-ner-ontonotes, batch 817 (30817): mcc: 0.8809, acc: 0.8384, precision: 0.9074, recall: 0.8677, f1: 0.8871, edges-ner-ontonotes_loss: 0.0330
+09/09 04:13:45 PM: ***** Step 31000 / Validation 31 *****
+09/09 04:13:45 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:13:45 PM: Validating...
+09/09 04:13:49 PM: Evaluate: task edges-ner-ontonotes, batch 119 (157): mcc: 0.8520, acc: 0.8135, precision: 0.8979, recall: 0.8233, f1: 0.8590, edges-ner-ontonotes_loss: 0.0459
+09/09 04:13:50 PM: Updating LR scheduler:
+09/09 04:13:50 PM: 	Best result seen so far for macro_avg: 0.872
+09/09 04:13:50 PM: 	# validation passes without improvement: 2
+09/09 04:13:50 PM: edges-ner-ontonotes_loss: training: 0.034847 validation: 0.043145
+09/09 04:13:50 PM: macro_avg: validation: 0.866738
+09/09 04:13:50 PM: micro_avg: validation: 0.000000
+09/09 04:13:50 PM: edges-ner-ontonotes_mcc: training: 0.877302 validation: 0.860158
+09/09 04:13:50 PM: edges-ner-ontonotes_acc: training: 0.834630 validation: 0.821429
+09/09 04:13:50 PM: edges-ner-ontonotes_precision: training: 0.905607 validation: 0.905979
+09/09 04:13:50 PM: edges-ner-ontonotes_recall: training: 0.862793 validation: 0.830755
+09/09 04:13:50 PM: edges-ner-ontonotes_f1: training: 0.883682 validation: 0.866738
+09/09 04:13:50 PM: Global learning rate: 5e-05
+09/09 04:13:50 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:13:59 PM: Update 31203: task edges-ner-ontonotes, batch 203 (31203): mcc: 0.8706, acc: 0.8278, precision: 0.9036, recall: 0.8523, f1: 0.8772, edges-ner-ontonotes_loss: 0.0394
+09/09 04:14:09 PM: Update 31451: task edges-ner-ontonotes, batch 451 (31451): mcc: 0.8848, acc: 0.8470, precision: 0.9138, recall: 0.8689, f1: 0.8908, edges-ner-ontonotes_loss: 0.0347
+09/09 04:14:19 PM: Update 31742: task edges-ner-ontonotes, batch 742 (31742): mcc: 0.8854, acc: 0.8474, precision: 0.9141, recall: 0.8696, f1: 0.8913, edges-ner-ontonotes_loss: 0.0342
+09/09 04:14:29 PM: Update 31988: task edges-ner-ontonotes, batch 988 (31988): mcc: 0.8837, acc: 0.8439, precision: 0.9118, recall: 0.8686, f1: 0.8897, edges-ner-ontonotes_loss: 0.0338
+09/09 04:14:30 PM: ***** Step 32000 / Validation 32 *****
+09/09 04:14:30 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:14:30 PM: Validating...
+09/09 04:14:35 PM: Updating LR scheduler:
+09/09 04:14:35 PM: 	Best result seen so far for macro_avg: 0.872
+09/09 04:14:35 PM: 	# validation passes without improvement: 3
+09/09 04:14:35 PM: edges-ner-ontonotes_loss: training: 0.033818 validation: 0.043228
+09/09 04:14:35 PM: macro_avg: validation: 0.869565
+09/09 04:14:35 PM: micro_avg: validation: 0.000000
+09/09 04:14:35 PM: edges-ner-ontonotes_mcc: training: 0.883579 validation: 0.862728
+09/09 04:14:35 PM: edges-ner-ontonotes_acc: training: 0.843657 validation: 0.826130
+09/09 04:14:35 PM: edges-ner-ontonotes_precision: training: 0.911743 validation: 0.900235
+09/09 04:14:35 PM: edges-ner-ontonotes_recall: training: 0.868536 validation: 0.840916
+09/09 04:14:35 PM: edges-ner-ontonotes_f1: training: 0.889615 validation: 0.869565
+09/09 04:14:35 PM: Global learning rate: 5e-05
+09/09 04:14:35 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:14:40 PM: Update 32060: task edges-ner-ontonotes, batch 60 (32060): mcc: 0.8870, acc: 0.8446, precision: 0.9121, recall: 0.8746, f1: 0.8930, edges-ner-ontonotes_loss: 0.0309
+09/09 04:14:50 PM: Update 32347: task edges-ner-ontonotes, batch 347 (32347): mcc: 0.8821, acc: 0.8376, precision: 0.9070, recall: 0.8703, f1: 0.8883, edges-ner-ontonotes_loss: 0.0324
+09/09 04:15:00 PM: Update 32600: task edges-ner-ontonotes, batch 600 (32600): mcc: 0.8734, acc: 0.8286, precision: 0.9030, recall: 0.8580, f1: 0.8799, edges-ner-ontonotes_loss: 0.0369
+09/09 04:15:10 PM: Update 32860: task edges-ner-ontonotes, batch 860 (32860): mcc: 0.8777, acc: 0.8353, precision: 0.9072, recall: 0.8621, f1: 0.8841, edges-ner-ontonotes_loss: 0.0359
+09/09 04:15:17 PM: ***** Step 33000 / Validation 33 *****
+09/09 04:15:17 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:15:17 PM: Validating...
+09/09 04:15:20 PM: Evaluate: task edges-ner-ontonotes, batch 87 (157): mcc: 0.8768, acc: 0.8420, precision: 0.9146, recall: 0.8531, f1: 0.8828, edges-ner-ontonotes_loss: 0.0418
+09/09 04:15:22 PM: Updating LR scheduler:
+09/09 04:15:22 PM: 	Best result seen so far for macro_avg: 0.872
+09/09 04:15:22 PM: 	# validation passes without improvement: 4
+09/09 04:15:22 PM: edges-ner-ontonotes_loss: training: 0.035294 validation: 0.043067
+09/09 04:15:22 PM: macro_avg: validation: 0.866790
+09/09 04:15:22 PM: micro_avg: validation: 0.000000
+09/09 04:15:22 PM: edges-ner-ontonotes_mcc: training: 0.879809 validation: 0.860133
+09/09 04:15:22 PM: edges-ner-ontonotes_acc: training: 0.838500 validation: 0.822035
+09/09 04:15:22 PM: edges-ner-ontonotes_precision: training: 0.908630 validation: 0.904475
+09/09 04:15:22 PM: edges-ner-ontonotes_recall: training: 0.864531 validation: 0.832120
+09/09 04:15:22 PM: edges-ner-ontonotes_f1: training: 0.886032 validation: 0.866790
+09/09 04:15:22 PM: Global learning rate: 5e-05
+09/09 04:15:22 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:15:30 PM: Update 33223: task edges-ner-ontonotes, batch 223 (33223): mcc: 0.8806, acc: 0.8413, precision: 0.9103, recall: 0.8643, f1: 0.8867, edges-ner-ontonotes_loss: 0.0342
+09/09 04:15:40 PM: Update 33447: task edges-ner-ontonotes, batch 447 (33447): mcc: 0.8801, acc: 0.8399, precision: 0.9083, recall: 0.8654, f1: 0.8864, edges-ner-ontonotes_loss: 0.0336
+09/09 04:15:50 PM: Update 33692: task edges-ner-ontonotes, batch 692 (33692): mcc: 0.8805, acc: 0.8380, precision: 0.9082, recall: 0.8663, f1: 0.8867, edges-ner-ontonotes_loss: 0.0332
+09/09 04:16:00 PM: Update 33929: task edges-ner-ontonotes, batch 929 (33929): mcc: 0.8800, acc: 0.8372, precision: 0.9075, recall: 0.8660, f1: 0.8863, edges-ner-ontonotes_loss: 0.0331
+09/09 04:16:03 PM: ***** Step 34000 / Validation 34 *****
+09/09 04:16:03 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:16:03 PM: Validating...
+09/09 04:16:08 PM: Updating LR scheduler:
+09/09 04:16:08 PM: 	Best result seen so far for macro_avg: 0.872
+09/09 04:16:08 PM: 	# validation passes without improvement: 5
+09/09 04:16:08 PM: edges-ner-ontonotes_loss: training: 0.033992 validation: 0.043003
+09/09 04:16:08 PM: macro_avg: validation: 0.867582
+09/09 04:16:08 PM: micro_avg: validation: 0.000000
+09/09 04:16:08 PM: edges-ner-ontonotes_mcc: training: 0.877970 validation: 0.860925
+09/09 04:16:08 PM: edges-ner-ontonotes_acc: training: 0.835114 validation: 0.824158
+09/09 04:16:08 PM: edges-ner-ontonotes_precision: training: 0.906065 validation: 0.904409
+09/09 04:16:08 PM: edges-ner-ontonotes_recall: training: 0.863593 validation: 0.833637
+09/09 04:16:08 PM: edges-ner-ontonotes_f1: training: 0.884319 validation: 0.867582
+09/09 04:16:08 PM: Global learning rate: 5e-05
+09/09 04:16:08 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:16:10 PM: Update 34073: task edges-ner-ontonotes, batch 73 (34073): mcc: 0.8563, acc: 0.8090, precision: 0.8936, recall: 0.8354, f1: 0.8635, edges-ner-ontonotes_loss: 0.0447
+09/09 04:16:20 PM: Update 34322: task edges-ner-ontonotes, batch 322 (34322): mcc: 0.8705, acc: 0.8297, precision: 0.9033, recall: 0.8523, f1: 0.8771, edges-ner-ontonotes_loss: 0.0397
+09/09 04:16:30 PM: Update 34551: task edges-ner-ontonotes, batch 551 (34551): mcc: 0.8815, acc: 0.8440, precision: 0.9112, recall: 0.8653, f1: 0.8876, edges-ner-ontonotes_loss: 0.0359
+09/09 04:16:40 PM: Update 34845: task edges-ner-ontonotes, batch 845 (34845): mcc: 0.8826, acc: 0.8448, precision: 0.9118, recall: 0.8666, f1: 0.8886, edges-ner-ontonotes_loss: 0.0351
+09/09 04:16:47 PM: ***** Step 35000 / Validation 35 *****
+09/09 04:16:47 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:16:47 PM: Validating...
+09/09 04:16:50 PM: Evaluate: task edges-ner-ontonotes, batch 108 (157): mcc: 0.8585, acc: 0.8207, precision: 0.8995, recall: 0.8339, f1: 0.8654, edges-ner-ontonotes_loss: 0.0469
+09/09 04:16:53 PM: Best result seen so far for edges-ner-ontonotes.
+09/09 04:16:53 PM: Best result seen so far for macro.
+09/09 04:16:53 PM: Updating LR scheduler:
+09/09 04:16:53 PM: 	Best result seen so far for macro_avg: 0.872
+09/09 04:16:53 PM: 	# validation passes without improvement: 0
+09/09 04:16:53 PM: edges-ner-ontonotes_loss: training: 0.034808 validation: 0.042930
+09/09 04:16:53 PM: macro_avg: validation: 0.871935
+09/09 04:16:53 PM: micro_avg: validation: 0.000000
+09/09 04:16:53 PM: edges-ner-ontonotes_mcc: training: 0.881838 validation: 0.865190
+09/09 04:16:53 PM: edges-ner-ontonotes_acc: training: 0.842910 validation: 0.828632
+09/09 04:16:53 PM: edges-ner-ontonotes_precision: training: 0.910319 validation: 0.901669
+09/09 04:16:53 PM: edges-ner-ontonotes_recall: training: 0.866673 validation: 0.844101
+09/09 04:16:53 PM: edges-ner-ontonotes_f1: training: 0.887960 validation: 0.871935
+09/09 04:16:53 PM: Global learning rate: 5e-05
+09/09 04:16:53 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:17:01 PM: Update 35172: task edges-ner-ontonotes, batch 172 (35172): mcc: 0.8797, acc: 0.8376, precision: 0.9056, recall: 0.8674, f1: 0.8861, edges-ner-ontonotes_loss: 0.0325
+09/09 04:17:11 PM: Update 35453: task edges-ner-ontonotes, batch 453 (35453): mcc: 0.8793, acc: 0.8348, precision: 0.9066, recall: 0.8654, f1: 0.8856, edges-ner-ontonotes_loss: 0.0326
+09/09 04:17:21 PM: Update 35711: task edges-ner-ontonotes, batch 711 (35711): mcc: 0.8737, acc: 0.8299, precision: 0.9029, recall: 0.8586, f1: 0.8802, edges-ner-ontonotes_loss: 0.0360
+09/09 04:17:31 PM: Update 35975: task edges-ner-ontonotes, batch 975 (35975): mcc: 0.8764, acc: 0.8341, precision: 0.9054, recall: 0.8614, f1: 0.8828, edges-ner-ontonotes_loss: 0.0355
+09/09 04:17:32 PM: ***** Step 36000 / Validation 36 *****
+09/09 04:17:32 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:17:32 PM: Validating...
+09/09 04:17:38 PM: Updating LR scheduler:
+09/09 04:17:38 PM: 	Best result seen so far for macro_avg: 0.872
+09/09 04:17:38 PM: 	# validation passes without improvement: 1
+09/09 04:17:38 PM: edges-ner-ontonotes_loss: training: 0.035359 validation: 0.043463
+09/09 04:17:38 PM: macro_avg: validation: 0.865879
+09/09 04:17:38 PM: micro_avg: validation: 0.000000
+09/09 04:17:38 PM: edges-ner-ontonotes_mcc: training: 0.877008 validation: 0.859185
+09/09 04:17:38 PM: edges-ner-ontonotes_acc: training: 0.834809 validation: 0.822035
+09/09 04:17:38 PM: edges-ner-ontonotes_precision: training: 0.905914 validation: 0.903835
+09/09 04:17:38 PM: edges-ner-ontonotes_recall: training: 0.861948 validation: 0.830983
+09/09 04:17:38 PM: edges-ner-ontonotes_f1: training: 0.883384 validation: 0.865879
+09/09 04:17:38 PM: Global learning rate: 5e-05
+09/09 04:17:38 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:17:43 PM: Update 36102: task edges-ner-ontonotes, batch 102 (36102): mcc: 0.9009, acc: 0.8673, precision: 0.9241, recall: 0.8889, f1: 0.9061, edges-ner-ontonotes_loss: 0.0303
+09/09 04:17:53 PM: Update 36396: task edges-ner-ontonotes, batch 396 (36396): mcc: 0.8894, acc: 0.8523, precision: 0.9170, recall: 0.8743, f1: 0.8951, edges-ner-ontonotes_loss: 0.0327
+09/09 04:18:03 PM: Update 36637: task edges-ner-ontonotes, batch 637 (36637): mcc: 0.8860, acc: 0.8467, precision: 0.9125, recall: 0.8722, f1: 0.8919, edges-ner-ontonotes_loss: 0.0327
+09/09 04:18:13 PM: Update 36834: task edges-ner-ontonotes, batch 834 (36834): mcc: 0.8835, acc: 0.8431, precision: 0.9099, recall: 0.8701, f1: 0.8896, edges-ner-ontonotes_loss: 0.0329
+09/09 04:18:19 PM: ***** Step 37000 / Validation 37 *****
+09/09 04:18:19 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:18:19 PM: Validating...
+09/09 04:18:23 PM: Evaluate: task edges-ner-ontonotes, batch 131 (157): mcc: 0.8591, acc: 0.8215, precision: 0.8947, recall: 0.8394, f1: 0.8662, edges-ner-ontonotes_loss: 0.0456
+09/09 04:18:24 PM: Best result seen so far for edges-ner-ontonotes.
+09/09 04:18:24 PM: Best result seen so far for macro.
+09/09 04:18:24 PM: Updating LR scheduler:
+09/09 04:18:24 PM: 	Best result seen so far for macro_avg: 0.872
+09/09 04:18:24 PM: 	# validation passes without improvement: 0
+09/09 04:18:24 PM: edges-ner-ontonotes_loss: training: 0.032854 validation: 0.043146
+09/09 04:18:24 PM: macro_avg: validation: 0.872270
+09/09 04:18:24 PM: micro_avg: validation: 0.000000
+09/09 04:18:24 PM: edges-ner-ontonotes_mcc: training: 0.883201 validation: 0.865452
+09/09 04:18:24 PM: edges-ner-ontonotes_acc: training: 0.842033 validation: 0.828632
+09/09 04:18:24 PM: edges-ner-ontonotes_precision: training: 0.909563 validation: 0.899798
+09/09 04:18:24 PM: edges-ner-ontonotes_recall: training: 0.869948 validation: 0.846375
+09/09 04:18:24 PM: edges-ner-ontonotes_f1: training: 0.889314 validation: 0.872270
+09/09 04:18:24 PM: Global learning rate: 5e-05
+09/09 04:18:24 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:18:33 PM: Update 37232: task edges-ner-ontonotes, batch 232 (37232): mcc: 0.8615, acc: 0.8169, precision: 0.8955, recall: 0.8432, f1: 0.8686, edges-ner-ontonotes_loss: 0.0411
+09/09 04:18:43 PM: Update 37472: task edges-ner-ontonotes, batch 472 (37472): mcc: 0.8719, acc: 0.8308, precision: 0.9039, recall: 0.8544, f1: 0.8785, edges-ner-ontonotes_loss: 0.0386
+09/09 04:18:53 PM: Update 37717: task edges-ner-ontonotes, batch 717 (37717): mcc: 0.8791, acc: 0.8402, precision: 0.9093, recall: 0.8626, f1: 0.8853, edges-ner-ontonotes_loss: 0.0363
+09/09 04:19:03 PM: Update 37971: task edges-ner-ontonotes, batch 971 (37971): mcc: 0.8811, acc: 0.8429, precision: 0.9108, recall: 0.8649, f1: 0.8872, edges-ner-ontonotes_loss: 0.0356
+09/09 04:19:04 PM: ***** Step 38000 / Validation 38 *****
+09/09 04:19:04 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:19:04 PM: Validating...
+09/09 04:19:09 PM: Updating LR scheduler:
+09/09 04:19:09 PM: 	Best result seen so far for macro_avg: 0.872
+09/09 04:19:09 PM: 	# validation passes without improvement: 1
+09/09 04:19:09 PM: edges-ner-ontonotes_loss: training: 0.035548 validation: 0.042569
+09/09 04:19:09 PM: macro_avg: validation: 0.870724
+09/09 04:19:09 PM: micro_avg: validation: 0.000000
+09/09 04:19:09 PM: edges-ner-ontonotes_mcc: training: 0.880481 validation: 0.863836
+09/09 04:19:09 PM: edges-ner-ontonotes_acc: training: 0.841999 validation: 0.826433
+09/09 04:19:09 PM: edges-ner-ontonotes_precision: training: 0.910145 validation: 0.898652
+09/09 04:19:09 PM: edges-ner-ontonotes_recall: training: 0.864318 validation: 0.844480
+09/09 04:19:09 PM: edges-ner-ontonotes_f1: training: 0.886639 validation: 0.870724
+09/09 04:19:09 PM: Global learning rate: 5e-05
+09/09 04:19:09 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:19:13 PM: Update 38110: task edges-ner-ontonotes, batch 110 (38110): mcc: 0.8737, acc: 0.8274, precision: 0.8995, recall: 0.8619, f1: 0.8803, edges-ner-ontonotes_loss: 0.0339
+09/09 04:19:23 PM: Update 38304: task edges-ner-ontonotes, batch 304 (38304): mcc: 0.8804, acc: 0.8359, precision: 0.9072, recall: 0.8670, f1: 0.8866, edges-ner-ontonotes_loss: 0.0325
+09/09 04:19:33 PM: Update 38587: task edges-ner-ontonotes, batch 587 (38587): mcc: 0.8798, acc: 0.8352, precision: 0.9061, recall: 0.8669, f1: 0.8861, edges-ner-ontonotes_loss: 0.0327
+09/09 04:19:43 PM: Update 38844: task edges-ner-ontonotes, batch 844 (38844): mcc: 0.8741, acc: 0.8292, precision: 0.9032, recall: 0.8591, f1: 0.8806, edges-ner-ontonotes_loss: 0.0357
+09/09 04:19:50 PM: ***** Step 39000 / Validation 39 *****
+09/09 04:19:50 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:19:50 PM: Validating...
+09/09 04:19:53 PM: Evaluate: task edges-ner-ontonotes, batch 108 (157): mcc: 0.8595, acc: 0.8219, precision: 0.9032, recall: 0.8321, f1: 0.8662, edges-ner-ontonotes_loss: 0.0462
+09/09 04:19:56 PM: Updating LR scheduler:
+09/09 04:19:56 PM: 	Best result seen so far for macro_avg: 0.872
+09/09 04:19:56 PM: 	# validation passes without improvement: 2
+09/09 04:19:56 PM: edges-ner-ontonotes_loss: training: 0.035816 validation: 0.043676
+09/09 04:19:56 PM: macro_avg: validation: 0.865387
+09/09 04:19:56 PM: micro_avg: validation: 0.000000
+09/09 04:19:56 PM: edges-ner-ontonotes_mcc: training: 0.875197 validation: 0.858763
+09/09 04:19:56 PM: edges-ner-ontonotes_acc: training: 0.831427 validation: 0.819533
+09/09 04:19:56 PM: edges-ner-ontonotes_precision: training: 0.904211 validation: 0.905192
+09/09 04:19:56 PM: edges-ner-ontonotes_recall: training: 0.860225 validation: 0.828935
+09/09 04:19:56 PM: edges-ner-ontonotes_f1: training: 0.881670 validation: 0.865387
+09/09 04:19:56 PM: Global learning rate: 5e-05
+09/09 04:19:56 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:20:05 PM: Update 39214: task edges-ner-ontonotes, batch 214 (39214): mcc: 0.9024, acc: 0.8699, precision: 0.9267, recall: 0.8892, f1: 0.9075, edges-ner-ontonotes_loss: 0.0294
+09/09 04:20:15 PM: Update 39503: task edges-ner-ontonotes, batch 503 (39503): mcc: 0.8906, acc: 0.8546, precision: 0.9176, recall: 0.8758, f1: 0.8962, edges-ner-ontonotes_loss: 0.0319
+09/09 04:20:25 PM: Update 39746: task edges-ner-ontonotes, batch 746 (39746): mcc: 0.8872, acc: 0.8489, precision: 0.9137, recall: 0.8734, f1: 0.8931, edges-ner-ontonotes_loss: 0.0322
+09/09 04:20:35 PM: Update 39972: task edges-ner-ontonotes, batch 972 (39972): mcc: 0.8857, acc: 0.8464, precision: 0.9121, recall: 0.8722, f1: 0.8917, edges-ner-ontonotes_loss: 0.0323
+09/09 04:20:36 PM: ***** Step 40000 / Validation 40 *****
+09/09 04:20:36 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:20:36 PM: Validating...
+09/09 04:20:41 PM: Updating LR scheduler:
+09/09 04:20:41 PM: 	Best result seen so far for macro_avg: 0.872
+09/09 04:20:41 PM: 	# validation passes without improvement: 3
+09/09 04:20:41 PM: edges-ner-ontonotes_loss: training: 0.032339 validation: 0.043259
+09/09 04:20:41 PM: macro_avg: validation: 0.869928
+09/09 04:20:41 PM: micro_avg: validation: 0.000000
+09/09 04:20:41 PM: edges-ner-ontonotes_mcc: training: 0.885288 validation: 0.863240
+09/09 04:20:41 PM: edges-ner-ontonotes_acc: training: 0.845730 validation: 0.824537
+09/09 04:20:41 PM: edges-ner-ontonotes_precision: training: 0.911617 validation: 0.903463
+09/09 04:20:41 PM: edges-ner-ontonotes_recall: training: 0.871842 validation: 0.838793
+09/09 04:20:41 PM: edges-ner-ontonotes_f1: training: 0.891286 validation: 0.869928
+09/09 04:20:41 PM: Global learning rate: 5e-05
+09/09 04:20:41 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:20:45 PM: Update 40092: task edges-ner-ontonotes, batch 92 (40092): mcc: 0.8818, acc: 0.8388, precision: 0.9095, recall: 0.8673, f1: 0.8879, edges-ner-ontonotes_loss: 0.0323
+09/09 04:20:55 PM: Update 40318: task edges-ner-ontonotes, batch 318 (40318): mcc: 0.8700, acc: 0.8254, precision: 0.9007, recall: 0.8540, f1: 0.8767, edges-ner-ontonotes_loss: 0.0383
+09/09 04:21:05 PM: Update 40589: task edges-ner-ontonotes, batch 589 (40589): mcc: 0.8737, acc: 0.8317, precision: 0.9043, recall: 0.8573, f1: 0.8802, edges-ner-ontonotes_loss: 0.0376
+09/09 04:21:15 PM: Update 40836: task edges-ner-ontonotes, batch 836 (40836): mcc: 0.8797, acc: 0.8399, precision: 0.9088, recall: 0.8641, f1: 0.8859, edges-ner-ontonotes_loss: 0.0357
+09/09 04:21:20 PM: ***** Step 41000 / Validation 41 *****
+09/09 04:21:20 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:21:20 PM: Validating...
+09/09 04:21:25 PM: Evaluate: task edges-ner-ontonotes, batch 138 (157): mcc: 0.8620, acc: 0.8268, precision: 0.8998, recall: 0.8399, f1: 0.8688, edges-ner-ontonotes_loss: 0.0432
+09/09 04:21:25 PM: Updating LR scheduler:
+09/09 04:21:25 PM: 	Best result seen so far for macro_avg: 0.872
+09/09 04:21:25 PM: 	# validation passes without improvement: 4
+09/09 04:21:25 PM: edges-ner-ontonotes_loss: training: 0.035366 validation: 0.042453
+09/09 04:21:25 PM: macro_avg: validation: 0.870568
+09/09 04:21:25 PM: micro_avg: validation: 0.000000
+09/09 04:21:25 PM: edges-ner-ontonotes_mcc: training: 0.880438 validation: 0.863807
+09/09 04:21:25 PM: edges-ner-ontonotes_acc: training: 0.840968 validation: 0.828329
+09/09 04:21:25 PM: edges-ner-ontonotes_precision: training: 0.909592 validation: 0.901690
+09/09 04:21:25 PM: edges-ner-ontonotes_recall: training: 0.864771 validation: 0.841523
+09/09 04:21:25 PM: edges-ner-ontonotes_f1: training: 0.886615 validation: 0.870568
+09/09 04:21:25 PM: Global learning rate: 5e-05
+09/09 04:21:25 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:21:35 PM: Update 41209: task edges-ner-ontonotes, batch 209 (41209): mcc: 0.8814, acc: 0.8397, precision: 0.9080, recall: 0.8681, f1: 0.8876, edges-ner-ontonotes_loss: 0.0332
+09/09 04:21:45 PM: Update 41433: task edges-ner-ontonotes, batch 433 (41433): mcc: 0.8803, acc: 0.8379, precision: 0.9069, recall: 0.8671, f1: 0.8866, edges-ner-ontonotes_loss: 0.0329
+09/09 04:21:57 PM: Update 41709: task edges-ner-ontonotes, batch 709 (41709): mcc: 0.8804, acc: 0.8369, precision: 0.9070, recall: 0.8672, f1: 0.8867, edges-ner-ontonotes_loss: 0.0327
+09/09 04:22:06 PM: ***** Step 42000 / Validation 42 *****
+09/09 04:22:06 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:22:06 PM: Validating...
+09/09 04:22:07 PM: Evaluate: task edges-ner-ontonotes, batch 7 (157): mcc: 0.7896, acc: 0.7565, precision: 0.8180, recall: 0.7845, f1: 0.8009, edges-ner-ontonotes_loss: 0.0631
+09/09 04:22:11 PM: Updating LR scheduler:
+09/09 04:22:11 PM: 	Best result seen so far for macro_avg: 0.872
+09/09 04:22:11 PM: 	# validation passes without improvement: 5
+09/09 04:22:11 PM: edges-ner-ontonotes_loss: training: 0.035673 validation: 0.043897
+09/09 04:22:11 PM: macro_avg: validation: 0.864416
+09/09 04:22:11 PM: micro_avg: validation: 0.000000
+09/09 04:22:11 PM: edges-ner-ontonotes_mcc: training: 0.875231 validation: 0.857669
+09/09 04:22:11 PM: edges-ner-ontonotes_acc: training: 0.830875 validation: 0.820291
+09/09 04:22:11 PM: edges-ner-ontonotes_precision: training: 0.904461 validation: 0.902890
+09/09 04:22:11 PM: edges-ner-ontonotes_recall: training: 0.860046 validation: 0.829087
+09/09 04:22:11 PM: edges-ner-ontonotes_f1: training: 0.881695 validation: 0.864416
+09/09 04:22:11 PM: Global learning rate: 5e-05
+09/09 04:22:11 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:22:17 PM: Update 42090: task edges-ner-ontonotes, batch 90 (42090): mcc: 0.8906, acc: 0.8534, precision: 0.9159, recall: 0.8776, f1: 0.8963, edges-ner-ontonotes_loss: 0.0332
+09/09 04:22:27 PM: Update 42343: task edges-ner-ontonotes, batch 343 (42343): mcc: 0.8963, acc: 0.8628, precision: 0.9203, recall: 0.8839, f1: 0.9017, edges-ner-ontonotes_loss: 0.0313
+09/09 04:22:37 PM: Update 42635: task edges-ner-ontonotes, batch 635 (42635): mcc: 0.8908, acc: 0.8550, precision: 0.9173, recall: 0.8767, f1: 0.8965, edges-ner-ontonotes_loss: 0.0323
+09/09 04:22:47 PM: Update 42858: task edges-ner-ontonotes, batch 858 (42858): mcc: 0.8874, acc: 0.8492, precision: 0.9136, recall: 0.8738, f1: 0.8933, edges-ner-ontonotes_loss: 0.0324
+09/09 04:22:54 PM: ***** Step 43000 / Validation 43 *****
+09/09 04:22:54 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:22:54 PM: Validating...
+09/09 04:22:57 PM: Evaluate: task edges-ner-ontonotes, batch 88 (157): mcc: 0.8655, acc: 0.8319, precision: 0.9011, recall: 0.8451, f1: 0.8722, edges-ner-ontonotes_loss: 0.0455
+09/09 04:22:59 PM: Best result seen so far for edges-ner-ontonotes.
+09/09 04:22:59 PM: Best result seen so far for macro.
+09/09 04:22:59 PM: Updating LR scheduler:
+09/09 04:22:59 PM: 	Best result seen so far for macro_avg: 0.873
+09/09 04:22:59 PM: 	# validation passes without improvement: 0
+09/09 04:22:59 PM: edges-ner-ontonotes_loss: training: 0.032472 validation: 0.042881
+09/09 04:22:59 PM: macro_avg: validation: 0.872885
+09/09 04:22:59 PM: micro_avg: validation: 0.000000
+09/09 04:22:59 PM: edges-ner-ontonotes_mcc: training: 0.886289 validation: 0.866024
+09/09 04:22:59 PM: edges-ner-ontonotes_acc: training: 0.846898 validation: 0.830755
+09/09 04:22:59 PM: edges-ner-ontonotes_precision: training: 0.912509 validation: 0.898459
+09/09 04:22:59 PM: edges-ner-ontonotes_recall: training: 0.872841 validation: 0.848726
+09/09 04:22:59 PM: edges-ner-ontonotes_f1: training: 0.892234 validation: 0.872885
+09/09 04:22:59 PM: Global learning rate: 5e-05
+09/09 04:22:59 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:23:07 PM: Update 43219: task edges-ner-ontonotes, batch 219 (43219): mcc: 0.8809, acc: 0.8355, precision: 0.9071, recall: 0.8681, f1: 0.8871, edges-ner-ontonotes_loss: 0.0327
+09/09 04:23:17 PM: Update 43471: task edges-ner-ontonotes, batch 471 (43471): mcc: 0.8731, acc: 0.8283, precision: 0.9033, recall: 0.8571, f1: 0.8796, edges-ner-ontonotes_loss: 0.0369
+09/09 04:23:27 PM: Update 43733: task edges-ner-ontonotes, batch 733 (43733): mcc: 0.8759, acc: 0.8334, precision: 0.9051, recall: 0.8606, f1: 0.8823, edges-ner-ontonotes_loss: 0.0365
+09/09 04:23:37 PM: Update 43965: task edges-ner-ontonotes, batch 965 (43965): mcc: 0.8794, acc: 0.8388, precision: 0.9081, recall: 0.8643, f1: 0.8857, edges-ner-ontonotes_loss: 0.0355
+09/09 04:23:38 PM: ***** Step 44000 / Validation 44 *****
+09/09 04:23:38 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:23:38 PM: Validating...
+09/09 04:23:43 PM: Updating LR scheduler:
+09/09 04:23:43 PM: 	Best result seen so far for macro_avg: 0.873
+09/09 04:23:43 PM: 	# validation passes without improvement: 1
+09/09 04:23:43 PM: edges-ner-ontonotes_loss: training: 0.035504 validation: 0.042686
+09/09 04:23:43 PM: macro_avg: validation: 0.869344
+09/09 04:23:43 PM: micro_avg: validation: 0.000000
+09/09 04:23:43 PM: edges-ner-ontonotes_mcc: training: 0.879153 validation: 0.862502
+09/09 04:23:43 PM: edges-ner-ontonotes_acc: training: 0.838497 validation: 0.827646
+09/09 04:23:43 PM: edges-ner-ontonotes_precision: training: 0.907923 validation: 0.900195
+09/09 04:23:43 PM: edges-ner-ontonotes_recall: training: 0.863995 validation: 0.840537
+09/09 04:23:43 PM: edges-ner-ontonotes_f1: training: 0.885415 validation: 0.869344
+09/09 04:23:43 PM: Global learning rate: 5e-05
+09/09 04:23:43 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:23:47 PM: Update 44120: task edges-ner-ontonotes, batch 120 (44120): mcc: 0.8889, acc: 0.8513, precision: 0.9183, recall: 0.8720, f1: 0.8946, edges-ner-ontonotes_loss: 0.0321
+09/09 04:23:57 PM: Update 44376: task edges-ner-ontonotes, batch 376 (44376): mcc: 0.8835, acc: 0.8437, precision: 0.9104, recall: 0.8697, f1: 0.8896, edges-ner-ontonotes_loss: 0.0328
+09/09 04:24:07 PM: Update 44580: task edges-ner-ontonotes, batch 580 (44580): mcc: 0.8823, acc: 0.8410, precision: 0.9090, recall: 0.8687, f1: 0.8884, edges-ner-ontonotes_loss: 0.0327
+09/09 04:24:17 PM: Update 44830: task edges-ner-ontonotes, batch 830 (44830): mcc: 0.8813, acc: 0.8391, precision: 0.9076, recall: 0.8684, f1: 0.8875, edges-ner-ontonotes_loss: 0.0328
+09/09 04:24:22 PM: ***** Step 45000 / Validation 45 *****
+09/09 04:24:22 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:24:22 PM: Validating...
+09/09 04:24:27 PM: Evaluate: task edges-ner-ontonotes, batch 140 (157): mcc: 0.8575, acc: 0.8223, precision: 0.8996, recall: 0.8318, f1: 0.8644, edges-ner-ontonotes_loss: 0.0442
+09/09 04:24:27 PM: Updating LR scheduler:
+09/09 04:24:27 PM: 	Best result seen so far for macro_avg: 0.873
+09/09 04:24:27 PM: 	# validation passes without improvement: 2
+09/09 04:24:27 PM: edges-ner-ontonotes_loss: training: 0.034416 validation: 0.043376
+09/09 04:24:27 PM: macro_avg: validation: 0.866330
+09/09 04:24:27 PM: micro_avg: validation: 0.000000
+09/09 04:24:27 PM: edges-ner-ontonotes_mcc: training: 0.877953 validation: 0.859540
+09/09 04:24:27 PM: edges-ner-ontonotes_acc: training: 0.835153 validation: 0.824234
+09/09 04:24:27 PM: edges-ner-ontonotes_precision: training: 0.905794 validation: 0.901871
+09/09 04:24:27 PM: edges-ner-ontonotes_recall: training: 0.863824 validation: 0.833485
+09/09 04:24:27 PM: edges-ner-ontonotes_f1: training: 0.884311 validation: 0.866330
+09/09 04:24:27 PM: Global learning rate: 5e-05
+09/09 04:24:27 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:24:37 PM: Update 45238: task edges-ner-ontonotes, batch 238 (45238): mcc: 0.8817, acc: 0.8439, precision: 0.9116, recall: 0.8652, f1: 0.8878, edges-ner-ontonotes_loss: 0.0365
+09/09 04:24:47 PM: Update 45492: task edges-ner-ontonotes, batch 492 (45492): mcc: 0.8900, acc: 0.8544, precision: 0.9173, recall: 0.8751, f1: 0.8957, edges-ner-ontonotes_loss: 0.0337
+09/09 04:24:58 PM: Update 45751: task edges-ner-ontonotes, batch 751 (45751): mcc: 0.8875, acc: 0.8511, precision: 0.9150, recall: 0.8726, f1: 0.8933, edges-ner-ontonotes_loss: 0.0334
+09/09 04:25:06 PM: ***** Step 46000 / Validation 46 *****
+09/09 04:25:06 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:25:06 PM: Validating...
+09/09 04:25:08 PM: Evaluate: task edges-ner-ontonotes, batch 50 (157): mcc: 0.8508, acc: 0.8246, precision: 0.8813, recall: 0.8370, f1: 0.8586, edges-ner-ontonotes_loss: 0.0478
+09/09 04:25:11 PM: Updating LR scheduler:
+09/09 04:25:11 PM: 	Best result seen so far for macro_avg: 0.873
+09/09 04:25:11 PM: 	# validation passes without improvement: 3
+09/09 04:25:11 PM: edges-ner-ontonotes_loss: training: 0.033208 validation: 0.043226
+09/09 04:25:11 PM: macro_avg: validation: 0.871416
+09/09 04:25:11 PM: micro_avg: validation: 0.000000
+09/09 04:25:11 PM: edges-ner-ontonotes_mcc: training: 0.885307 validation: 0.864536
+09/09 04:25:11 PM: edges-ner-ontonotes_acc: training: 0.846604 validation: 0.828101
+09/09 04:25:11 PM: edges-ner-ontonotes_precision: training: 0.912479 validation: 0.898582
+09/09 04:25:11 PM: edges-ner-ontonotes_recall: training: 0.871040 validation: 0.845845
+09/09 04:25:11 PM: edges-ner-ontonotes_f1: training: 0.891278 validation: 0.871416
+09/09 04:25:11 PM: Global learning rate: 5e-05
+09/09 04:25:11 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:25:18 PM: Update 46149: task edges-ner-ontonotes, batch 149 (46149): mcc: 0.8786, acc: 0.8349, precision: 0.9036, recall: 0.8672, f1: 0.8850, edges-ner-ontonotes_loss: 0.0328
+09/09 04:25:28 PM: Update 46378: task edges-ner-ontonotes, batch 378 (46378): mcc: 0.8792, acc: 0.8357, precision: 0.9051, recall: 0.8668, f1: 0.8855, edges-ner-ontonotes_loss: 0.0327
+09/09 04:25:40 PM: Update 46681: task edges-ner-ontonotes, batch 681 (46681): mcc: 0.8720, acc: 0.8282, precision: 0.9016, recall: 0.8569, f1: 0.8787, edges-ner-ontonotes_loss: 0.0370
+09/09 04:25:51 PM: Update 46994: task edges-ner-ontonotes, batch 994 (46994): mcc: 0.8794, acc: 0.8389, precision: 0.9073, recall: 0.8652, f1: 0.8857, edges-ner-ontonotes_loss: 0.0351
+09/09 04:25:51 PM: ***** Step 47000 / Validation 47 *****
+09/09 04:25:51 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:25:51 PM: Validating...
+09/09 04:25:56 PM: Updating LR scheduler:
+09/09 04:25:56 PM: 	Best result seen so far for macro_avg: 0.873
+09/09 04:25:56 PM: 	# validation passes without improvement: 4
+09/09 04:25:56 PM: edges-ner-ontonotes_loss: training: 0.035139 validation: 0.043445
+09/09 04:25:56 PM: macro_avg: validation: 0.865432
+09/09 04:25:56 PM: micro_avg: validation: 0.000000
+09/09 04:25:56 PM: edges-ner-ontonotes_mcc: training: 0.879262 validation: 0.858673
+09/09 04:25:56 PM: edges-ner-ontonotes_acc: training: 0.838658 validation: 0.822945
+09/09 04:25:56 PM: edges-ner-ontonotes_precision: training: 0.907137 validation: 0.902594
+09/09 04:25:56 PM: edges-ner-ontonotes_recall: training: 0.864960 validation: 0.831210
+09/09 04:25:56 PM: edges-ner-ontonotes_f1: training: 0.885547 validation: 0.865432
+09/09 04:25:56 PM: Global learning rate: 5e-05
+09/09 04:25:56 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:26:01 PM: Update 47151: task edges-ner-ontonotes, batch 151 (47151): mcc: 0.8871, acc: 0.8483, precision: 0.9153, recall: 0.8717, f1: 0.8929, edges-ner-ontonotes_loss: 0.0326
+09/09 04:26:11 PM: Update 47386: task edges-ner-ontonotes, batch 386 (47386): mcc: 0.8834, acc: 0.8450, precision: 0.9111, recall: 0.8688, f1: 0.8895, edges-ner-ontonotes_loss: 0.0333
+09/09 04:26:21 PM: Update 47632: task edges-ner-ontonotes, batch 632 (47632): mcc: 0.8822, acc: 0.8416, precision: 0.9088, recall: 0.8688, f1: 0.8883, edges-ner-ontonotes_loss: 0.0329
+09/09 04:26:31 PM: Update 47924: task edges-ner-ontonotes, batch 924 (47924): mcc: 0.8820, acc: 0.8407, precision: 0.9081, recall: 0.8691, f1: 0.8882, edges-ner-ontonotes_loss: 0.0328
+09/09 04:26:36 PM: ***** Step 48000 / Validation 48 *****
+09/09 04:26:36 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:26:36 PM: Validating...
+09/09 04:26:41 PM: Updating LR scheduler:
+09/09 04:26:41 PM: 	Best result seen so far for macro_avg: 0.873
+09/09 04:26:41 PM: 	# validation passes without improvement: 5
+09/09 04:26:41 PM: edges-ner-ontonotes_loss: training: 0.033498 validation: 0.042831
+09/09 04:26:41 PM: macro_avg: validation: 0.868718
+09/09 04:26:41 PM: micro_avg: validation: 0.000000
+09/09 04:26:41 PM: edges-ner-ontonotes_mcc: training: 0.880246 validation: 0.862114
+09/09 04:26:41 PM: edges-ner-ontonotes_acc: training: 0.838780 validation: 0.826281
+09/09 04:26:41 PM: edges-ner-ontonotes_precision: training: 0.906863 validation: 0.905361
+09/09 04:26:41 PM: edges-ner-ontonotes_recall: training: 0.867061 validation: 0.834926
+09/09 04:26:41 PM: edges-ner-ontonotes_f1: training: 0.886516 validation: 0.868718
+09/09 04:26:41 PM: Global learning rate: 5e-05
+09/09 04:26:41 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:26:41 PM: Update 48017: task edges-ner-ontonotes, batch 17 (48017): mcc: 0.8526, acc: 0.8117, precision: 0.8930, recall: 0.8290, f1: 0.8598, edges-ner-ontonotes_loss: 0.0491
+09/09 04:26:51 PM: Update 48272: task edges-ner-ontonotes, batch 272 (48272): mcc: 0.8686, acc: 0.8262, precision: 0.9041, recall: 0.8480, f1: 0.8752, edges-ner-ontonotes_loss: 0.0411
+09/09 04:27:02 PM: Update 48550: task edges-ner-ontonotes, batch 550 (48550): mcc: 0.8823, acc: 0.8445, precision: 0.9121, recall: 0.8658, f1: 0.8883, edges-ner-ontonotes_loss: 0.0359
+09/09 04:27:12 PM: Update 48851: task edges-ner-ontonotes, batch 851 (48851): mcc: 0.8832, acc: 0.8457, precision: 0.9128, recall: 0.8669, f1: 0.8892, edges-ner-ontonotes_loss: 0.0351
+09/09 04:27:19 PM: ***** Step 49000 / Validation 49 *****
+09/09 04:27:19 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:27:19 PM: Validating...
+09/09 04:27:22 PM: Evaluate: task edges-ner-ontonotes, batch 114 (157): mcc: 0.8573, acc: 0.8201, precision: 0.8977, recall: 0.8333, f1: 0.8643, edges-ner-ontonotes_loss: 0.0463
+09/09 04:27:24 PM: Updating LR scheduler:
+09/09 04:27:24 PM: 	Best result seen so far for macro_avg: 0.873
+09/09 04:27:24 PM: 	# validation passes without improvement: 0
+09/09 04:27:24 PM: edges-ner-ontonotes_loss: training: 0.034766 validation: 0.042884
+09/09 04:27:24 PM: macro_avg: validation: 0.872177
+09/09 04:27:24 PM: micro_avg: validation: 0.000000
+09/09 04:27:24 PM: edges-ner-ontonotes_mcc: training: 0.882508 validation: 0.865495
+09/09 04:27:24 PM: edges-ner-ontonotes_acc: training: 0.843935 validation: 0.828329
+09/09 04:27:24 PM: edges-ner-ontonotes_precision: training: 0.911331 validation: 0.903053
+09/09 04:27:24 PM: edges-ner-ontonotes_recall: training: 0.866941 validation: 0.843342
+09/09 04:27:24 PM: edges-ner-ontonotes_f1: training: 0.888582 validation: 0.872177
+09/09 04:27:24 PM: Global learning rate: 2.5e-05
+09/09 04:27:24 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:27:32 PM: Update 49185: task edges-ner-ontonotes, batch 185 (49185): mcc: 0.8816, acc: 0.8390, precision: 0.9066, recall: 0.8698, f1: 0.8878, edges-ner-ontonotes_loss: 0.0322
+09/09 04:27:42 PM: Update 49478: task edges-ner-ontonotes, batch 478 (49478): mcc: 0.8815, acc: 0.8382, precision: 0.9074, recall: 0.8689, f1: 0.8878, edges-ner-ontonotes_loss: 0.0324
+09/09 04:27:52 PM: Update 49721: task edges-ner-ontonotes, batch 721 (49721): mcc: 0.8742, acc: 0.8303, precision: 0.9034, recall: 0.8591, f1: 0.8807, edges-ner-ontonotes_loss: 0.0362
+09/09 04:28:03 PM: Update 49979: task edges-ner-ontonotes, batch 979 (49979): mcc: 0.8780, acc: 0.8359, precision: 0.9067, recall: 0.8630, f1: 0.8843, edges-ner-ontonotes_loss: 0.0353
+09/09 04:28:03 PM: ***** Step 50000 / Validation 50 *****
+09/09 04:28:03 PM: edges-ner-ontonotes: trained on 1000 batches, 0.644 epochs
+09/09 04:28:03 PM: Validating...
+09/09 04:28:08 PM: Updating LR scheduler:
+09/09 04:28:08 PM: 	Best result seen so far for macro_avg: 0.873
+09/09 04:28:08 PM: 	# validation passes without improvement: 1
+09/09 04:28:08 PM: edges-ner-ontonotes_loss: training: 0.035161 validation: 0.043173
+09/09 04:28:08 PM: macro_avg: validation: 0.864871
+09/09 04:28:08 PM: micro_avg: validation: 0.000000
+09/09 04:28:08 PM: edges-ner-ontonotes_mcc: training: 0.878502 validation: 0.858249
+09/09 04:28:08 PM: edges-ner-ontonotes_acc: training: 0.836684 validation: 0.819305
+09/09 04:28:08 PM: edges-ner-ontonotes_precision: training: 0.907106 validation: 0.905240
+09/09 04:28:08 PM: edges-ner-ontonotes_recall: training: 0.863574 validation: 0.827950
+09/09 04:28:08 PM: edges-ner-ontonotes_f1: training: 0.884805 validation: 0.864871
+09/09 04:28:08 PM: Global learning rate: 2.5e-05
+09/09 04:28:08 PM: Saving checkpoints to: ./experiments/ner-ontonotes- models/RTE-only/run
+09/09 04:28:13 PM: Update 50106: task edges-ner-ontonotes, batch 106 (50106): mcc: 0.8961, acc: 0.8613, precision: 0.9199, recall: 0.8839, f1: 0.9015, edges-ner-ontonotes_loss: 0.0315
+09/09 04:28:23 PM: Update 50397: task edges-ner-ontonotes, batch 397 (50397): mcc: 0.8884, acc: 0.8510, precision: 0.9164, recall: 0.8729, f1: 0.8941, edges-ner-ontonotes_loss: 0.0328
