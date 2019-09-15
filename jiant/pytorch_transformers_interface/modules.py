@@ -249,7 +249,7 @@ class BertEmbedderModule(PytorchTransformersEmbedderModule):
     def __init__(self, args):
         super(BertEmbedderModule, self).__init__(args)
 
-        if args.pretrained_dir is not None and args.pretrained_dir != "None":
+        if args.pretrained_dir is not None and args.pretrained_dir != "models/None" and args.pretrained_dir != "None":
             if "RANDOM" in args.pretrained_dir:
                 log.warning("LOADING A RANDOMLY WEIGHTS BERT")
                 config = pytorch_transformers.BertConfig()
@@ -270,6 +270,7 @@ class BertEmbedderModule(PytorchTransformersEmbedderModule):
                     args.pretrained_dir, cache_dir=self.cache_dir, output_hidden_states=True
                 )
         else: 
+            log.warning("LOADING A PRETRAINED MODEL")
             self.model = pytorch_transformers.BertModel.from_pretrained(
                 args.input_module, cache_dir=self.cache_dir, output_hidden_states=True
             )
