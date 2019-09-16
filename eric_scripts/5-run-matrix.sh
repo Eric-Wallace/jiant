@@ -6,11 +6,11 @@ declare -a ALL_TASKS
 # ALL_TASKS+=( "spr2" )
 # ALL_TASKS+=( "dpr" )
 # ALL_TASKS+=( "nonterminal-ontonotes" )
-ALL_TASKS+=( "dep-ud-ewt" )
-ALL_TASKS+=( "pos-ontonotes" )
-ALL_TASKS+=( "ner-ontonotes" )
-ALL_TASKS+=( "srl-ontonotes" )
-ALL_TASKS+=( "coref-ontonotes" )
+#ALL_TASKS+=( "dep-ud-ewt" )
+#ALL_TASKS+=( "pos-ontonotes" )
+#ALL_TASKS+=( "ner-ontonotes" )
+#ALL_TASKS+=( "srl-ontonotes" )
+#ALL_TASKS+=( "coref-ontonotes" )
 ALL_TASKS+=( "rel-semeval" )
 echo "All tasks to run: ${ALL_TASKS[@]}"
 
@@ -21,12 +21,10 @@ ALL_MODELS+=( "RANDOM_WITH_GOOD_EMBEDDINGS" )
 
 ALL_MODELS+=( "rte" )
 ALL_MODELS+=( "sts" )
-ALL_MODELS+=( "cola" )
 ALL_MODELS+=( "sst" )
 ALL_MODELS+=( "mrpc" )
 ALL_MODELS+=( "mnli" )
 ALL_MODELS+=( "coref" )
-ALL_MODELS+=( "agnews" )
 ALL_MODELS+=( "memorization" )
 ALL_MODELS+=( "multiqa" )
 ALL_MODELS+=( "hotpot" )
@@ -50,9 +48,11 @@ do
 			if [ -d "experiments/$task-$model-${All_LAYERS[$i]}" ]
 			then  # directory exists, skip task
 				echo "experiment already completed"
+                                echo "experiments/$task-$model-${All_LAYERS[$i]}"   
   				continue
 			else 			
 				echo "starting job"	
+                                echo "experiments/$task-$model-${All_LAYERS[$i]}" 
 				export CUDA_VISIBLE_DEVICES=${AVAILABLE_CUDA_DEVICES[$CURRENT_RUNNING_JOBS]}	
 				CURRENT_RUNNING_JOBS=$((CURRENT_RUNNING_JOBS + 1))			
 				CURRENT_RUNNING_JOBS=$(($CURRENT_RUNNING_JOBS%${#AVAILABLE_CUDA_DEVICES[@]}))			
