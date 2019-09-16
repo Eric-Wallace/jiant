@@ -1,5 +1,11 @@
 from tabulate import tabulate
 import os
+
+rc_tasks = ['hotpot','squad','multiqa']
+token_tasks = ['coref']
+classification_tasks = ['sst','sts','memorization']
+pair_tasks = ['rte','mrpc','mnli']
+
 results = []
 for file in os.listdir("."):
     if not file.endswith('.py'):
@@ -12,11 +18,22 @@ for file in os.listdir("."):
                 accuracy = float(line.strip().split(' ')[-1])
                 break
 
+        if finetuned_model in rc_tasks:
+            finetuned_model = "RC: " + finetuned_model
+        elif finetuned_model in token_tasks:
+            finetuned_model = "TOKEN: " + finetuned_model
+        elif finetuned_model in classification_tasks:
+            finetuned_model = "CLASSIFICATION: " + finetuned_model
+        elif finetuned_model in pair_tasks:
+            finetuned_model = "PAIR: " + finetuned_model
+        else:
+            finetuned_model = "OTHER: " + finetuned_model
+
         results.append([finetuned_model, layer, probing_task, accuracy])
 
-#results.append(["z","cat", " ", " "])
-#results.append(["z","only", " ", " "])
-#results.append(["z","mix", " ", " "])
+results.append(["z","cat", " ", " "])
+results.append(["z","only", " ", " "])
+results.append(["z","mix", " ", " "])
 
 results = sorted(results, key=lambda x: (x[1], x[0]))
 
@@ -44,10 +61,9 @@ for item in results:
     elif probing_task == "coref ontonotes":
         returnVal[(finetuned_model, layer)][6] = str(accuracy)
  
-
 printResults = []
 for key in returnVal:
-    temp = []
+    temp = []        
     temp.append(str(key[0]))   
     temp.append(str(key[1]))    
     temp.extend(returnVal[key])
