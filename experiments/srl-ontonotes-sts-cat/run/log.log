@@ -1,0 +1,1306 @@
+09/16 09:10:58 AM: Git branch: master
+09/16 09:10:58 AM: Git SHA: 1a42459c6cbb693793b9c0d01bca567d99b0baac
+09/16 09:10:58 AM: Parsed args: 
+{
+  "allow_missing_task_map": 1,
+  "allow_untrained_encoder_parameters": 1,
+  "do_pretrain": 0,
+  "exp_dir": "./experiments/srl-ontonotes-sts-cat/",
+  "exp_name": "experiments/srl-ontonotes-sts-cat",
+  "input_module": "bert-base-uncased",
+  "local_log_path": "./experiments/srl-ontonotes-sts-cat/run/log.log",
+  "lr_patience": 3,
+  "max_seq_len": 512,
+  "output_mode": "top",
+  "patience": 9,
+  "pretrain_tasks": "",
+  "pretrained_dir": "models/sts",
+  "pytorch_transformers_output_mode": "cat",
+  "remote_log_name": "experiments/srl-ontonotes-sts-cat__run",
+  "run_dir": "./experiments/srl-ontonotes-sts-cat/run",
+  "run_name": "run",
+  "sent_enc": "none",
+  "sep_embs_for_skip": 1,
+  "target_tasks": "edges-srl-ontonotes",
+  "tokenizer": "bert-base-uncased",
+  "write_preds": "val,test"
+}
+09/16 09:10:58 AM: Saved config to ./experiments/srl-ontonotes-sts-cat/run/params.conf
+09/16 09:10:58 AM: Using random seed 1234
+09/16 09:10:59 AM: Using GPU 0
+09/16 09:10:59 AM: Loading tasks...
+09/16 09:10:59 AM: Writing pre-preprocessed tasks to ./experiments/srl-ontonotes-sts-cat/
+09/16 09:10:59 AM: 	Creating task edges-srl-ontonotes from scratch.
+09/16 09:11:04 AM: Read=231480, Skip=21590, Total=253070 from ./probing_data/edges/ontonotes/srl/train.json.retokenized.bert-base-uncased
+09/16 09:11:04 AM: Read=32486, Skip=2811, Total=35297 from ./probing_data/edges/ontonotes/srl/development.json.retokenized.bert-base-uncased
+09/16 09:11:05 AM: Read=23800, Skip=2915, Total=26715 from ./probing_data/edges/ontonotes/srl/test.json.retokenized.bert-base-uncased
+09/16 09:11:08 AM: 	Task 'edges-srl-ontonotes': |train|=231480 |val|=32486 |test|=23800
+09/16 09:11:08 AM: 	Finished loading tasks: edges-srl-ontonotes.
+09/16 09:11:08 AM: 	Building vocab from scratch.
+09/16 09:11:08 AM: 	Counting units for task edges-srl-ontonotes.
+09/16 09:11:15 AM: 	Task 'edges-srl-ontonotes': adding vocab namespace 'edges-srl-ontonotes_labels'
+09/16 09:11:16 AM: loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at /home/ericwallace/.cache/torch/pytorch_transformers/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+09/16 09:11:16 AM: Added pytorch_transformers vocab (bert-base-uncased): 30522 tokens
+09/16 09:11:16 AM: 	Saved vocab to ./experiments/srl-ontonotes-sts-cat/vocab
+09/16 09:11:16 AM: Loading token dictionary from ./experiments/srl-ontonotes-sts-cat/vocab.
+09/16 09:11:16 AM: 	Loaded vocab from ./experiments/srl-ontonotes-sts-cat/vocab
+09/16 09:11:16 AM: 	Vocab namespace bert_uncased: size 30524
+09/16 09:11:16 AM: 	Vocab namespace tokens: size 23662
+09/16 09:11:16 AM: 	Vocab namespace edges-srl-ontonotes_labels: size 66
+09/16 09:11:16 AM: 	Vocab namespace chars: size 76
+09/16 09:11:16 AM: 	Finished building vocab.
+09/16 09:11:16 AM: 	Task edges-srl-ontonotes (train): Indexing from scratch.
+09/16 09:11:50 AM: 	Task edges-srl-ontonotes (train): Saved 231480 instances to ./experiments/srl-ontonotes-sts-cat/preproc/edges-srl-ontonotes__train_data
+09/16 09:11:50 AM: 	Task edges-srl-ontonotes (val): Indexing from scratch.
+09/16 09:11:54 AM: 	Task edges-srl-ontonotes (val): Saved 32486 instances to ./experiments/srl-ontonotes-sts-cat/preproc/edges-srl-ontonotes__val_data
+09/16 09:11:54 AM: 	Task edges-srl-ontonotes (test): Indexing from scratch.
+09/16 09:11:57 AM: 	Task edges-srl-ontonotes (test): Saved 23800 instances to ./experiments/srl-ontonotes-sts-cat/preproc/edges-srl-ontonotes__test_data
+09/16 09:11:57 AM: 	Finished indexing tasks
+09/16 09:11:57 AM: 	Creating trimmed target-only version of edges-srl-ontonotes train.
+09/16 09:11:57 AM: 	  Training on 
+09/16 09:11:57 AM: 	  Evaluating on edges-srl-ontonotes
+09/16 09:11:57 AM: 	Finished loading tasks in 58.155s
+09/16 09:11:57 AM: 	 Tasks: ['edges-srl-ontonotes']
+09/16 09:11:57 AM: Building model...
+09/16 09:11:57 AM: Using BERT model (bert-base-uncased).
+09/16 09:11:57 AM: LOADING A FUNETUNED MODEL from: 
+09/16 09:11:57 AM: models/sts
+09/16 09:11:57 AM: loading configuration file models/sts/config.json
+09/16 09:11:57 AM: Model config {
+  "attention_probs_dropout_prob": 0.1,
+  "finetuning_task": "sts-b",
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "num_labels": 1,
+  "output_attentions": false,
+  "output_hidden_states": true,
+  "pruned_heads": {},
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "vocab_size": 30522
+}
+
+09/16 09:11:57 AM: loading weights file models/sts/pytorch_model.bin
+09/16 09:12:00 AM: https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt not found in cache or force_download set to True, downloading to /tmp/tmpzkhcpa5j
+09/16 09:12:04 AM: copying /tmp/tmpzkhcpa5j to cache at ./experiments/srl-ontonotes-sts-cat/pytorch_transformers_cache/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+09/16 09:12:04 AM: creating metadata file for ./experiments/srl-ontonotes-sts-cat/pytorch_transformers_cache/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+09/16 09:12:04 AM: removing temp file /tmp/tmpzkhcpa5j
+09/16 09:12:04 AM: loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at ./experiments/srl-ontonotes-sts-cat/pytorch_transformers_cache/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+09/16 09:12:04 AM: Initializing parameters
+09/16 09:12:04 AM: Done initializing parameters; the following parameters are using their default initialization from their code
+09/16 09:12:04 AM:    _text_field_embedder.model.embeddings.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.embeddings.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.embeddings.position_embeddings.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.embeddings.token_type_embeddings.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.embeddings.word_embeddings.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.0.attention.output.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.0.attention.output.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.0.attention.output.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.0.attention.output.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.0.attention.self.key.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.0.attention.self.key.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.0.attention.self.query.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.0.attention.self.query.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.0.attention.self.value.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.0.attention.self.value.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.0.intermediate.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.0.intermediate.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.0.output.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.0.output.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.0.output.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.0.output.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.1.attention.output.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.1.attention.output.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.1.attention.output.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.1.attention.output.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.1.attention.self.key.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.1.attention.self.key.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.1.attention.self.query.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.1.attention.self.query.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.1.attention.self.value.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.1.attention.self.value.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.1.intermediate.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.1.intermediate.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.1.output.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.1.output.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.1.output.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.1.output.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.10.attention.output.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.10.attention.output.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.10.attention.output.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.10.attention.output.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.10.attention.self.key.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.10.attention.self.key.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.10.attention.self.query.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.10.attention.self.query.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.10.attention.self.value.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.10.attention.self.value.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.10.intermediate.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.10.intermediate.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.10.output.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.10.output.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.10.output.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.10.output.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.11.attention.output.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.11.attention.output.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.11.attention.output.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.11.attention.output.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.11.attention.self.key.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.11.attention.self.key.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.11.attention.self.query.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.11.attention.self.query.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.11.attention.self.value.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.11.attention.self.value.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.11.intermediate.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.11.intermediate.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.11.output.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.11.output.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.11.output.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.11.output.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.2.attention.output.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.2.attention.output.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.2.attention.output.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.2.attention.output.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.2.attention.self.key.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.2.attention.self.key.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.2.attention.self.query.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.2.attention.self.query.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.2.attention.self.value.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.2.attention.self.value.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.2.intermediate.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.2.intermediate.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.2.output.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.2.output.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.2.output.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.2.output.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.3.attention.output.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.3.attention.output.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.3.attention.output.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.3.attention.output.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.3.attention.self.key.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.3.attention.self.key.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.3.attention.self.query.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.3.attention.self.query.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.3.attention.self.value.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.3.attention.self.value.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.3.intermediate.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.3.intermediate.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.3.output.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.3.output.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.3.output.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.3.output.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.4.attention.output.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.4.attention.output.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.4.attention.output.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.4.attention.output.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.4.attention.self.key.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.4.attention.self.key.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.4.attention.self.query.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.4.attention.self.query.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.4.attention.self.value.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.4.attention.self.value.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.4.intermediate.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.4.intermediate.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.4.output.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.4.output.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.4.output.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.4.output.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.5.attention.output.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.5.attention.output.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.5.attention.output.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.5.attention.output.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.5.attention.self.key.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.5.attention.self.key.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.5.attention.self.query.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.5.attention.self.query.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.5.attention.self.value.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.5.attention.self.value.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.5.intermediate.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.5.intermediate.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.5.output.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.5.output.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.5.output.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.5.output.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.6.attention.output.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.6.attention.output.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.6.attention.output.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.6.attention.output.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.6.attention.self.key.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.6.attention.self.key.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.6.attention.self.query.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.6.attention.self.query.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.6.attention.self.value.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.6.attention.self.value.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.6.intermediate.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.6.intermediate.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.6.output.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.6.output.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.6.output.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.6.output.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.7.attention.output.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.7.attention.output.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.7.attention.output.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.7.attention.output.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.7.attention.self.key.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.7.attention.self.key.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.7.attention.self.query.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.7.attention.self.query.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.7.attention.self.value.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.7.attention.self.value.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.7.intermediate.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.7.intermediate.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.7.output.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.7.output.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.7.output.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.7.output.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.8.attention.output.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.8.attention.output.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.8.attention.output.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.8.attention.output.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.8.attention.self.key.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.8.attention.self.key.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.8.attention.self.query.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.8.attention.self.query.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.8.attention.self.value.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.8.attention.self.value.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.8.intermediate.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.8.intermediate.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.8.output.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.8.output.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.8.output.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.8.output.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.9.attention.output.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.9.attention.output.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.9.attention.output.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.9.attention.output.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.9.attention.self.key.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.9.attention.self.key.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.9.attention.self.query.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.9.attention.self.query.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.9.attention.self.value.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.9.attention.self.value.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.9.intermediate.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.9.intermediate.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.9.output.LayerNorm.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.9.output.LayerNorm.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.9.output.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.encoder.layer.9.output.dense.weight
+09/16 09:12:04 AM:    _text_field_embedder.model.pooler.dense.bias
+09/16 09:12:04 AM:    _text_field_embedder.model.pooler.dense.weight
+09/16 09:12:04 AM: 	Task 'edges-srl-ontonotes' params: {
+  "cls_type": "mlp",
+  "d_hid": 256,
+  "pool_type": "first",
+  "d_proj": 512,
+  "shared_pair_attn": 0,
+  "attn": 0,
+  "d_hid_attn": 512,
+  "dropout": 0.3,
+  "cls_loss_fn": "sigmoid",
+  "cls_span_pooling": "attn",
+  "edgeprobe_cnn_context": 0,
+  "edgeprobe_symmetric": 0,
+  "use_classifier": "edges-srl-ontonotes"
+}
+09/16 09:12:08 AM: Model specification:
+09/16 09:12:08 AM: MultiTaskModel(
+  (sent_encoder): SentenceEncoder(
+    (_text_field_embedder): BertEmbedderModule(
+      (model): BertModel(
+        (embeddings): BertEmbeddings(
+          (word_embeddings): Embedding(30522, 768, padding_idx=0)
+          (position_embeddings): Embedding(512, 768)
+          (token_type_embeddings): Embedding(2, 768)
+          (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+          (dropout): Dropout(p=0.1)
+        )
+        (encoder): BertEncoder(
+          (layer): ModuleList(
+            (0): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (1): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (2): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (3): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (4): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (5): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (6): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (7): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (8): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (9): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (10): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (11): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+          )
+        )
+        (pooler): BertPooler(
+          (dense): Linear(in_features=768, out_features=768, bias=True)
+          (activation): Tanh()
+        )
+      )
+    )
+    (_highway_layer): TimeDistributed(
+      (_module): Highway(
+        (_layers): ModuleList()
+      )
+    )
+    (_phrase_layer): NullPhraseLayer()
+    (_dropout): Dropout(p=0.2)
+  )
+  (edges-srl-ontonotes_mdl): EdgeClassifierModule(
+    (proj1): Conv1d(1536, 256, kernel_size=(1,), stride=(1,))
+    (proj2): Conv1d(1536, 256, kernel_size=(1,), stride=(1,))
+    (span_extractor1): EndpointSpanExtractor()
+    (span_extractor2): EndpointSpanExtractor()
+    (classifier): Classifier(
+      (classifier): Sequential(
+        (0): Linear(in_features=1024, out_features=256, bias=True)
+        (1): Tanh()
+        (2): LayerNorm(torch.Size([256]), eps=1e-05, elementwise_affine=True)
+        (3): Dropout(p=0.3)
+        (4): Linear(in_features=256, out_features=66, bias=True)
+      )
+    )
+  )
+)
+09/16 09:12:08 AM: Model parameters:
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.embeddings.word_embeddings.weight: Non-trainable parameter, count 23440896 with torch.Size([30522, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.embeddings.position_embeddings.weight: Non-trainable parameter, count 393216 with torch.Size([512, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.embeddings.token_type_embeddings.weight: Non-trainable parameter, count 1536 with torch.Size([2, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.embeddings.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.embeddings.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.pooler.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+09/16 09:12:08 AM: 	sent_encoder._text_field_embedder.model.pooler.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+09/16 09:12:08 AM: 	edges-srl-ontonotes_mdl.proj1.weight: Trainable parameter, count 393216 with torch.Size([256, 1536, 1])
+09/16 09:12:08 AM: 	edges-srl-ontonotes_mdl.proj1.bias: Trainable parameter, count 256 with torch.Size([256])
+09/16 09:12:08 AM: 	edges-srl-ontonotes_mdl.proj2.weight: Trainable parameter, count 393216 with torch.Size([256, 1536, 1])
+09/16 09:12:08 AM: 	edges-srl-ontonotes_mdl.proj2.bias: Trainable parameter, count 256 with torch.Size([256])
+09/16 09:12:08 AM: 	edges-srl-ontonotes_mdl.classifier.classifier.0.weight: Trainable parameter, count 262144 with torch.Size([256, 1024])
+09/16 09:12:08 AM: 	edges-srl-ontonotes_mdl.classifier.classifier.0.bias: Trainable parameter, count 256 with torch.Size([256])
+09/16 09:12:08 AM: 	edges-srl-ontonotes_mdl.classifier.classifier.2.weight: Trainable parameter, count 256 with torch.Size([256])
+09/16 09:12:08 AM: 	edges-srl-ontonotes_mdl.classifier.classifier.2.bias: Trainable parameter, count 256 with torch.Size([256])
+09/16 09:12:08 AM: 	edges-srl-ontonotes_mdl.classifier.classifier.4.weight: Trainable parameter, count 16896 with torch.Size([66, 256])
+09/16 09:12:08 AM: 	edges-srl-ontonotes_mdl.classifier.classifier.4.bias: Trainable parameter, count 66 with torch.Size([66])
+09/16 09:12:08 AM: Total number of parameters: 110549058 (1.10549e+08)
+09/16 09:12:08 AM: Number of trainable parameters: 1066818 (1.06682e+06)
+09/16 09:12:08 AM: Finished building model in 10.540s
+09/16 09:12:08 AM: Will run the following steps for this experiment:
+Re-training model for individual target tasks 
+Evaluating model on tasks: edges-srl-ontonotes 
+
+09/16 09:12:22 AM: patience = 9
+09/16 09:12:22 AM: val_interval = 1000
+09/16 09:12:22 AM: max_vals = 250
+09/16 09:12:22 AM: cuda_device = 0
+09/16 09:12:22 AM: grad_norm = 5.0
+09/16 09:12:22 AM: grad_clipping = None
+09/16 09:12:22 AM: lr_decay = 0.99
+09/16 09:12:22 AM: min_lr = 1e-06
+09/16 09:12:22 AM: keep_all_checkpoints = 0
+09/16 09:12:22 AM: val_data_limit = 5000
+09/16 09:12:22 AM: max_epochs = -1
+09/16 09:12:22 AM: dec_val_scale = 250
+09/16 09:12:22 AM: training_data_fraction = 1
+09/16 09:12:22 AM: type = adam
+09/16 09:12:22 AM: parameter_groups = None
+09/16 09:12:22 AM: Number of trainable parameters: 1066818
+09/16 09:12:22 AM: infer_type_and_cast = True
+09/16 09:12:22 AM: Converting Params object to dict; logging of default values will not occur when dictionary parameters are used subsequently.
+09/16 09:12:22 AM: CURRENTLY DEFINED PARAMETERS: 
+09/16 09:12:22 AM: lr = 0.0001
+09/16 09:12:22 AM: amsgrad = True
+09/16 09:12:22 AM: type = reduce_on_plateau
+09/16 09:12:22 AM: Converting Params object to dict; logging of default values will not occur when dictionary parameters are used subsequently.
+09/16 09:12:22 AM: CURRENTLY DEFINED PARAMETERS: 
+09/16 09:12:22 AM: mode = max
+09/16 09:12:22 AM: factor = 0.5
+09/16 09:12:22 AM: patience = 3
+09/16 09:12:22 AM: threshold = 0.0001
+09/16 09:12:22 AM: threshold_mode = abs
+09/16 09:12:22 AM: verbose = True
+09/16 09:12:22 AM: type = adam
+09/16 09:12:22 AM: parameter_groups = None
+09/16 09:12:22 AM: Number of trainable parameters: 1066818
+09/16 09:12:22 AM: infer_type_and_cast = True
+09/16 09:12:22 AM: Converting Params object to dict; logging of default values will not occur when dictionary parameters are used subsequently.
+09/16 09:12:22 AM: CURRENTLY DEFINED PARAMETERS: 
+09/16 09:12:22 AM: lr = 0.0001
+09/16 09:12:22 AM: amsgrad = True
+09/16 09:12:22 AM: type = reduce_on_plateau
+09/16 09:12:22 AM: Converting Params object to dict; logging of default values will not occur when dictionary parameters are used subsequently.
+09/16 09:12:22 AM: CURRENTLY DEFINED PARAMETERS: 
+09/16 09:12:22 AM: mode = max
+09/16 09:12:22 AM: factor = 0.5
+09/16 09:12:22 AM: patience = 3
+09/16 09:12:22 AM: threshold = 0.0001
+09/16 09:12:22 AM: threshold_mode = abs
+09/16 09:12:22 AM: verbose = True
+09/16 09:12:22 AM: Starting training without restoring from a checkpoint.
+09/16 09:12:22 AM: Training examples per task, before any subsampling: {'edges-srl-ontonotes': 231480}
+09/16 09:12:22 AM: Beginning training with stopping criteria based on metric: edges-srl-ontonotes_f1
+09/16 09:12:32 AM: Update 122: task edges-srl-ontonotes, batch 122 (122): mcc: 0.0436, acc: 0.0306, precision: 0.0509, recall: 0.0730, f1: 0.0600, edges-srl-ontonotes_loss: 0.1940
+09/16 09:12:42 AM: Update 258: task edges-srl-ontonotes, batch 258 (258): mcc: 0.1128, acc: 0.0888, precision: 0.1422, recall: 0.1091, f1: 0.1235, edges-srl-ontonotes_loss: 0.1256
+09/16 09:12:52 AM: Update 375: task edges-srl-ontonotes, batch 375 (375): mcc: 0.2045, acc: 0.1588, precision: 0.2640, recall: 0.1737, f1: 0.2096, edges-srl-ontonotes_loss: 0.1006
+09/16 09:13:02 AM: Update 518: task edges-srl-ontonotes, batch 518 (518): mcc: 0.3051, acc: 0.2348, precision: 0.3944, recall: 0.2489, f1: 0.3052, edges-srl-ontonotes_loss: 0.0829
+09/16 09:13:12 AM: Update 628: task edges-srl-ontonotes, batch 628 (628): mcc: 0.3664, acc: 0.2829, precision: 0.4702, recall: 0.2974, f1: 0.3644, edges-srl-ontonotes_loss: 0.0739
+09/16 09:13:22 AM: Update 760: task edges-srl-ontonotes, batch 760 (760): mcc: 0.4137, acc: 0.3194, precision: 0.5269, recall: 0.3358, f1: 0.4102, edges-srl-ontonotes_loss: 0.0663
+09/16 09:13:32 AM: Update 898: task edges-srl-ontonotes, batch 898 (898): mcc: 0.4552, acc: 0.3536, precision: 0.5736, recall: 0.3717, f1: 0.4511, edges-srl-ontonotes_loss: 0.0604
+09/16 09:13:40 AM: ***** Step 1000 / Validation 1 *****
+09/16 09:13:40 AM: edges-srl-ontonotes: trained on 1000 batches, 0.138 epochs
+09/16 09:13:40 AM: Validating...
+09/16 09:13:42 AM: Evaluate: task edges-srl-ontonotes, batch 31 (157): mcc: 0.7269, acc: 0.6109, precision: 0.8439, recall: 0.6321, f1: 0.7228, edges-srl-ontonotes_loss: 0.0243
+09/16 09:13:52 AM: Best result seen so far for edges-srl-ontonotes.
+09/16 09:13:52 AM: Best result seen so far for micro.
+09/16 09:13:52 AM: Best result seen so far for macro.
+09/16 09:13:52 AM: Updating LR scheduler:
+09/16 09:13:52 AM: 	Best result seen so far for macro_avg: 0.729
+09/16 09:13:52 AM: 	# validation passes without improvement: 0
+09/16 09:13:52 AM: edges-srl-ontonotes_loss: training: 0.056909 validation: 0.023376
+09/16 09:13:52 AM: macro_avg: validation: 0.729319
+09/16 09:13:52 AM: micro_avg: validation: 0.000000
+09/16 09:13:52 AM: edges-srl-ontonotes_mcc: training: 0.478610 validation: 0.733391
+09/16 09:13:52 AM: edges-srl-ontonotes_acc: training: 0.373537 validation: 0.621353
+09/16 09:13:52 AM: edges-srl-ontonotes_precision: training: 0.598724 validation: 0.850087
+09/16 09:13:52 AM: edges-srl-ontonotes_recall: training: 0.392674 validation: 0.638596
+09/16 09:13:52 AM: edges-srl-ontonotes_f1: training: 0.474286 validation: 0.729319
+09/16 09:13:52 AM: Global learning rate: 0.0001
+09/16 09:13:52 AM: Saving checkpoints to: ./experiments/srl-ontonotes-sts-cat/run
+09/16 09:13:52 AM: Update 1008: task edges-srl-ontonotes, batch 8 (1008): mcc: 0.6825, acc: 0.5597, precision: 0.8049, recall: 0.5855, f1: 0.6779, edges-srl-ontonotes_loss: 0.0264
+09/16 09:14:02 AM: Update 1135: task edges-srl-ontonotes, batch 135 (1135): mcc: 0.6931, acc: 0.5709, precision: 0.8109, recall: 0.5992, f1: 0.6891, edges-srl-ontonotes_loss: 0.0258
+09/16 09:14:13 AM: Update 1253: task edges-srl-ontonotes, batch 253 (1253): mcc: 0.6996, acc: 0.5771, precision: 0.8151, recall: 0.6070, f1: 0.6958, edges-srl-ontonotes_loss: 0.0251
+09/16 09:14:23 AM: Update 1375: task edges-srl-ontonotes, batch 375 (1375): mcc: 0.7018, acc: 0.5817, precision: 0.8123, recall: 0.6129, f1: 0.6986, edges-srl-ontonotes_loss: 0.0247
+09/16 09:14:33 AM: Update 1501: task edges-srl-ontonotes, batch 501 (1501): mcc: 0.7121, acc: 0.5950, precision: 0.8178, recall: 0.6265, f1: 0.7095, edges-srl-ontonotes_loss: 0.0239
+09/16 09:14:43 AM: Update 1617: task edges-srl-ontonotes, batch 617 (1617): mcc: 0.7139, acc: 0.5976, precision: 0.8175, recall: 0.6299, f1: 0.7116, edges-srl-ontonotes_loss: 0.0236
+09/16 09:14:53 AM: Update 1743: task edges-srl-ontonotes, batch 743 (1743): mcc: 0.7136, acc: 0.5975, precision: 0.8163, recall: 0.6304, f1: 0.7114, edges-srl-ontonotes_loss: 0.0236
+09/16 09:15:03 AM: Update 1866: task edges-srl-ontonotes, batch 866 (1866): mcc: 0.7143, acc: 0.5986, precision: 0.8162, recall: 0.6317, f1: 0.7122, edges-srl-ontonotes_loss: 0.0235
+09/16 09:15:13 AM: Update 1953: task edges-srl-ontonotes, batch 953 (1953): mcc: 0.7163, acc: 0.6007, precision: 0.8174, recall: 0.6343, f1: 0.7143, edges-srl-ontonotes_loss: 0.0233
+09/16 09:15:18 AM: ***** Step 2000 / Validation 2 *****
+09/16 09:15:18 AM: edges-srl-ontonotes: trained on 1000 batches, 0.138 epochs
+09/16 09:15:18 AM: Validating...
+09/16 09:15:23 AM: Evaluate: task edges-srl-ontonotes, batch 77 (157): mcc: 0.7663, acc: 0.6692, precision: 0.8629, recall: 0.6860, f1: 0.7644, edges-srl-ontonotes_loss: 0.0193
+09/16 09:15:30 AM: Best result seen so far for edges-srl-ontonotes.
+09/16 09:15:30 AM: Best result seen so far for macro.
+09/16 09:15:30 AM: Updating LR scheduler:
+09/16 09:15:30 AM: 	Best result seen so far for macro_avg: 0.779
+09/16 09:15:30 AM: 	# validation passes without improvement: 0
+09/16 09:15:30 AM: edges-srl-ontonotes_loss: training: 0.023249 validation: 0.018413
+09/16 09:15:30 AM: macro_avg: validation: 0.778885
+09/16 09:15:30 AM: micro_avg: validation: 0.000000
+09/16 09:15:30 AM: edges-srl-ontonotes_mcc: training: 0.716923 validation: 0.780452
+09/16 09:15:30 AM: edges-srl-ontonotes_acc: training: 0.601595 validation: 0.685705
+09/16 09:15:30 AM: edges-srl-ontonotes_precision: training: 0.817520 validation: 0.872150
+09/16 09:15:30 AM: edges-srl-ontonotes_recall: training: 0.635217 validation: 0.703641
+09/16 09:15:30 AM: edges-srl-ontonotes_f1: training: 0.714930 validation: 0.778885
+09/16 09:15:30 AM: Global learning rate: 0.0001
+09/16 09:15:30 AM: Saving checkpoints to: ./experiments/srl-ontonotes-sts-cat/run
+09/16 09:15:33 AM: Update 2051: task edges-srl-ontonotes, batch 51 (2051): mcc: 0.7400, acc: 0.6308, precision: 0.8275, recall: 0.6680, f1: 0.7393, edges-srl-ontonotes_loss: 0.0216
+09/16 09:15:43 AM: Update 2171: task edges-srl-ontonotes, batch 171 (2171): mcc: 0.7325, acc: 0.6241, precision: 0.8206, recall: 0.6604, f1: 0.7318, edges-srl-ontonotes_loss: 0.0217
+09/16 09:15:53 AM: Update 2273: task edges-srl-ontonotes, batch 273 (2273): mcc: 0.7381, acc: 0.6323, precision: 0.8238, recall: 0.6676, f1: 0.7375, edges-srl-ontonotes_loss: 0.0214
+09/16 09:16:03 AM: Update 2383: task edges-srl-ontonotes, batch 383 (2383): mcc: 0.7475, acc: 0.6444, precision: 0.8297, recall: 0.6797, f1: 0.7472, edges-srl-ontonotes_loss: 0.0207
+09/16 09:16:14 AM: Update 2505: task edges-srl-ontonotes, batch 505 (2505): mcc: 0.7525, acc: 0.6504, precision: 0.8328, recall: 0.6860, f1: 0.7523, edges-srl-ontonotes_loss: 0.0204
+09/16 09:16:24 AM: Update 2628: task edges-srl-ontonotes, batch 628 (2628): mcc: 0.7558, acc: 0.6554, precision: 0.8346, recall: 0.6904, f1: 0.7557, edges-srl-ontonotes_loss: 0.0202
+09/16 09:16:34 AM: Update 2749: task edges-srl-ontonotes, batch 749 (2749): mcc: 0.7585, acc: 0.6592, precision: 0.8360, recall: 0.6941, f1: 0.7585, edges-srl-ontonotes_loss: 0.0199
+09/16 09:16:44 AM: Update 2840: task edges-srl-ontonotes, batch 840 (2840): mcc: 0.7617, acc: 0.6635, precision: 0.8380, recall: 0.6983, f1: 0.7618, edges-srl-ontonotes_loss: 0.0197
+09/16 09:16:54 AM: Update 2961: task edges-srl-ontonotes, batch 961 (2961): mcc: 0.7653, acc: 0.6685, precision: 0.8403, recall: 0.7028, f1: 0.7654, edges-srl-ontonotes_loss: 0.0194
+09/16 09:16:58 AM: ***** Step 3000 / Validation 3 *****
+09/16 09:16:58 AM: edges-srl-ontonotes: trained on 1000 batches, 0.138 epochs
+09/16 09:16:58 AM: Validating...
+09/16 09:17:04 AM: Evaluate: task edges-srl-ontonotes, batch 87 (157): mcc: 0.7827, acc: 0.7036, precision: 0.8506, recall: 0.7258, f1: 0.7832, edges-srl-ontonotes_loss: 0.0179
+09/16 09:17:10 AM: Best result seen so far for edges-srl-ontonotes.
+09/16 09:17:10 AM: Best result seen so far for macro.
+09/16 09:17:10 AM: Updating LR scheduler:
+09/16 09:17:10 AM: 	Best result seen so far for macro_avg: 0.797
+09/16 09:17:10 AM: 	# validation passes without improvement: 0
+09/16 09:17:10 AM: edges-srl-ontonotes_loss: training: 0.019395 validation: 0.017046
+09/16 09:17:10 AM: macro_avg: validation: 0.797258
+09/16 09:17:10 AM: micro_avg: validation: 0.000000
+09/16 09:17:10 AM: edges-srl-ontonotes_mcc: training: 0.765976 validation: 0.796546
+09/16 09:17:10 AM: edges-srl-ontonotes_acc: training: 0.669601 validation: 0.720807
+09/16 09:17:10 AM: edges-srl-ontonotes_precision: training: 0.840651 validation: 0.859891
+09/16 09:17:10 AM: edges-srl-ontonotes_recall: training: 0.703781 validation: 0.743130
+09/16 09:17:10 AM: edges-srl-ontonotes_f1: training: 0.766152 validation: 0.797258
+09/16 09:17:10 AM: Global learning rate: 0.0001
+09/16 09:17:10 AM: Saving checkpoints to: ./experiments/srl-ontonotes-sts-cat/run
+09/16 09:17:14 AM: Update 3055: task edges-srl-ontonotes, batch 55 (3055): mcc: 0.7994, acc: 0.7137, precision: 0.8618, recall: 0.7467, f1: 0.8001, edges-srl-ontonotes_loss: 0.0171
+09/16 09:17:24 AM: Update 3175: task edges-srl-ontonotes, batch 175 (3175): mcc: 0.7895, acc: 0.7034, precision: 0.8533, recall: 0.7359, f1: 0.7903, edges-srl-ontonotes_loss: 0.0176
+09/16 09:17:35 AM: Update 3297: task edges-srl-ontonotes, batch 297 (3297): mcc: 0.7847, acc: 0.6973, precision: 0.8500, recall: 0.7301, f1: 0.7855, edges-srl-ontonotes_loss: 0.0179
+09/16 09:17:45 AM: Update 3408: task edges-srl-ontonotes, batch 408 (3408): mcc: 0.7831, acc: 0.6954, precision: 0.8489, recall: 0.7281, f1: 0.7838, edges-srl-ontonotes_loss: 0.0180
+09/16 09:17:55 AM: Update 3528: task edges-srl-ontonotes, batch 528 (3528): mcc: 0.7833, acc: 0.6956, precision: 0.8483, recall: 0.7289, f1: 0.7841, edges-srl-ontonotes_loss: 0.0179
+09/16 09:18:05 AM: Update 3649: task edges-srl-ontonotes, batch 649 (3649): mcc: 0.7827, acc: 0.6943, precision: 0.8480, recall: 0.7280, f1: 0.7834, edges-srl-ontonotes_loss: 0.0179
+09/16 09:18:15 AM: Update 3757: task edges-srl-ontonotes, batch 757 (3757): mcc: 0.7835, acc: 0.6953, precision: 0.8484, recall: 0.7291, f1: 0.7842, edges-srl-ontonotes_loss: 0.0178
+09/16 09:18:25 AM: Update 3882: task edges-srl-ontonotes, batch 882 (3882): mcc: 0.7841, acc: 0.6963, precision: 0.8488, recall: 0.7299, f1: 0.7849, edges-srl-ontonotes_loss: 0.0178
+09/16 09:18:35 AM: ***** Step 4000 / Validation 4 *****
+09/16 09:18:35 AM: edges-srl-ontonotes: trained on 1000 batches, 0.138 epochs
+09/16 09:18:35 AM: Validating...
+09/16 09:18:35 AM: Evaluate: task edges-srl-ontonotes, batch 2 (157): mcc: 0.8270, acc: 0.7557, precision: 0.8839, recall: 0.7784, f1: 0.8278, edges-srl-ontonotes_loss: 0.0160
+09/16 09:18:46 AM: Evaluate: task edges-srl-ontonotes, batch 104 (157): mcc: 0.7995, acc: 0.7234, precision: 0.8683, recall: 0.7413, f1: 0.7998, edges-srl-ontonotes_loss: 0.0168
+09/16 09:18:50 AM: Best result seen so far for edges-srl-ontonotes.
+09/16 09:18:50 AM: Best result seen so far for macro.
+09/16 09:18:50 AM: Updating LR scheduler:
+09/16 09:18:50 AM: 	Best result seen so far for macro_avg: 0.808
+09/16 09:18:50 AM: 	# validation passes without improvement: 0
+09/16 09:18:50 AM: edges-srl-ontonotes_loss: training: 0.017777 validation: 0.016384
+09/16 09:18:50 AM: macro_avg: validation: 0.808177
+09/16 09:18:50 AM: micro_avg: validation: 0.000000
+09/16 09:18:50 AM: edges-srl-ontonotes_mcc: training: 0.783962 validation: 0.807659
+09/16 09:18:50 AM: edges-srl-ontonotes_acc: training: 0.696503 validation: 0.735124
+09/16 09:18:50 AM: edges-srl-ontonotes_precision: training: 0.848450 validation: 0.871793
+09/16 09:18:50 AM: edges-srl-ontonotes_recall: training: 0.729938 validation: 0.753214
+09/16 09:18:50 AM: edges-srl-ontonotes_f1: training: 0.784745 validation: 0.808177
+09/16 09:18:50 AM: Global learning rate: 0.0001
+09/16 09:18:50 AM: Saving checkpoints to: ./experiments/srl-ontonotes-sts-cat/run
+09/16 09:18:56 AM: Update 4070: task edges-srl-ontonotes, batch 70 (4070): mcc: 0.7895, acc: 0.7037, precision: 0.8519, recall: 0.7372, f1: 0.7904, edges-srl-ontonotes_loss: 0.0176
+09/16 09:19:06 AM: Update 4188: task edges-srl-ontonotes, batch 188 (4188): mcc: 0.7933, acc: 0.7109, precision: 0.8526, recall: 0.7434, f1: 0.7943, edges-srl-ontonotes_loss: 0.0172
+09/16 09:19:16 AM: Update 4308: task edges-srl-ontonotes, batch 308 (4308): mcc: 0.7961, acc: 0.7147, precision: 0.8558, recall: 0.7460, f1: 0.7971, edges-srl-ontonotes_loss: 0.0170
+09/16 09:19:26 AM: Update 4430: task edges-srl-ontonotes, batch 430 (4430): mcc: 0.7996, acc: 0.7196, precision: 0.8581, recall: 0.7504, f1: 0.8007, edges-srl-ontonotes_loss: 0.0168
+09/16 09:19:36 AM: Update 4545: task edges-srl-ontonotes, batch 545 (4545): mcc: 0.8011, acc: 0.7213, precision: 0.8587, recall: 0.7526, f1: 0.8021, edges-srl-ontonotes_loss: 0.0166
+09/16 09:19:46 AM: Update 4671: task edges-srl-ontonotes, batch 671 (4671): mcc: 0.8015, acc: 0.7215, precision: 0.8597, recall: 0.7525, f1: 0.8026, edges-srl-ontonotes_loss: 0.0166
+09/16 09:19:56 AM: Update 4761: task edges-srl-ontonotes, batch 761 (4761): mcc: 0.7993, acc: 0.7187, precision: 0.8584, recall: 0.7494, f1: 0.8002, edges-srl-ontonotes_loss: 0.0167
+09/16 09:20:06 AM: Update 4855: task edges-srl-ontonotes, batch 855 (4855): mcc: 0.7979, acc: 0.7171, precision: 0.8576, recall: 0.7477, f1: 0.7989, edges-srl-ontonotes_loss: 0.0168
+09/16 09:20:16 AM: Update 4948: task edges-srl-ontonotes, batch 948 (4948): mcc: 0.7969, acc: 0.7158, precision: 0.8569, recall: 0.7465, f1: 0.7979, edges-srl-ontonotes_loss: 0.0169
+09/16 09:20:22 AM: ***** Step 5000 / Validation 5 *****
+09/16 09:20:22 AM: edges-srl-ontonotes: trained on 1000 batches, 0.138 epochs
+09/16 09:20:22 AM: Validating...
+09/16 09:20:26 AM: Evaluate: task edges-srl-ontonotes, batch 56 (157): mcc: 0.8023, acc: 0.7298, precision: 0.8605, recall: 0.7532, f1: 0.8033, edges-srl-ontonotes_loss: 0.0165
+09/16 09:20:34 AM: Best result seen so far for edges-srl-ontonotes.
+09/16 09:20:34 AM: Best result seen so far for macro.
+09/16 09:20:34 AM: Updating LR scheduler:
+09/16 09:20:34 AM: 	Best result seen so far for macro_avg: 0.815
+09/16 09:20:34 AM: 	# validation passes without improvement: 0
+09/16 09:20:34 AM: edges-srl-ontonotes_loss: training: 0.016820 validation: 0.015689
+09/16 09:20:34 AM: macro_avg: validation: 0.814633
+09/16 09:20:34 AM: micro_avg: validation: 0.000000
+09/16 09:20:34 AM: edges-srl-ontonotes_mcc: training: 0.797271 validation: 0.813572
+09/16 09:20:34 AM: edges-srl-ontonotes_acc: training: 0.716251 validation: 0.743669
+09/16 09:20:34 AM: edges-srl-ontonotes_precision: training: 0.857213 validation: 0.868485
+09/16 09:20:34 AM: edges-srl-ontonotes_recall: training: 0.746812 validation: 0.767070
+09/16 09:20:34 AM: edges-srl-ontonotes_f1: training: 0.798213 validation: 0.814633
+09/16 09:20:34 AM: Global learning rate: 0.0001
+09/16 09:20:34 AM: Saving checkpoints to: ./experiments/srl-ontonotes-sts-cat/run
+09/16 09:20:38 AM: Update 5009: task edges-srl-ontonotes, batch 9 (5009): mcc: 0.7795, acc: 0.6958, precision: 0.8408, recall: 0.7285, f1: 0.7806, edges-srl-ontonotes_loss: 0.0180
+09/16 09:20:48 AM: Update 5140: task edges-srl-ontonotes, batch 140 (5140): mcc: 0.8098, acc: 0.7301, precision: 0.8623, recall: 0.7655, f1: 0.8110, edges-srl-ontonotes_loss: 0.0154
+09/16 09:20:58 AM: Update 5273: task edges-srl-ontonotes, batch 273 (5273): mcc: 0.8184, acc: 0.7416, precision: 0.8687, recall: 0.7759, f1: 0.8197, edges-srl-ontonotes_loss: 0.0149
+09/16 09:21:08 AM: Update 5397: task edges-srl-ontonotes, batch 397 (5397): mcc: 0.8288, acc: 0.7552, precision: 0.8766, recall: 0.7883, f1: 0.8301, edges-srl-ontonotes_loss: 0.0143
+09/16 09:21:18 AM: Update 5552: task edges-srl-ontonotes, batch 552 (5552): mcc: 0.8398, acc: 0.7695, precision: 0.8847, recall: 0.8016, f1: 0.8411, edges-srl-ontonotes_loss: 0.0136
+09/16 09:21:28 AM: Update 5692: task edges-srl-ontonotes, batch 692 (5692): mcc: 0.8445, acc: 0.7761, precision: 0.8880, recall: 0.8073, f1: 0.8458, edges-srl-ontonotes_loss: 0.0133
+09/16 09:21:38 AM: Update 5842: task edges-srl-ontonotes, batch 842 (5842): mcc: 0.8493, acc: 0.7828, precision: 0.8916, recall: 0.8132, f1: 0.8506, edges-srl-ontonotes_loss: 0.0129
+09/16 09:21:48 AM: Update 5948: task edges-srl-ontonotes, batch 948 (5948): mcc: 0.8516, acc: 0.7859, precision: 0.8933, recall: 0.8159, f1: 0.8529, edges-srl-ontonotes_loss: 0.0128
+09/16 09:21:52 AM: ***** Step 6000 / Validation 6 *****
+09/16 09:21:52 AM: edges-srl-ontonotes: trained on 1000 batches, 0.138 epochs
+09/16 09:21:52 AM: Validating...
+09/16 09:21:58 AM: Evaluate: task edges-srl-ontonotes, batch 79 (157): mcc: 0.8237, acc: 0.7607, precision: 0.8854, recall: 0.7709, f1: 0.8242, edges-srl-ontonotes_loss: 0.0151
+09/16 09:22:05 AM: Best result seen so far for edges-srl-ontonotes.
+09/16 09:22:05 AM: Best result seen so far for macro.
+09/16 09:22:05 AM: Updating LR scheduler:
+09/16 09:22:05 AM: 	Best result seen so far for macro_avg: 0.834
+09/16 09:22:05 AM: 	# validation passes without improvement: 0
+09/16 09:22:05 AM: edges-srl-ontonotes_loss: training: 0.012738 validation: 0.014396
+09/16 09:22:05 AM: macro_avg: validation: 0.833633
+09/16 09:22:05 AM: micro_avg: validation: 0.000000
+09/16 09:22:05 AM: edges-srl-ontonotes_mcc: training: 0.852545 validation: 0.832945
+09/16 09:22:05 AM: edges-srl-ontonotes_acc: training: 0.787465 validation: 0.772766
+09/16 09:22:05 AM: edges-srl-ontonotes_precision: training: 0.893907 validation: 0.889772
+09/16 09:22:05 AM: edges-srl-ontonotes_recall: training: 0.817152 validation: 0.784158
+09/16 09:22:05 AM: edges-srl-ontonotes_f1: training: 0.853808 validation: 0.833633
+09/16 09:22:05 AM: Global learning rate: 0.0001
+09/16 09:22:05 AM: Saving checkpoints to: ./experiments/srl-ontonotes-sts-cat/run
+09/16 09:22:08 AM: Update 6055: task edges-srl-ontonotes, batch 55 (6055): mcc: 0.8676, acc: 0.8101, precision: 0.9006, recall: 0.8394, f1: 0.8690, edges-srl-ontonotes_loss: 0.0117
+09/16 09:22:18 AM: Update 6207: task edges-srl-ontonotes, batch 207 (6207): mcc: 0.8720, acc: 0.8166, precision: 0.9045, recall: 0.8442, f1: 0.8733, edges-srl-ontonotes_loss: 0.0114
+09/16 09:22:28 AM: Update 6334: task edges-srl-ontonotes, batch 334 (6334): mcc: 0.8717, acc: 0.8165, precision: 0.9050, recall: 0.8433, f1: 0.8731, edges-srl-ontonotes_loss: 0.0114
+09/16 09:22:39 AM: Update 6487: task edges-srl-ontonotes, batch 487 (6487): mcc: 0.8726, acc: 0.8188, precision: 0.9051, recall: 0.8449, f1: 0.8740, edges-srl-ontonotes_loss: 0.0114
+09/16 09:22:49 AM: Update 6619: task edges-srl-ontonotes, batch 619 (6619): mcc: 0.8682, acc: 0.8130, precision: 0.9017, recall: 0.8397, f1: 0.8696, edges-srl-ontonotes_loss: 0.0117
+09/16 09:22:59 AM: Update 6749: task edges-srl-ontonotes, batch 749 (6749): mcc: 0.8615, acc: 0.8044, precision: 0.8964, recall: 0.8319, f1: 0.8630, edges-srl-ontonotes_loss: 0.0121
+09/16 09:23:09 AM: Update 6877: task edges-srl-ontonotes, batch 877 (6877): mcc: 0.8573, acc: 0.7990, precision: 0.8935, recall: 0.8265, f1: 0.8587, edges-srl-ontonotes_loss: 0.0125
+09/16 09:23:19 AM: Update 6988: task edges-srl-ontonotes, batch 988 (6988): mcc: 0.8509, acc: 0.7904, precision: 0.8889, recall: 0.8186, f1: 0.8523, edges-srl-ontonotes_loss: 0.0129
+09/16 09:23:20 AM: ***** Step 7000 / Validation 7 *****
+09/16 09:23:20 AM: edges-srl-ontonotes: trained on 1000 batches, 0.138 epochs
+09/16 09:23:20 AM: Validating...
+09/16 09:23:30 AM: Evaluate: task edges-srl-ontonotes, batch 104 (157): mcc: 0.8461, acc: 0.7905, precision: 0.8952, recall: 0.8038, f1: 0.8471, edges-srl-ontonotes_loss: 0.0132
+09/16 09:23:35 AM: Best result seen so far for edges-srl-ontonotes.
+09/16 09:23:35 AM: Best result seen so far for macro.
+09/16 09:23:35 AM: Updating LR scheduler:
+09/16 09:23:35 AM: 	Best result seen so far for macro_avg: 0.847
+09/16 09:23:35 AM: 	# validation passes without improvement: 0
+09/16 09:23:35 AM: edges-srl-ontonotes_loss: training: 0.012942 validation: 0.013299
+09/16 09:23:35 AM: macro_avg: validation: 0.847355
+09/16 09:23:35 AM: micro_avg: validation: 0.000000
+09/16 09:23:35 AM: edges-srl-ontonotes_mcc: training: 0.850443 validation: 0.846256
+09/16 09:23:35 AM: edges-srl-ontonotes_acc: training: 0.789838 validation: 0.792703
+09/16 09:23:35 AM: edges-srl-ontonotes_precision: training: 0.888638 validation: 0.892781
+09/16 09:23:35 AM: edges-srl-ontonotes_recall: training: 0.818036 validation: 0.806327
+09/16 09:23:35 AM: edges-srl-ontonotes_f1: training: 0.851877 validation: 0.847355
+09/16 09:23:35 AM: Global learning rate: 0.0001
+09/16 09:23:35 AM: Saving checkpoints to: ./experiments/srl-ontonotes-sts-cat/run
+09/16 09:23:40 AM: Update 7075: task edges-srl-ontonotes, batch 75 (7075): mcc: 0.8153, acc: 0.7407, precision: 0.8673, recall: 0.7714, f1: 0.8165, edges-srl-ontonotes_loss: 0.0154
+09/16 09:23:50 AM: Update 7191: task edges-srl-ontonotes, batch 191 (7191): mcc: 0.8120, acc: 0.7383, precision: 0.8628, recall: 0.7692, f1: 0.8134, edges-srl-ontonotes_loss: 0.0156
+09/16 09:24:01 AM: Update 7317: task edges-srl-ontonotes, batch 317 (7317): mcc: 0.8183, acc: 0.7469, precision: 0.8681, recall: 0.7763, f1: 0.8196, edges-srl-ontonotes_loss: 0.0152
+09/16 09:24:11 AM: Update 7450: task edges-srl-ontonotes, batch 450 (7450): mcc: 0.8232, acc: 0.7528, precision: 0.8708, recall: 0.7830, f1: 0.8246, edges-srl-ontonotes_loss: 0.0148
+09/16 09:24:21 AM: Update 7568: task edges-srl-ontonotes, batch 568 (7568): mcc: 0.8277, acc: 0.7588, precision: 0.8733, recall: 0.7891, f1: 0.8291, edges-srl-ontonotes_loss: 0.0144
+09/16 09:24:31 AM: Update 7707: task edges-srl-ontonotes, batch 707 (7707): mcc: 0.8307, acc: 0.7625, precision: 0.8755, recall: 0.7928, f1: 0.8321, edges-srl-ontonotes_loss: 0.0142
+09/16 09:24:41 AM: Update 7839: task edges-srl-ontonotes, batch 839 (7839): mcc: 0.8333, acc: 0.7657, precision: 0.8773, recall: 0.7960, f1: 0.8347, edges-srl-ontonotes_loss: 0.0139
+09/16 09:24:51 AM: Update 7961: task edges-srl-ontonotes, batch 961 (7961): mcc: 0.8333, acc: 0.7661, precision: 0.8772, recall: 0.7961, f1: 0.8347, edges-srl-ontonotes_loss: 0.0140
+09/16 09:24:54 AM: ***** Step 8000 / Validation 8 *****
+09/16 09:24:54 AM: edges-srl-ontonotes: trained on 1000 batches, 0.138 epochs
+09/16 09:24:54 AM: Validating...
+09/16 09:25:01 AM: Evaluate: task edges-srl-ontonotes, batch 87 (157): mcc: 0.8519, acc: 0.8007, precision: 0.8954, recall: 0.8145, f1: 0.8530, edges-srl-ontonotes_loss: 0.0124
+09/16 09:25:06 AM: Best result seen so far for edges-srl-ontonotes.
+09/16 09:25:06 AM: Best result seen so far for macro.
+09/16 09:25:06 AM: Updating LR scheduler:
+09/16 09:25:06 AM: 	Best result seen so far for macro_avg: 0.857
+09/16 09:25:06 AM: 	# validation passes without improvement: 0
+09/16 09:25:06 AM: edges-srl-ontonotes_loss: training: 0.013955 validation: 0.012166
+09/16 09:25:06 AM: macro_avg: validation: 0.857200
+09/16 09:25:06 AM: micro_avg: validation: 0.000000
+09/16 09:25:06 AM: edges-srl-ontonotes_mcc: training: 0.833661 validation: 0.855953
+09/16 09:25:06 AM: edges-srl-ontonotes_acc: training: 0.766552 validation: 0.807944
+09/16 09:25:06 AM: edges-srl-ontonotes_precision: training: 0.877471 validation: 0.896613
+09/16 09:25:06 AM: edges-srl-ontonotes_recall: training: 0.796581 validation: 0.821107
+09/16 09:25:06 AM: edges-srl-ontonotes_f1: training: 0.835072 validation: 0.857200
+09/16 09:25:06 AM: Global learning rate: 0.0001
+09/16 09:25:06 AM: Saving checkpoints to: ./experiments/srl-ontonotes-sts-cat/run
+09/16 09:25:11 AM: Update 8063: task edges-srl-ontonotes, batch 63 (8063): mcc: 0.8315, acc: 0.7659, precision: 0.8762, recall: 0.7937, f1: 0.8329, edges-srl-ontonotes_loss: 0.0141
+09/16 09:25:23 AM: Update 8186: task edges-srl-ontonotes, batch 186 (8186): mcc: 0.8294, acc: 0.7639, precision: 0.8718, recall: 0.7938, f1: 0.8310, edges-srl-ontonotes_loss: 0.0141
+09/16 09:25:33 AM: Update 8329: task edges-srl-ontonotes, batch 329 (8329): mcc: 0.8238, acc: 0.7554, precision: 0.8677, recall: 0.7869, f1: 0.8253, edges-srl-ontonotes_loss: 0.0146
+09/16 09:25:43 AM: Update 8455: task edges-srl-ontonotes, batch 455 (8455): mcc: 0.8204, acc: 0.7514, precision: 0.8655, recall: 0.7825, f1: 0.8219, edges-srl-ontonotes_loss: 0.0148
+09/16 09:25:53 AM: Update 8577: task edges-srl-ontonotes, batch 577 (8577): mcc: 0.8201, acc: 0.7506, precision: 0.8659, recall: 0.7816, f1: 0.8216, edges-srl-ontonotes_loss: 0.0148
+09/16 09:26:03 AM: Update 8706: task edges-srl-ontonotes, batch 706 (8706): mcc: 0.8197, acc: 0.7504, precision: 0.8653, recall: 0.7815, f1: 0.8213, edges-srl-ontonotes_loss: 0.0148
+09/16 09:26:13 AM: Update 8825: task edges-srl-ontonotes, batch 825 (8825): mcc: 0.8209, acc: 0.7517, precision: 0.8661, recall: 0.7830, f1: 0.8224, edges-srl-ontonotes_loss: 0.0147
+09/16 09:26:23 AM: Update 8948: task edges-srl-ontonotes, batch 948 (8948): mcc: 0.8165, acc: 0.7463, precision: 0.8625, recall: 0.7779, f1: 0.8180, edges-srl-ontonotes_loss: 0.0150
+09/16 09:26:27 AM: ***** Step 9000 / Validation 9 *****
+09/16 09:26:27 AM: edges-srl-ontonotes: trained on 1000 batches, 0.138 epochs
+09/16 09:26:27 AM: Validating...
+09/16 09:26:33 AM: Evaluate: task edges-srl-ontonotes, batch 68 (157): mcc: 0.8451, acc: 0.7906, precision: 0.8924, recall: 0.8045, f1: 0.8462, edges-srl-ontonotes_loss: 0.0129
+09/16 09:26:40 AM: Best result seen so far for edges-srl-ontonotes.
+09/16 09:26:40 AM: Best result seen so far for macro.
+09/16 09:26:40 AM: Updating LR scheduler:
+09/16 09:26:40 AM: 	Best result seen so far for macro_avg: 0.860
+09/16 09:26:40 AM: 	# validation passes without improvement: 0
+09/16 09:26:40 AM: edges-srl-ontonotes_loss: training: 0.015063 validation: 0.011986
+09/16 09:26:40 AM: macro_avg: validation: 0.859781
+09/16 09:26:40 AM: micro_avg: validation: 0.000000
+09/16 09:26:40 AM: edges-srl-ontonotes_mcc: training: 0.815234 validation: 0.858739
+09/16 09:26:40 AM: edges-srl-ontonotes_acc: training: 0.744949 validation: 0.807405
+09/16 09:26:40 AM: edges-srl-ontonotes_precision: training: 0.861690 validation: 0.902931
+09/16 09:26:40 AM: edges-srl-ontonotes_recall: training: 0.776287 validation: 0.820568
+09/16 09:26:40 AM: edges-srl-ontonotes_f1: training: 0.816762 validation: 0.859781
+09/16 09:26:40 AM: Global learning rate: 0.0001
+09/16 09:26:40 AM: Saving checkpoints to: ./experiments/srl-ontonotes-sts-cat/run
+09/16 09:26:43 AM: Update 9033: task edges-srl-ontonotes, batch 33 (9033): mcc: 0.7980, acc: 0.7197, precision: 0.8522, recall: 0.7526, f1: 0.7993, edges-srl-ontonotes_loss: 0.0162
+09/16 09:26:53 AM: Update 9126: task edges-srl-ontonotes, batch 126 (9126): mcc: 0.8013, acc: 0.7283, precision: 0.8511, recall: 0.7597, f1: 0.8028, edges-srl-ontonotes_loss: 0.0161
+09/16 09:27:03 AM: Update 9251: task edges-srl-ontonotes, batch 251 (9251): mcc: 0.8016, acc: 0.7259, precision: 0.8532, recall: 0.7584, f1: 0.8030, edges-srl-ontonotes_loss: 0.0161
+09/16 09:27:13 AM: Update 9375: task edges-srl-ontonotes, batch 375 (9375): mcc: 0.8028, acc: 0.7282, precision: 0.8531, recall: 0.7608, f1: 0.8043, edges-srl-ontonotes_loss: 0.0159
+09/16 09:27:23 AM: Update 9484: task edges-srl-ontonotes, batch 484 (9484): mcc: 0.8041, acc: 0.7304, precision: 0.8548, recall: 0.7617, f1: 0.8056, edges-srl-ontonotes_loss: 0.0158
+09/16 09:27:33 AM: Update 9604: task edges-srl-ontonotes, batch 604 (9604): mcc: 0.8091, acc: 0.7370, precision: 0.8583, recall: 0.7680, f1: 0.8106, edges-srl-ontonotes_loss: 0.0155
+09/16 09:27:43 AM: Update 9726: task edges-srl-ontonotes, batch 726 (9726): mcc: 0.8113, acc: 0.7398, precision: 0.8599, recall: 0.7706, f1: 0.8128, edges-srl-ontonotes_loss: 0.0153
+09/16 09:27:53 AM: Update 9839: task edges-srl-ontonotes, batch 839 (9839): mcc: 0.8131, acc: 0.7423, precision: 0.8613, recall: 0.7726, f1: 0.8145, edges-srl-ontonotes_loss: 0.0152
+09/16 09:28:03 AM: Update 9956: task edges-srl-ontonotes, batch 956 (9956): mcc: 0.8150, acc: 0.7448, precision: 0.8625, recall: 0.7750, f1: 0.8164, edges-srl-ontonotes_loss: 0.0150
+09/16 09:28:07 AM: ***** Step 10000 / Validation 10 *****
+09/16 09:28:07 AM: edges-srl-ontonotes: trained on 1000 batches, 0.138 epochs
+09/16 09:28:07 AM: Validating...
+09/16 09:28:13 AM: Evaluate: task edges-srl-ontonotes, batch 74 (157): mcc: 0.8427, acc: 0.7908, precision: 0.8899, recall: 0.8023, f1: 0.8438, edges-srl-ontonotes_loss: 0.0130
+09/16 09:28:20 AM: Updating LR scheduler:
+09/16 09:28:20 AM: 	Best result seen so far for macro_avg: 0.860
+09/16 09:28:20 AM: 	# validation passes without improvement: 1
+09/16 09:28:20 AM: edges-srl-ontonotes_loss: training: 0.015022 validation: 0.012350
+09/16 09:28:20 AM: macro_avg: validation: 0.852508
+09/16 09:28:20 AM: micro_avg: validation: 0.000000
+09/16 09:28:20 AM: edges-srl-ontonotes_mcc: training: 0.815275 validation: 0.851380
+09/16 09:28:20 AM: edges-srl-ontonotes_acc: training: 0.745263 validation: 0.802479
+09/16 09:28:20 AM: edges-srl-ontonotes_precision: training: 0.862764 validation: 0.895929
+09/16 09:28:20 AM: edges-srl-ontonotes_recall: training: 0.775391 validation: 0.813101
+09/16 09:28:20 AM: edges-srl-ontonotes_f1: training: 0.816747 validation: 0.852508
+09/16 09:28:20 AM: Global learning rate: 0.0001
+09/16 09:28:20 AM: Saving checkpoints to: ./experiments/srl-ontonotes-sts-cat/run
+09/16 09:28:23 AM: Update 10040: task edges-srl-ontonotes, batch 40 (10040): mcc: 0.8233, acc: 0.7554, precision: 0.8661, recall: 0.7873, f1: 0.8249, edges-srl-ontonotes_loss: 0.0144
+09/16 09:28:33 AM: Update 10124: task edges-srl-ontonotes, batch 124 (10124): mcc: 0.8349, acc: 0.7703, precision: 0.8771, recall: 0.7991, f1: 0.8363, edges-srl-ontonotes_loss: 0.0140
+09/16 09:28:44 AM: Update 10246: task edges-srl-ontonotes, batch 246 (10246): mcc: 0.8343, acc: 0.7707, precision: 0.8766, recall: 0.7985, f1: 0.8357, edges-srl-ontonotes_loss: 0.0139
+09/16 09:28:54 AM: Update 10367: task edges-srl-ontonotes, batch 367 (10367): mcc: 0.8356, acc: 0.7723, precision: 0.8783, recall: 0.7996, f1: 0.8371, edges-srl-ontonotes_loss: 0.0138
+09/16 09:29:04 AM: Update 10475: task edges-srl-ontonotes, batch 475 (10475): mcc: 0.8330, acc: 0.7686, precision: 0.8764, recall: 0.7963, f1: 0.8345, edges-srl-ontonotes_loss: 0.0140
+09/16 09:29:14 AM: Update 10593: task edges-srl-ontonotes, batch 593 (10593): mcc: 0.8309, acc: 0.7653, precision: 0.8753, recall: 0.7933, f1: 0.8323, edges-srl-ontonotes_loss: 0.0141
+09/16 09:29:24 AM: Update 10694: task edges-srl-ontonotes, batch 694 (10694): mcc: 0.8295, acc: 0.7634, precision: 0.8747, recall: 0.7912, f1: 0.8309, edges-srl-ontonotes_loss: 0.0142
+09/16 09:29:34 AM: Update 10816: task edges-srl-ontonotes, batch 816 (10816): mcc: 0.8284, acc: 0.7617, precision: 0.8740, recall: 0.7897, f1: 0.8297, edges-srl-ontonotes_loss: 0.0142
+09/16 09:29:44 AM: Update 10944: task edges-srl-ontonotes, batch 944 (10944): mcc: 0.8286, acc: 0.7619, precision: 0.8743, recall: 0.7899, f1: 0.8300, edges-srl-ontonotes_loss: 0.0142
+09/16 09:29:48 AM: ***** Step 11000 / Validation 11 *****
+09/16 09:29:48 AM: edges-srl-ontonotes: trained on 1000 batches, 0.138 epochs
+09/16 09:29:48 AM: Validating...
+09/16 09:29:54 AM: Evaluate: task edges-srl-ontonotes, batch 77 (157): mcc: 0.8368, acc: 0.7843, precision: 0.8802, recall: 0.7999, f1: 0.8382, edges-srl-ontonotes_loss: 0.0136
+09/16 09:30:00 AM: Updating LR scheduler:
+09/16 09:30:00 AM: 	Best result seen so far for macro_avg: 0.860
+09/16 09:30:00 AM: 	# validation passes without improvement: 2
+09/16 09:30:00 AM: edges-srl-ontonotes_loss: training: 0.014239 validation: 0.012811
+09/16 09:30:00 AM: macro_avg: validation: 0.848300
+09/16 09:30:00 AM: micro_avg: validation: 0.000000
+09/16 09:30:00 AM: edges-srl-ontonotes_mcc: training: 0.828639 validation: 0.846874
+09/16 09:30:00 AM: edges-srl-ontonotes_acc: training: 0.761987 validation: 0.797398
+09/16 09:30:00 AM: edges-srl-ontonotes_precision: training: 0.874461 validation: 0.886409
+09/16 09:30:00 AM: edges-srl-ontonotes_recall: training: 0.789871 validation: 0.813332
+09/16 09:30:00 AM: edges-srl-ontonotes_f1: training: 0.830016 validation: 0.848300
+09/16 09:30:00 AM: Global learning rate: 0.0001
+09/16 09:30:00 AM: Saving checkpoints to: ./experiments/srl-ontonotes-sts-cat/run
+09/16 09:30:04 AM: Update 11038: task edges-srl-ontonotes, batch 38 (11038): mcc: 0.8252, acc: 0.7601, precision: 0.8660, recall: 0.7910, f1: 0.8268, edges-srl-ontonotes_loss: 0.0145
+09/16 09:30:14 AM: Update 11165: task edges-srl-ontonotes, batch 165 (11165): mcc: 0.8218, acc: 0.7549, precision: 0.8670, recall: 0.7837, f1: 0.8233, edges-srl-ontonotes_loss: 0.0146
+09/16 09:30:24 AM: Update 11287: task edges-srl-ontonotes, batch 287 (11287): mcc: 0.8235, acc: 0.7568, precision: 0.8681, recall: 0.7860, f1: 0.8250, edges-srl-ontonotes_loss: 0.0144
+09/16 09:30:34 AM: Update 11374: task edges-srl-ontonotes, batch 374 (11374): mcc: 0.8226, acc: 0.7560, precision: 0.8678, recall: 0.7845, f1: 0.8241, edges-srl-ontonotes_loss: 0.0145
+09/16 09:30:44 AM: Update 11502: task edges-srl-ontonotes, batch 502 (11502): mcc: 0.8255, acc: 0.7598, precision: 0.8699, recall: 0.7880, f1: 0.8269, edges-srl-ontonotes_loss: 0.0142
+09/16 09:30:54 AM: Update 11621: task edges-srl-ontonotes, batch 621 (11621): mcc: 0.8279, acc: 0.7624, precision: 0.8719, recall: 0.7907, f1: 0.8293, edges-srl-ontonotes_loss: 0.0141
+09/16 09:31:04 AM: Update 11731: task edges-srl-ontonotes, batch 731 (11731): mcc: 0.8288, acc: 0.7631, precision: 0.8728, recall: 0.7917, f1: 0.8302, edges-srl-ontonotes_loss: 0.0140
+09/16 09:31:14 AM: Update 11860: task edges-srl-ontonotes, batch 860 (11860): mcc: 0.8303, acc: 0.7652, precision: 0.8740, recall: 0.7933, f1: 0.8317, edges-srl-ontonotes_loss: 0.0139
+09/16 09:31:24 AM: Update 11973: task edges-srl-ontonotes, batch 973 (11973): mcc: 0.8296, acc: 0.7643, precision: 0.8737, recall: 0.7924, f1: 0.8310, edges-srl-ontonotes_loss: 0.0140
+09/16 09:31:26 AM: ***** Step 12000 / Validation 12 *****
+09/16 09:31:26 AM: edges-srl-ontonotes: trained on 1000 batches, 0.138 epochs
+09/16 09:31:26 AM: Validating...
+09/16 09:31:34 AM: Evaluate: task edges-srl-ontonotes, batch 99 (157): mcc: 0.8446, acc: 0.7910, precision: 0.8924, recall: 0.8035, f1: 0.8457, edges-srl-ontonotes_loss: 0.0129
+09/16 09:31:39 AM: Updating LR scheduler:
+09/16 09:31:39 AM: 	Best result seen so far for macro_avg: 0.860
+09/16 09:31:39 AM: 	# validation passes without improvement: 3
+09/16 09:31:39 AM: edges-srl-ontonotes_loss: training: 0.014022 validation: 0.012599
+09/16 09:31:39 AM: macro_avg: validation: 0.850248
+09/16 09:31:39 AM: micro_avg: validation: 0.000000
+09/16 09:31:39 AM: edges-srl-ontonotes_mcc: training: 0.828931 validation: 0.849085
+09/16 09:31:39 AM: edges-srl-ontonotes_acc: training: 0.763563 validation: 0.799015
+09/16 09:31:39 AM: edges-srl-ontonotes_precision: training: 0.873164 validation: 0.893554
+09/16 09:31:39 AM: edges-srl-ontonotes_recall: training: 0.791604 validation: 0.810946
+09/16 09:31:39 AM: edges-srl-ontonotes_f1: training: 0.830386 validation: 0.850248
+09/16 09:31:39 AM: Global learning rate: 0.0001
+09/16 09:31:39 AM: Saving checkpoints to: ./experiments/srl-ontonotes-sts-cat/run
+09/16 09:31:44 AM: Update 12062: task edges-srl-ontonotes, batch 62 (12062): mcc: 0.8083, acc: 0.7377, precision: 0.8598, recall: 0.7650, f1: 0.8097, edges-srl-ontonotes_loss: 0.0155
+09/16 09:31:54 AM: Update 12175: task edges-srl-ontonotes, batch 175 (12175): mcc: 0.8143, acc: 0.7449, precision: 0.8652, recall: 0.7714, f1: 0.8156, edges-srl-ontonotes_loss: 0.0150
+09/16 09:32:05 AM: Update 12255: task edges-srl-ontonotes, batch 255 (12255): mcc: 0.8169, acc: 0.7484, precision: 0.8672, recall: 0.7745, f1: 0.8182, edges-srl-ontonotes_loss: 0.0148
+09/16 09:32:15 AM: Update 12394: task edges-srl-ontonotes, batch 394 (12394): mcc: 0.8289, acc: 0.7637, precision: 0.8750, recall: 0.7899, f1: 0.8303, edges-srl-ontonotes_loss: 0.0140
+09/16 09:32:25 AM: Update 12534: task edges-srl-ontonotes, batch 534 (12534): mcc: 0.8375, acc: 0.7740, precision: 0.8806, recall: 0.8009, f1: 0.8389, edges-srl-ontonotes_loss: 0.0134
+09/16 09:32:35 AM: Update 12670: task edges-srl-ontonotes, batch 670 (12670): mcc: 0.8467, acc: 0.7854, precision: 0.8872, recall: 0.8122, f1: 0.8481, edges-srl-ontonotes_loss: 0.0128
+09/16 09:32:45 AM: Update 12829: task edges-srl-ontonotes, batch 829 (12829): mcc: 0.8566, acc: 0.7982, precision: 0.8943, recall: 0.8245, f1: 0.8580, edges-srl-ontonotes_loss: 0.0121
+09/16 09:32:55 AM: Update 12987: task edges-srl-ontonotes, batch 987 (12987): mcc: 0.8628, acc: 0.8061, precision: 0.8990, recall: 0.8318, f1: 0.8641, edges-srl-ontonotes_loss: 0.0117
+09/16 09:32:55 AM: ***** Step 13000 / Validation 13 *****
+09/16 09:32:55 AM: edges-srl-ontonotes: trained on 1000 batches, 0.138 epochs
+09/16 09:32:55 AM: Validating...
+09/16 09:33:05 AM: Evaluate: task edges-srl-ontonotes, batch 123 (157): mcc: 0.8548, acc: 0.8048, precision: 0.8990, recall: 0.8168, f1: 0.8559, edges-srl-ontonotes_loss: 0.0124
+09/16 09:33:07 AM: Updating LR scheduler:
+09/16 09:33:07 AM: 	Best result seen so far for macro_avg: 0.860
+09/16 09:33:07 AM: 	# validation passes without improvement: 0
+09/16 09:33:07 AM: edges-srl-ontonotes_loss: training: 0.011641 validation: 0.012507
+09/16 09:33:07 AM: macro_avg: validation: 0.854767
+09/16 09:33:07 AM: micro_avg: validation: 0.000000
+09/16 09:33:07 AM: edges-srl-ontonotes_mcc: training: 0.863126 validation: 0.853689
+09/16 09:33:07 AM: edges-srl-ontonotes_acc: training: 0.806580 validation: 0.802094
+09/16 09:33:07 AM: edges-srl-ontonotes_precision: training: 0.899200 validation: 0.898583
+09/16 09:33:07 AM: edges-srl-ontonotes_recall: training: 0.832316 validation: 0.815026
+09/16 09:33:07 AM: edges-srl-ontonotes_f1: training: 0.864466 validation: 0.854767
+09/16 09:33:07 AM: Global learning rate: 5e-05
+09/16 09:33:07 AM: Saving checkpoints to: ./experiments/srl-ontonotes-sts-cat/run
+09/16 09:33:15 AM: Update 13119: task edges-srl-ontonotes, batch 119 (13119): mcc: 0.8916, acc: 0.8432, precision: 0.9228, recall: 0.8646, f1: 0.8927, edges-srl-ontonotes_loss: 0.0096
+09/16 09:33:25 AM: Update 13260: task edges-srl-ontonotes, batch 260 (13260): mcc: 0.8917, acc: 0.8446, precision: 0.9203, recall: 0.8670, f1: 0.8929, edges-srl-ontonotes_loss: 0.0096
+09/16 09:33:35 AM: Update 13416: task edges-srl-ontonotes, batch 416 (13416): mcc: 0.8926, acc: 0.8455, precision: 0.9207, recall: 0.8683, f1: 0.8938, edges-srl-ontonotes_loss: 0.0096
+09/16 09:33:45 AM: Update 13532: task edges-srl-ontonotes, batch 532 (13532): mcc: 0.8909, acc: 0.8446, precision: 0.9187, recall: 0.8671, f1: 0.8921, edges-srl-ontonotes_loss: 0.0097
+09/16 09:33:55 AM: Update 13682: task edges-srl-ontonotes, batch 682 (13682): mcc: 0.8902, acc: 0.8445, precision: 0.9179, recall: 0.8666, f1: 0.8915, edges-srl-ontonotes_loss: 0.0097
+09/16 09:34:05 AM: Update 13820: task edges-srl-ontonotes, batch 820 (13820): mcc: 0.8897, acc: 0.8448, precision: 0.9169, recall: 0.8665, f1: 0.8910, edges-srl-ontonotes_loss: 0.0098
+09/16 09:34:15 AM: Update 13931: task edges-srl-ontonotes, batch 931 (13931): mcc: 0.8844, acc: 0.8378, precision: 0.9128, recall: 0.8601, f1: 0.8857, edges-srl-ontonotes_loss: 0.0102
+09/16 09:34:22 AM: ***** Step 14000 / Validation 14 *****
+09/16 09:34:22 AM: edges-srl-ontonotes: trained on 1000 batches, 0.138 epochs
+09/16 09:34:22 AM: Validating...
+09/16 09:34:25 AM: Evaluate: task edges-srl-ontonotes, batch 50 (157): mcc: 0.8556, acc: 0.8079, precision: 0.8979, recall: 0.8192, f1: 0.8567, edges-srl-ontonotes_loss: 0.0125
+09/16 09:34:33 AM: Best result seen so far for edges-srl-ontonotes.
+09/16 09:34:33 AM: Best result seen so far for macro.
+09/16 09:34:33 AM: Updating LR scheduler:
+09/16 09:34:33 AM: 	Best result seen so far for macro_avg: 0.865
+09/16 09:34:33 AM: 	# validation passes without improvement: 0
+09/16 09:34:33 AM: edges-srl-ontonotes_loss: training: 0.010341 validation: 0.011649
+09/16 09:34:33 AM: macro_avg: validation: 0.865261
+09/16 09:34:33 AM: micro_avg: validation: 0.000000
+09/16 09:34:33 AM: edges-srl-ontonotes_mcc: training: 0.881785 validation: 0.864034
+09/16 09:34:33 AM: edges-srl-ontonotes_acc: training: 0.834228 validation: 0.820337
+09/16 09:34:33 AM: edges-srl-ontonotes_precision: training: 0.910831 validation: 0.902516
+09/16 09:34:33 AM: edges-srl-ontonotes_recall: training: 0.857020 validation: 0.830960
+09/16 09:34:33 AM: edges-srl-ontonotes_f1: training: 0.883107 validation: 0.865261
+09/16 09:34:34 AM: Global learning rate: 5e-05
+09/16 09:34:34 AM: Saving checkpoints to: ./experiments/srl-ontonotes-sts-cat/run
+09/16 09:34:35 AM: Update 14026: task edges-srl-ontonotes, batch 26 (14026): mcc: 0.8557, acc: 0.7990, precision: 0.8884, recall: 0.8283, f1: 0.8573, edges-srl-ontonotes_loss: 0.0122
+09/16 09:34:46 AM: Update 14134: task edges-srl-ontonotes, batch 134 (14134): mcc: 0.8516, acc: 0.7949, precision: 0.8873, recall: 0.8216, f1: 0.8532, edges-srl-ontonotes_loss: 0.0126
+09/16 09:34:56 AM: Update 14256: task edges-srl-ontonotes, batch 256 (14256): mcc: 0.8401, acc: 0.7797, precision: 0.8785, recall: 0.8077, f1: 0.8417, edges-srl-ontonotes_loss: 0.0134
+09/16 09:35:06 AM: Update 14378: task edges-srl-ontonotes, batch 378 (14378): mcc: 0.8364, acc: 0.7748, precision: 0.8759, recall: 0.8031, f1: 0.8379, edges-srl-ontonotes_loss: 0.0136
+09/16 09:35:18 AM: Update 14493: task edges-srl-ontonotes, batch 493 (14493): mcc: 0.8363, acc: 0.7745, precision: 0.8764, recall: 0.8026, f1: 0.8379, edges-srl-ontonotes_loss: 0.0136
+09/16 09:35:28 AM: Update 14623: task edges-srl-ontonotes, batch 623 (14623): mcc: 0.8410, acc: 0.7804, precision: 0.8805, recall: 0.8077, f1: 0.8426, edges-srl-ontonotes_loss: 0.0132
+09/16 09:35:38 AM: Update 14755: task edges-srl-ontonotes, batch 755 (14755): mcc: 0.8435, acc: 0.7834, precision: 0.8822, recall: 0.8107, f1: 0.8450, edges-srl-ontonotes_loss: 0.0130
+09/16 09:35:48 AM: Update 14855: task edges-srl-ontonotes, batch 855 (14855): mcc: 0.8442, acc: 0.7842, precision: 0.8829, recall: 0.8116, f1: 0.8457, edges-srl-ontonotes_loss: 0.0130
+09/16 09:35:58 AM: ***** Step 15000 / Validation 15 *****
+09/16 09:35:58 AM: edges-srl-ontonotes: trained on 1000 batches, 0.138 epochs
+09/16 09:35:58 AM: Validating...
+09/16 09:35:58 AM: Evaluate: task edges-srl-ontonotes, batch 5 (157): mcc: 0.8781, acc: 0.8360, precision: 0.9160, recall: 0.8451, f1: 0.8791, edges-srl-ontonotes_loss: 0.0102
+09/16 09:36:08 AM: Evaluate: task edges-srl-ontonotes, batch 135 (157): mcc: 0.8767, acc: 0.8370, precision: 0.9099, recall: 0.8481, f1: 0.8779, edges-srl-ontonotes_loss: 0.0105
+09/16 09:36:10 AM: Best result seen so far for edges-srl-ontonotes.
+09/16 09:36:10 AM: Best result seen so far for macro.
+09/16 09:36:10 AM: Updating LR scheduler:
+09/16 09:36:10 AM: 	Best result seen so far for macro_avg: 0.874
+09/16 09:36:10 AM: 	# validation passes without improvement: 0
+09/16 09:36:10 AM: edges-srl-ontonotes_loss: training: 0.012801 validation: 0.010853
+09/16 09:36:10 AM: macro_avg: validation: 0.873898
+09/16 09:36:10 AM: micro_avg: validation: 0.000000
+09/16 09:36:10 AM: edges-srl-ontonotes_mcc: training: 0.846863 validation: 0.872629
+09/16 09:36:10 AM: edges-srl-ontonotes_acc: training: 0.787650 validation: 0.832268
+09/16 09:36:10 AM: edges-srl-ontonotes_precision: training: 0.885158 validation: 0.907006
+09/16 09:36:10 AM: edges-srl-ontonotes_recall: training: 0.814468 validation: 0.843122
+09/16 09:36:10 AM: edges-srl-ontonotes_f1: training: 0.848343 validation: 0.873898
+09/16 09:36:10 AM: Global learning rate: 5e-05
+09/16 09:36:10 AM: Saving checkpoints to: ./experiments/srl-ontonotes-sts-cat/run
+09/16 09:36:18 AM: Update 15111: task edges-srl-ontonotes, batch 111 (15111): mcc: 0.8602, acc: 0.8024, precision: 0.8950, recall: 0.8306, f1: 0.8616, edges-srl-ontonotes_loss: 0.0116
+09/16 09:36:28 AM: Update 15232: task edges-srl-ontonotes, batch 232 (15232): mcc: 0.8543, acc: 0.7958, precision: 0.8894, recall: 0.8246, f1: 0.8558, edges-srl-ontonotes_loss: 0.0122
