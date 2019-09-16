@@ -24,11 +24,11 @@ returnVal = {}
 for item in results:    
     finetuned_model, layer, probing_task, accuracy = item
     if finetuned_model == "z":
-        returnVal[(" ", layer)] = [" "," "," "," "," "," "]
-        returnVal[("  ", layer)] = [" "," "," "," "," "," "]
+        returnVal[(" ", layer)] = [" "," "," "," "," "," ", " "]
+        returnVal[("  ", layer)] = [" "," "," "," "," "," "," "]
         continue
     if (finetuned_model, layer) not in returnVal:        
-        returnVal[(finetuned_model, layer)] = ["-","-","-","-","-","-"]
+        returnVal[(finetuned_model, layer)] = ["-","-","-","-","-","-","-"]
     if probing_task == "dep ud ewt":
         returnVal[(finetuned_model, layer)][0] = str(accuracy)
     elif probing_task == "srl ontonotes":
@@ -41,6 +41,9 @@ for item in results:
         returnVal[(finetuned_model, layer)][4] = str(accuracy)
     elif probing_task == "spr2":
         returnVal[(finetuned_model, layer)][5] = str(accuracy)
+    elif probing_task == "coref ontonotes":
+        returnVal[(finetuned_model, layer)][6] = str(accuracy)
+ 
 
 printResults = []
 for key in returnVal:
@@ -50,5 +53,5 @@ for key in returnVal:
     temp.extend(returnVal[key])
     printResults.append(temp)
 
-print(tabulate(printResults,headers=['Finetuning Task', 'Layer', 'Dependency', 'SRL', "NER",'Rel Semeval','POS', 'SPR2'], tablefmt='orgtbl'))
+print(tabulate(printResults,headers=['Finetuning Task', 'Layer', 'Dependency', 'SRL', "NER",'Rel Semeval','POS', 'SPR2', "Coref"], tablefmt='orgtbl'))
 
