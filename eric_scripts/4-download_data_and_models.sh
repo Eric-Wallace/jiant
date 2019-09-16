@@ -1,7 +1,7 @@
 RCLONE_DIR=~/bin/rclone
 
 #mkdir -p probing_data
-$RCLONE_DIR copy -v Eric:finetuning/probing_data/edges/ontonotes/const/ probing_data/edges/ontonotes/const/
+#$RCLONE_DIR copy -v Eric:finetuning/probing_data/edges/ontonotes/const/ probing_data/edges/ontonotes/const/
 
 mkdir -p models
 
