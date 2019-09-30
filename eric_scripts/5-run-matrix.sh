@@ -6,36 +6,39 @@ declare -a ALL_TASKS
 # ALL_TASKS+=( "spr2" )
 # ALL_TASKS+=( "dpr" )
 # ALL_TASKS+=( "nonterminal-ontonotes" )
-#ALL_TASKS+=( "dep-ud-ewt" )
-#ALL_TASKS+=( "pos-ontonotes" )
-#ALL_TASKS+=( "ner-ontonotes" )
-#ALL_TASKS+=( "srl-ontonotes" )
+ALL_TASKS+=( "dep-ud-ewt" )
+ALL_TASKS+=( "pos-ontonotes" )
+ALL_TASKS+=( "ner-ontonotes" )
+ALL_TASKS+=( "srl-ontonotes" )
 #ALL_TASKS+=( "coref-ontonotes" )
 ALL_TASKS+=( "rel-semeval" )
 echo "All tasks to run: ${ALL_TASKS[@]}"
 
 declare -a ALL_MODELS
-ALL_MODELS+=( "None" ) # bert has pretrained_dir to None
-ALL_MODELS+=( "RANDOM" )
-ALL_MODELS+=( "RANDOM_WITH_GOOD_EMBEDDINGS" )
+#ALL_MODELS+=( "None" ) # bert has pretrained_dir to None
+#ALL_MODELS+=( "RANDOM" )
+#ALL_MODELS+=( "RANDOM_WITH_GOOD_EMBEDDINGS" )
 
-ALL_MODELS+=( "rte" )
-ALL_MODELS+=( "sts" )
-ALL_MODELS+=( "sst" )
-ALL_MODELS+=( "mrpc" )
-ALL_MODELS+=( "mnli" )
-ALL_MODELS+=( "coref" )
-ALL_MODELS+=( "memorization" )
-ALL_MODELS+=( "multiqa" )
-ALL_MODELS+=( "hotpot" )
-ALL_MODELS+=( "squad" )
+ALL_MODELS+=( "sstseed2" )
+ALL_MODELS+=( "sstrandom" )
+ALL_MODELS+=( "allstrings" )
+#ALL_MODELS+=( "rte" )
+#ALL_MODELS+=( "sts" )
+#ALL_MODELS+=( "sst" )
+#ALL_MODELS+=( "mrpc" )
+#ALL_MODELS+=( "mnli" )
+#ALL_MODELS+=( "coref" )
+#ALL_MODELS+=( "memorization" )
+#ALL_MODELS+=( "multiqa" )
+#ALL_MODELS+=( "hotpot" )
+#ALL_MODELS+=( "squad" )
 
 
 declare -a All_LAYERS
-All_LAYERS+=( "cat" )
-All_LAYERS+=( "only" )
+#All_LAYERS+=( "cat" )
+#All_LAYERS+=( "only" )
 All_LAYERS+=( "top" )
-All_LAYERS+=( "mix" )
+#All_LAYERS+=( "mix" )
 
 CURRENT_RUNNING_JOBS=0
 AVAILABLE_CUDA_DEVICES=(0 1 2 3 4 5 6 7)
