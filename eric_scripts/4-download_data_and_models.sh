@@ -29,4 +29,9 @@ mkdir -p models/hotpot
 $RCLONE_DIR copy -v Eric:finetuning/models/hotpot models/hotpot
 mkdir -p models/squad
 $RCLONE_DIR copy -v Eric:finetuning/models/squad models/squad
-
+mkdir -p models/sstseed2
+$RCLONE_DIR copy -v Eric:finetuning/models/sstseed2 models/sstseed2
+mkdir -p models/allstrings
+$RCLONE_DIR copy -v Eric:finetuning/models/allstrings models/allstrings
+mkdir -p models/sstrandom
+$RCLONE_DIR copy -v Eric:finetuning/models/sstrandom models/sstrandom
