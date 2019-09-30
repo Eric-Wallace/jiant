@@ -1,0 +1,1698 @@
+10/01 03:01:38 AM: Git branch: master
+10/01 03:01:38 AM: Git SHA: 62183b2d03f2fae12b41eef8779808b6d354875e
+10/01 03:01:38 AM: Parsed args: 
+{
+  "allow_missing_task_map": 1,
+  "allow_untrained_encoder_parameters": 1,
+  "do_pretrain": 0,
+  "exp_dir": "./experiments/dep-ud-ewt-sstrandom-top/",
+  "exp_name": "experiments/dep-ud-ewt-sstrandom-top",
+  "input_module": "bert-base-uncased",
+  "local_log_path": "./experiments/dep-ud-ewt-sstrandom-top/run/log.log",
+  "lr_patience": 3,
+  "max_seq_len": 512,
+  "output_mode": "top",
+  "patience": 9,
+  "pretrain_tasks": "",
+  "pretrained_dir": "models/sstrandom",
+  "pytorch_transformers_output_mode": "top",
+  "remote_log_name": "experiments/dep-ud-ewt-sstrandom-top__run",
+  "run_dir": "./experiments/dep-ud-ewt-sstrandom-top/run",
+  "run_name": "run",
+  "sent_enc": "none",
+  "sep_embs_for_skip": 1,
+  "target_tasks": "edges-dep-ud-ewt",
+  "tokenizer": "bert-base-uncased",
+  "write_preds": "val,test"
+}
+10/01 03:01:38 AM: Saved config to ./experiments/dep-ud-ewt-sstrandom-top/run/params.conf
+10/01 03:01:38 AM: Using random seed 1234
+10/01 03:01:42 AM: Using GPU 0
+10/01 03:01:42 AM: Loading tasks...
+10/01 03:01:42 AM: Writing pre-preprocessed tasks to ./experiments/dep-ud-ewt-sstrandom-top/
+10/01 03:01:42 AM: 	Creating task edges-dep-ud-ewt from scratch.
+10/01 03:01:43 AM: Read=12522, Skip=0, Total=12522 from ./probing_data/edges/dep_ewt/en_ewt-ud-train.json.retokenized.bert-base-uncased
+10/01 03:01:43 AM: Read=2000, Skip=0, Total=2000 from ./probing_data/edges/dep_ewt/en_ewt-ud-dev.json.retokenized.bert-base-uncased
+10/01 03:01:44 AM: Read=2075, Skip=0, Total=2075 from ./probing_data/edges/dep_ewt/en_ewt-ud-test.json.retokenized.bert-base-uncased
+10/01 03:01:44 AM: 	Task 'edges-dep-ud-ewt': |train|=12522 |val|=2000 |test|=2075
+10/01 03:01:44 AM: 	Finished loading tasks: edges-dep-ud-ewt.
+10/01 03:01:44 AM: 	Building vocab from scratch.
+10/01 03:01:44 AM: 	Counting units for task edges-dep-ud-ewt.
+10/01 03:01:44 AM: 	Task 'edges-dep-ud-ewt': adding vocab namespace 'edges-dep-ud-ewt_labels'
+10/01 03:01:45 AM: loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at /home/ericwallace/.cache/torch/pytorch_transformers/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+10/01 03:01:46 AM: Added pytorch_transformers vocab (bert-base-uncased): 30522 tokens
+10/01 03:01:46 AM: 	Saved vocab to ./experiments/dep-ud-ewt-sstrandom-top/vocab
+10/01 03:01:46 AM: Loading token dictionary from ./experiments/dep-ud-ewt-sstrandom-top/vocab.
+10/01 03:01:46 AM: 	Loaded vocab from ./experiments/dep-ud-ewt-sstrandom-top/vocab
+10/01 03:01:46 AM: 	Vocab namespace chars: size 81
+10/01 03:01:46 AM: 	Vocab namespace tokens: size 14333
+10/01 03:01:46 AM: 	Vocab namespace bert_uncased: size 30524
+10/01 03:01:46 AM: 	Vocab namespace edges-dep-ud-ewt_labels: size 49
+10/01 03:01:46 AM: 	Finished building vocab.
+10/01 03:01:46 AM: 	Task edges-dep-ud-ewt (train): Indexing from scratch.
+10/01 03:01:51 AM: 	Task edges-dep-ud-ewt (train): Saved 12522 instances to ./experiments/dep-ud-ewt-sstrandom-top/preproc/edges-dep-ud-ewt__train_data
+10/01 03:01:51 AM: 	Task edges-dep-ud-ewt (val): Indexing from scratch.
+10/01 03:01:51 AM: 	Task edges-dep-ud-ewt (val): Saved 2000 instances to ./experiments/dep-ud-ewt-sstrandom-top/preproc/edges-dep-ud-ewt__val_data
+10/01 03:01:51 AM: 	Task edges-dep-ud-ewt (test): Indexing from scratch.
+10/01 03:01:52 AM: 	Task edges-dep-ud-ewt (test): Saved 2075 instances to ./experiments/dep-ud-ewt-sstrandom-top/preproc/edges-dep-ud-ewt__test_data
+10/01 03:01:52 AM: 	Finished indexing tasks
+10/01 03:01:52 AM: 	Creating trimmed target-only version of edges-dep-ud-ewt train.
+10/01 03:01:52 AM: 	  Training on 
+10/01 03:01:52 AM: 	  Evaluating on edges-dep-ud-ewt
+10/01 03:01:52 AM: 	Finished loading tasks in 9.977s
+10/01 03:01:52 AM: 	 Tasks: ['edges-dep-ud-ewt']
+10/01 03:01:52 AM: Building model...
+10/01 03:01:52 AM: Using BERT model (bert-base-uncased).
+10/01 03:01:52 AM: LOADING A FUNETUNED MODEL from: 
+10/01 03:01:52 AM: models/sstrandom
+10/01 03:01:52 AM: loading configuration file models/sstrandom/config.json
+10/01 03:01:52 AM: Model config {
+  "attention_probs_dropout_prob": 0.1,
+  "finetuning_task": "random-sst-2",
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "output_attentions": false,
+  "output_hidden_states": true,
+  "pruned_heads": {},
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "vocab_size": 30522
+}
+
+10/01 03:01:52 AM: loading weights file models/sstrandom/pytorch_model.bin
+10/01 03:01:56 AM: https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt not found in cache or force_download set to True, downloading to /tmp/tmpupcoail8
+10/01 03:01:58 AM: copying /tmp/tmpupcoail8 to cache at ./experiments/dep-ud-ewt-sstrandom-top/pytorch_transformers_cache/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+10/01 03:01:58 AM: creating metadata file for ./experiments/dep-ud-ewt-sstrandom-top/pytorch_transformers_cache/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+10/01 03:01:58 AM: removing temp file /tmp/tmpupcoail8
+10/01 03:01:58 AM: loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at ./experiments/dep-ud-ewt-sstrandom-top/pytorch_transformers_cache/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+10/01 03:01:58 AM: Initializing parameters
+10/01 03:01:58 AM: Done initializing parameters; the following parameters are using their default initialization from their code
+10/01 03:01:58 AM:    _text_field_embedder.model.embeddings.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.embeddings.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.embeddings.position_embeddings.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.embeddings.token_type_embeddings.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.embeddings.word_embeddings.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.0.attention.output.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.0.attention.output.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.0.attention.output.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.0.attention.output.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.0.attention.self.key.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.0.attention.self.key.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.0.attention.self.query.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.0.attention.self.query.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.0.attention.self.value.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.0.attention.self.value.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.0.intermediate.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.0.intermediate.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.0.output.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.0.output.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.0.output.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.0.output.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.1.attention.output.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.1.attention.output.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.1.attention.output.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.1.attention.output.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.1.attention.self.key.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.1.attention.self.key.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.1.attention.self.query.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.1.attention.self.query.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.1.attention.self.value.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.1.attention.self.value.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.1.intermediate.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.1.intermediate.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.1.output.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.1.output.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.1.output.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.1.output.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.10.attention.output.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.10.attention.output.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.10.attention.output.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.10.attention.output.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.10.attention.self.key.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.10.attention.self.key.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.10.attention.self.query.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.10.attention.self.query.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.10.attention.self.value.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.10.attention.self.value.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.10.intermediate.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.10.intermediate.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.10.output.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.10.output.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.10.output.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.10.output.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.11.attention.output.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.11.attention.output.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.11.attention.output.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.11.attention.output.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.11.attention.self.key.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.11.attention.self.key.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.11.attention.self.query.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.11.attention.self.query.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.11.attention.self.value.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.11.attention.self.value.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.11.intermediate.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.11.intermediate.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.11.output.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.11.output.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.11.output.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.11.output.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.2.attention.output.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.2.attention.output.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.2.attention.output.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.2.attention.output.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.2.attention.self.key.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.2.attention.self.key.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.2.attention.self.query.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.2.attention.self.query.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.2.attention.self.value.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.2.attention.self.value.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.2.intermediate.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.2.intermediate.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.2.output.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.2.output.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.2.output.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.2.output.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.3.attention.output.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.3.attention.output.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.3.attention.output.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.3.attention.output.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.3.attention.self.key.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.3.attention.self.key.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.3.attention.self.query.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.3.attention.self.query.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.3.attention.self.value.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.3.attention.self.value.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.3.intermediate.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.3.intermediate.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.3.output.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.3.output.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.3.output.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.3.output.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.4.attention.output.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.4.attention.output.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.4.attention.output.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.4.attention.output.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.4.attention.self.key.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.4.attention.self.key.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.4.attention.self.query.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.4.attention.self.query.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.4.attention.self.value.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.4.attention.self.value.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.4.intermediate.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.4.intermediate.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.4.output.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.4.output.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.4.output.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.4.output.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.5.attention.output.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.5.attention.output.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.5.attention.output.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.5.attention.output.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.5.attention.self.key.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.5.attention.self.key.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.5.attention.self.query.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.5.attention.self.query.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.5.attention.self.value.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.5.attention.self.value.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.5.intermediate.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.5.intermediate.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.5.output.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.5.output.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.5.output.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.5.output.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.6.attention.output.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.6.attention.output.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.6.attention.output.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.6.attention.output.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.6.attention.self.key.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.6.attention.self.key.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.6.attention.self.query.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.6.attention.self.query.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.6.attention.self.value.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.6.attention.self.value.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.6.intermediate.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.6.intermediate.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.6.output.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.6.output.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.6.output.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.6.output.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.7.attention.output.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.7.attention.output.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.7.attention.output.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.7.attention.output.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.7.attention.self.key.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.7.attention.self.key.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.7.attention.self.query.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.7.attention.self.query.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.7.attention.self.value.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.7.attention.self.value.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.7.intermediate.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.7.intermediate.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.7.output.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.7.output.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.7.output.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.7.output.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.8.attention.output.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.8.attention.output.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.8.attention.output.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.8.attention.output.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.8.attention.self.key.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.8.attention.self.key.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.8.attention.self.query.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.8.attention.self.query.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.8.attention.self.value.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.8.attention.self.value.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.8.intermediate.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.8.intermediate.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.8.output.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.8.output.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.8.output.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.8.output.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.9.attention.output.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.9.attention.output.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.9.attention.output.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.9.attention.output.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.9.attention.self.key.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.9.attention.self.key.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.9.attention.self.query.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.9.attention.self.query.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.9.attention.self.value.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.9.attention.self.value.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.9.intermediate.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.9.intermediate.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.9.output.LayerNorm.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.9.output.LayerNorm.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.9.output.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.encoder.layer.9.output.dense.weight
+10/01 03:01:58 AM:    _text_field_embedder.model.pooler.dense.bias
+10/01 03:01:58 AM:    _text_field_embedder.model.pooler.dense.weight
+10/01 03:01:58 AM: 	Task 'edges-dep-ud-ewt' params: {
+  "cls_type": "mlp",
+  "d_hid": 256,
+  "pool_type": "first",
+  "d_proj": 512,
+  "shared_pair_attn": 0,
+  "attn": 0,
+  "d_hid_attn": 512,
+  "dropout": 0.3,
+  "cls_loss_fn": "sigmoid",
+  "cls_span_pooling": "attn",
+  "edgeprobe_cnn_context": 0,
+  "edgeprobe_symmetric": 0,
+  "use_classifier": "edges-dep-ud-ewt"
+}
+10/01 03:02:03 AM: Model specification:
+10/01 03:02:03 AM: MultiTaskModel(
+  (sent_encoder): SentenceEncoder(
+    (_text_field_embedder): BertEmbedderModule(
+      (model): BertModel(
+        (embeddings): BertEmbeddings(
+          (word_embeddings): Embedding(30522, 768, padding_idx=0)
+          (position_embeddings): Embedding(512, 768)
+          (token_type_embeddings): Embedding(2, 768)
+          (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+          (dropout): Dropout(p=0.1)
+        )
+        (encoder): BertEncoder(
+          (layer): ModuleList(
+            (0): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (1): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (2): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (3): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (4): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (5): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (6): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (7): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (8): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (9): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (10): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+            (11): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm(torch.Size([768]), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1)
+              )
+            )
+          )
+        )
+        (pooler): BertPooler(
+          (dense): Linear(in_features=768, out_features=768, bias=True)
+          (activation): Tanh()
+        )
+      )
+    )
+    (_highway_layer): TimeDistributed(
+      (_module): Highway(
+        (_layers): ModuleList()
+      )
+    )
+    (_phrase_layer): NullPhraseLayer()
+    (_dropout): Dropout(p=0.2)
+  )
+  (edges-dep-ud-ewt_mdl): EdgeClassifierModule(
+    (proj1): Conv1d(768, 256, kernel_size=(1,), stride=(1,))
+    (proj2): Conv1d(768, 256, kernel_size=(1,), stride=(1,))
+    (span_extractor1): EndpointSpanExtractor()
+    (span_extractor2): EndpointSpanExtractor()
+    (classifier): Classifier(
+      (classifier): Sequential(
+        (0): Linear(in_features=1024, out_features=256, bias=True)
+        (1): Tanh()
+        (2): LayerNorm(torch.Size([256]), eps=1e-05, elementwise_affine=True)
+        (3): Dropout(p=0.3)
+        (4): Linear(in_features=256, out_features=49, bias=True)
+      )
+    )
+  )
+)
+10/01 03:02:03 AM: Model parameters:
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.embeddings.word_embeddings.weight: Non-trainable parameter, count 23440896 with torch.Size([30522, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.embeddings.position_embeddings.weight: Non-trainable parameter, count 393216 with torch.Size([512, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.embeddings.token_type_embeddings.weight: Non-trainable parameter, count 1536 with torch.Size([2, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.embeddings.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.embeddings.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.0.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.1.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.2.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.3.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.4.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.5.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.6.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.7.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.8.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.9.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.10.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.self.query.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.self.query.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.self.key.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.self.key.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.self.value.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.self.value.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.output.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.attention.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.intermediate.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([3072, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.intermediate.dense.bias: Non-trainable parameter, count 3072 with torch.Size([3072])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.output.dense.weight: Non-trainable parameter, count 2359296 with torch.Size([768, 3072])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.output.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.output.LayerNorm.weight: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.encoder.layer.11.output.LayerNorm.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.pooler.dense.weight: Non-trainable parameter, count 589824 with torch.Size([768, 768])
+10/01 03:02:03 AM: 	sent_encoder._text_field_embedder.model.pooler.dense.bias: Non-trainable parameter, count 768 with torch.Size([768])
+10/01 03:02:03 AM: 	edges-dep-ud-ewt_mdl.proj1.weight: Trainable parameter, count 196608 with torch.Size([256, 768, 1])
+10/01 03:02:03 AM: 	edges-dep-ud-ewt_mdl.proj1.bias: Trainable parameter, count 256 with torch.Size([256])
+10/01 03:02:03 AM: 	edges-dep-ud-ewt_mdl.proj2.weight: Trainable parameter, count 196608 with torch.Size([256, 768, 1])
+10/01 03:02:03 AM: 	edges-dep-ud-ewt_mdl.proj2.bias: Trainable parameter, count 256 with torch.Size([256])
+10/01 03:02:03 AM: 	edges-dep-ud-ewt_mdl.classifier.classifier.0.weight: Trainable parameter, count 262144 with torch.Size([256, 1024])
+10/01 03:02:03 AM: 	edges-dep-ud-ewt_mdl.classifier.classifier.0.bias: Trainable parameter, count 256 with torch.Size([256])
+10/01 03:02:03 AM: 	edges-dep-ud-ewt_mdl.classifier.classifier.2.weight: Trainable parameter, count 256 with torch.Size([256])
+10/01 03:02:03 AM: 	edges-dep-ud-ewt_mdl.classifier.classifier.2.bias: Trainable parameter, count 256 with torch.Size([256])
+10/01 03:02:03 AM: 	edges-dep-ud-ewt_mdl.classifier.classifier.4.weight: Trainable parameter, count 12544 with torch.Size([49, 256])
+10/01 03:02:03 AM: 	edges-dep-ud-ewt_mdl.classifier.classifier.4.bias: Trainable parameter, count 49 with torch.Size([49])
+10/01 03:02:03 AM: Total number of parameters: 110151473 (1.10151e+08)
+10/01 03:02:03 AM: Number of trainable parameters: 669233 (669233)
+10/01 03:02:03 AM: Finished building model in 10.856s
+10/01 03:02:03 AM: Will run the following steps for this experiment:
+Re-training model for individual target tasks 
+Evaluating model on tasks: edges-dep-ud-ewt 
+
+10/01 03:02:07 AM: patience = 9
+10/01 03:02:07 AM: val_interval = 1000
+10/01 03:02:07 AM: max_vals = 250
+10/01 03:02:07 AM: cuda_device = 0
+10/01 03:02:07 AM: grad_norm = 5.0
+10/01 03:02:07 AM: grad_clipping = None
+10/01 03:02:07 AM: lr_decay = 0.99
+10/01 03:02:07 AM: min_lr = 1e-06
+10/01 03:02:07 AM: keep_all_checkpoints = 0
+10/01 03:02:07 AM: val_data_limit = 5000
+10/01 03:02:07 AM: max_epochs = -1
+10/01 03:02:07 AM: dec_val_scale = 250
+10/01 03:02:07 AM: training_data_fraction = 1
+10/01 03:02:07 AM: type = adam
+10/01 03:02:07 AM: parameter_groups = None
+10/01 03:02:07 AM: Number of trainable parameters: 669233
+10/01 03:02:07 AM: infer_type_and_cast = True
+10/01 03:02:07 AM: Converting Params object to dict; logging of default values will not occur when dictionary parameters are used subsequently.
+10/01 03:02:07 AM: CURRENTLY DEFINED PARAMETERS: 
+10/01 03:02:07 AM: lr = 0.0001
+10/01 03:02:07 AM: amsgrad = True
+10/01 03:02:07 AM: type = reduce_on_plateau
+10/01 03:02:07 AM: Converting Params object to dict; logging of default values will not occur when dictionary parameters are used subsequently.
+10/01 03:02:07 AM: CURRENTLY DEFINED PARAMETERS: 
+10/01 03:02:07 AM: mode = max
+10/01 03:02:07 AM: factor = 0.5
+10/01 03:02:07 AM: patience = 3
+10/01 03:02:07 AM: threshold = 0.0001
+10/01 03:02:07 AM: threshold_mode = abs
+10/01 03:02:07 AM: verbose = True
+10/01 03:02:07 AM: type = adam
+10/01 03:02:07 AM: parameter_groups = None
+10/01 03:02:07 AM: Number of trainable parameters: 669233
+10/01 03:02:07 AM: infer_type_and_cast = True
+10/01 03:02:07 AM: Converting Params object to dict; logging of default values will not occur when dictionary parameters are used subsequently.
+10/01 03:02:07 AM: CURRENTLY DEFINED PARAMETERS: 
+10/01 03:02:07 AM: lr = 0.0001
+10/01 03:02:07 AM: amsgrad = True
+10/01 03:02:07 AM: type = reduce_on_plateau
+10/01 03:02:07 AM: Converting Params object to dict; logging of default values will not occur when dictionary parameters are used subsequently.
+10/01 03:02:07 AM: CURRENTLY DEFINED PARAMETERS: 
+10/01 03:02:07 AM: mode = max
+10/01 03:02:07 AM: factor = 0.5
+10/01 03:02:07 AM: patience = 3
+10/01 03:02:07 AM: threshold = 0.0001
+10/01 03:02:07 AM: threshold_mode = abs
+10/01 03:02:07 AM: verbose = True
+10/01 03:02:07 AM: Starting training without restoring from a checkpoint.
+10/01 03:02:07 AM: Training examples per task, before any subsampling: {'edges-dep-ud-ewt': 12522}
+10/01 03:02:07 AM: Beginning training with stopping criteria based on metric: edges-dep-ud-ewt_f1
+10/01 03:02:17 AM: Update 35: task edges-dep-ud-ewt, batch 35 (35): mcc: 0.0142, acc: 0.0062, precision: 0.0255, recall: 0.1693, f1: 0.0443, edges-dep-ud-ewt_loss: 0.3467
+10/01 03:02:28 AM: Update 100: task edges-dep-ud-ewt, batch 100 (100): mcc: 0.0092, acc: 0.0035, precision: 0.0259, recall: 0.0678, f1: 0.0375, edges-dep-ud-ewt_loss: 0.2167
+10/01 03:02:38 AM: Update 160: task edges-dep-ud-ewt, batch 160 (160): mcc: 0.0093, acc: 0.0049, precision: 0.0275, recall: 0.0446, f1: 0.0340, edges-dep-ud-ewt_loss: 0.1735
+10/01 03:02:48 AM: Update 218: task edges-dep-ud-ewt, batch 218 (218): mcc: 0.0145, acc: 0.0107, precision: 0.0335, recall: 0.0393, f1: 0.0362, edges-dep-ud-ewt_loss: 0.1512
+10/01 03:02:58 AM: Update 269: task edges-dep-ud-ewt, batch 269 (269): mcc: 0.0240, acc: 0.0193, precision: 0.0447, recall: 0.0418, f1: 0.0432, edges-dep-ud-ewt_loss: 0.1383
+10/01 03:03:08 AM: Update 314: task edges-dep-ud-ewt, batch 314 (314): mcc: 0.0338, acc: 0.0270, precision: 0.0576, recall: 0.0460, f1: 0.0511, edges-dep-ud-ewt_loss: 0.1298
+10/01 03:03:18 AM: Update 370: task edges-dep-ud-ewt, batch 370 (370): mcc: 0.0472, acc: 0.0366, precision: 0.0763, recall: 0.0526, f1: 0.0623, edges-dep-ud-ewt_loss: 0.1215
+10/01 03:03:29 AM: Update 408: task edges-dep-ud-ewt, batch 408 (408): mcc: 0.0596, acc: 0.0450, precision: 0.0941, recall: 0.0594, f1: 0.0729, edges-dep-ud-ewt_loss: 0.1168
+10/01 03:03:39 AM: Update 464: task edges-dep-ud-ewt, batch 464 (464): mcc: 0.0792, acc: 0.0581, precision: 0.1233, recall: 0.0708, f1: 0.0900, edges-dep-ud-ewt_loss: 0.1108
+10/01 03:03:49 AM: Update 519: task edges-dep-ud-ewt, batch 519 (519): mcc: 0.1022, acc: 0.0729, precision: 0.1580, recall: 0.0844, f1: 0.1101, edges-dep-ud-ewt_loss: 0.1057
+10/01 03:03:59 AM: Update 576: task edges-dep-ud-ewt, batch 576 (576): mcc: 0.1261, acc: 0.0880, precision: 0.1949, recall: 0.0987, f1: 0.1310, edges-dep-ud-ewt_loss: 0.1012
+10/01 03:04:09 AM: Update 637: task edges-dep-ud-ewt, batch 637 (637): mcc: 0.1510, acc: 0.1040, precision: 0.2332, recall: 0.1138, f1: 0.1530, edges-dep-ud-ewt_loss: 0.0965
+10/01 03:04:19 AM: Update 698: task edges-dep-ud-ewt, batch 698 (698): mcc: 0.1743, acc: 0.1186, precision: 0.2697, recall: 0.1279, f1: 0.1735, edges-dep-ud-ewt_loss: 0.0927
+10/01 03:04:29 AM: Update 742: task edges-dep-ud-ewt, batch 742 (742): mcc: 0.1947, acc: 0.1314, precision: 0.3014, recall: 0.1404, f1: 0.1915, edges-dep-ud-ewt_loss: 0.0903
+10/01 03:04:40 AM: Update 785: task edges-dep-ud-ewt, batch 785 (785): mcc: 0.2117, acc: 0.1421, precision: 0.3277, recall: 0.1509, f1: 0.2067, edges-dep-ud-ewt_loss: 0.0880
+10/01 03:04:50 AM: Update 846: task edges-dep-ud-ewt, batch 846 (846): mcc: 0.2338, acc: 0.1563, precision: 0.3613, recall: 0.1650, f1: 0.2265, edges-dep-ud-ewt_loss: 0.0851
+10/01 03:05:00 AM: Update 905: task edges-dep-ud-ewt, batch 905 (905): mcc: 0.2548, acc: 0.1699, precision: 0.3927, recall: 0.1785, f1: 0.2454, edges-dep-ud-ewt_loss: 0.0826
+10/01 03:05:10 AM: Update 963: task edges-dep-ud-ewt, batch 963 (963): mcc: 0.2755, acc: 0.1835, precision: 0.4230, recall: 0.1922, f1: 0.2643, edges-dep-ud-ewt_loss: 0.0802
+10/01 03:05:17 AM: ***** Step 1000 / Validation 1 *****
+10/01 03:05:17 AM: edges-dep-ud-ewt: trained on 1000 batches, 2.551 epochs
+10/01 03:05:17 AM: Validating...
+10/01 03:05:21 AM: Evaluate: task edges-dep-ud-ewt, batch 17 (63): mcc: 0.6543, acc: 0.4547, precision: 0.9447, recall: 0.4591, f1: 0.6179, edges-dep-ud-ewt_loss: 0.0387
+10/01 03:05:30 AM: Best result seen so far for edges-dep-ud-ewt.
+10/01 03:05:30 AM: Best result seen so far for micro.
+10/01 03:05:30 AM: Best result seen so far for macro.
+10/01 03:05:30 AM: Updating LR scheduler:
+10/01 03:05:30 AM: 	Best result seen so far for macro_avg: 0.616
+10/01 03:05:30 AM: 	# validation passes without improvement: 0
+10/01 03:05:30 AM: edges-dep-ud-ewt_loss: training: 0.078787 validation: 0.038753
+10/01 03:05:30 AM: macro_avg: validation: 0.616239
+10/01 03:05:30 AM: micro_avg: validation: 0.000000
+10/01 03:05:30 AM: edges-dep-ud-ewt_mcc: training: 0.287608 validation: 0.652773
+10/01 03:05:30 AM: edges-dep-ud-ewt_acc: training: 0.191669 validation: 0.454082
+10/01 03:05:30 AM: edges-dep-ud-ewt_precision: training: 0.440405 validation: 0.943801
+10/01 03:05:30 AM: edges-dep-ud-ewt_recall: training: 0.200427 validation: 0.457467
+10/01 03:05:30 AM: edges-dep-ud-ewt_f1: training: 0.275482 validation: 0.616239
+10/01 03:05:30 AM: Global learning rate: 0.0001
+10/01 03:05:30 AM: Saving checkpoints to: ./experiments/dep-ud-ewt-sstrandom-top/run
+10/01 03:05:31 AM: Update 1003: task edges-dep-ud-ewt, batch 3 (1003): mcc: 0.6013, acc: 0.3948, precision: 0.9039, recall: 0.4064, f1: 0.5607, edges-dep-ud-ewt_loss: 0.0457
+10/01 03:05:41 AM: Update 1060: task edges-dep-ud-ewt, batch 60 (1060): mcc: 0.6129, acc: 0.4165, precision: 0.8930, recall: 0.4274, f1: 0.5781, edges-dep-ud-ewt_loss: 0.0422
+10/01 03:05:51 AM: Update 1106: task edges-dep-ud-ewt, batch 106 (1106): mcc: 0.6185, acc: 0.4240, precision: 0.8915, recall: 0.4358, f1: 0.5855, edges-dep-ud-ewt_loss: 0.0418
+10/01 03:06:01 AM: Update 1167: task edges-dep-ud-ewt, batch 167 (1167): mcc: 0.6281, acc: 0.4371, precision: 0.8911, recall: 0.4496, f1: 0.5976, edges-dep-ud-ewt_loss: 0.0410
+10/01 03:06:11 AM: Update 1204: task edges-dep-ud-ewt, batch 204 (1204): mcc: 0.6308, acc: 0.4411, precision: 0.8903, recall: 0.4538, f1: 0.6012, edges-dep-ud-ewt_loss: 0.0407
+10/01 03:06:21 AM: Update 1265: task edges-dep-ud-ewt, batch 265 (1265): mcc: 0.6341, acc: 0.4463, precision: 0.8880, recall: 0.4598, f1: 0.6059, edges-dep-ud-ewt_loss: 0.0403
+10/01 03:06:31 AM: Update 1327: task edges-dep-ud-ewt, batch 327 (1327): mcc: 0.6382, acc: 0.4526, precision: 0.8859, recall: 0.4668, f1: 0.6114, edges-dep-ud-ewt_loss: 0.0396
+10/01 03:06:41 AM: Update 1381: task edges-dep-ud-ewt, batch 381 (1381): mcc: 0.6409, acc: 0.4568, precision: 0.8835, recall: 0.4720, f1: 0.6153, edges-dep-ud-ewt_loss: 0.0393
+10/01 03:06:51 AM: Update 1432: task edges-dep-ud-ewt, batch 432 (1432): mcc: 0.6445, acc: 0.4616, precision: 0.8833, recall: 0.4773, f1: 0.6197, edges-dep-ud-ewt_loss: 0.0389
+10/01 03:07:02 AM: Update 1489: task edges-dep-ud-ewt, batch 489 (1489): mcc: 0.6481, acc: 0.4669, precision: 0.8823, recall: 0.4832, f1: 0.6245, edges-dep-ud-ewt_loss: 0.0385
+10/01 03:07:12 AM: Update 1539: task edges-dep-ud-ewt, batch 539 (1539): mcc: 0.6515, acc: 0.4717, precision: 0.8819, recall: 0.4885, f1: 0.6287, edges-dep-ud-ewt_loss: 0.0382
+10/01 03:07:22 AM: Update 1572: task edges-dep-ud-ewt, batch 572 (1572): mcc: 0.6539, acc: 0.4752, precision: 0.8816, recall: 0.4923, f1: 0.6318, edges-dep-ud-ewt_loss: 0.0380
+10/01 03:07:32 AM: Update 1623: task edges-dep-ud-ewt, batch 623 (1623): mcc: 0.6565, acc: 0.4790, precision: 0.8808, recall: 0.4966, f1: 0.6351, edges-dep-ud-ewt_loss: 0.0378
+10/01 03:07:42 AM: Update 1676: task edges-dep-ud-ewt, batch 676 (1676): mcc: 0.6590, acc: 0.4827, precision: 0.8801, recall: 0.5008, f1: 0.6383, edges-dep-ud-ewt_loss: 0.0375
+10/01 03:07:52 AM: Update 1736: task edges-dep-ud-ewt, batch 736 (1736): mcc: 0.6614, acc: 0.4863, precision: 0.8794, recall: 0.5048, f1: 0.6414, edges-dep-ud-ewt_loss: 0.0372
+10/01 03:08:02 AM: Update 1797: task edges-dep-ud-ewt, batch 797 (1797): mcc: 0.6639, acc: 0.4899, precision: 0.8787, recall: 0.5090, f1: 0.6446, edges-dep-ud-ewt_loss: 0.0369
+10/01 03:08:12 AM: Update 1854: task edges-dep-ud-ewt, batch 854 (1854): mcc: 0.6665, acc: 0.4935, precision: 0.8783, recall: 0.5131, f1: 0.6478, edges-dep-ud-ewt_loss: 0.0365
+10/01 03:08:22 AM: Update 1905: task edges-dep-ud-ewt, batch 905 (1905): mcc: 0.6684, acc: 0.4965, precision: 0.8776, recall: 0.5165, f1: 0.6503, edges-dep-ud-ewt_loss: 0.0362
+10/01 03:08:36 AM: Update 1961: task edges-dep-ud-ewt, batch 961 (1961): mcc: 0.6711, acc: 0.5004, precision: 0.8774, recall: 0.5207, f1: 0.6536, edges-dep-ud-ewt_loss: 0.0360
+10/01 03:08:42 AM: ***** Step 2000 / Validation 2 *****
+10/01 03:08:42 AM: edges-dep-ud-ewt: trained on 1000 batches, 2.551 epochs
+10/01 03:08:42 AM: Validating...
+10/01 03:08:46 AM: Evaluate: task edges-dep-ud-ewt, batch 17 (63): mcc: 0.7725, acc: 0.6476, precision: 0.9074, recall: 0.6641, f1: 0.7669, edges-dep-ud-ewt_loss: 0.0266
+10/01 03:08:54 AM: Best result seen so far for edges-dep-ud-ewt.
+10/01 03:08:54 AM: Best result seen so far for macro.
+10/01 03:08:54 AM: Updating LR scheduler:
+10/01 03:08:54 AM: 	Best result seen so far for macro_avg: 0.766
+10/01 03:08:54 AM: 	# validation passes without improvement: 0
+10/01 03:08:54 AM: edges-dep-ud-ewt_loss: training: 0.035767 validation: 0.026771
+10/01 03:08:54 AM: macro_avg: validation: 0.765686
+10/01 03:08:54 AM: micro_avg: validation: 0.000000
+10/01 03:08:54 AM: edges-dep-ud-ewt_mcc: training: 0.672395 validation: 0.771065
+10/01 03:08:54 AM: edges-dep-ud-ewt_acc: training: 0.502193 validation: 0.648108
+10/01 03:08:54 AM: edges-dep-ud-ewt_precision: training: 0.877103 validation: 0.904816
+10/01 03:08:54 AM: edges-dep-ud-ewt_recall: training: 0.522850 validation: 0.663640
+10/01 03:08:54 AM: edges-dep-ud-ewt_f1: training: 0.655155 validation: 0.765686
+10/01 03:08:54 AM: Global learning rate: 0.0001
+10/01 03:08:54 AM: Saving checkpoints to: ./experiments/dep-ud-ewt-sstrandom-top/run
+10/01 03:08:56 AM: Update 2010: task edges-dep-ud-ewt, batch 10 (2010): mcc: 0.6895, acc: 0.5401, precision: 0.8490, recall: 0.5680, f1: 0.6806, edges-dep-ud-ewt_loss: 0.0311
+10/01 03:09:06 AM: Update 2064: task edges-dep-ud-ewt, batch 64 (2064): mcc: 0.7070, acc: 0.5549, precision: 0.8662, recall: 0.5848, f1: 0.6982, edges-dep-ud-ewt_loss: 0.0322
+10/01 03:09:16 AM: Update 2122: task edges-dep-ud-ewt, batch 122 (2122): mcc: 0.7062, acc: 0.5549, precision: 0.8640, recall: 0.5849, f1: 0.6976, edges-dep-ud-ewt_loss: 0.0321
+10/01 03:09:26 AM: Update 2170: task edges-dep-ud-ewt, batch 170 (2170): mcc: 0.7071, acc: 0.5564, precision: 0.8640, recall: 0.5864, f1: 0.6986, edges-dep-ud-ewt_loss: 0.0316
+10/01 03:09:36 AM: Update 2226: task edges-dep-ud-ewt, batch 226 (2226): mcc: 0.7093, acc: 0.5589, precision: 0.8650, recall: 0.5893, f1: 0.7010, edges-dep-ud-ewt_loss: 0.0312
+10/01 03:09:46 AM: Update 2278: task edges-dep-ud-ewt, batch 278 (2278): mcc: 0.7110, acc: 0.5612, precision: 0.8653, recall: 0.5920, f1: 0.7030, edges-dep-ud-ewt_loss: 0.0312
+10/01 03:09:56 AM: Update 2340: task edges-dep-ud-ewt, batch 340 (2340): mcc: 0.7137, acc: 0.5651, precision: 0.8660, recall: 0.5959, f1: 0.7060, edges-dep-ud-ewt_loss: 0.0310
+10/01 03:10:06 AM: Update 2372: task edges-dep-ud-ewt, batch 372 (2372): mcc: 0.7147, acc: 0.5663, precision: 0.8664, recall: 0.5972, f1: 0.7070, edges-dep-ud-ewt_loss: 0.0310
+10/01 03:10:17 AM: Update 2428: task edges-dep-ud-ewt, batch 428 (2428): mcc: 0.7155, acc: 0.5676, precision: 0.8660, recall: 0.5988, f1: 0.7080, edges-dep-ud-ewt_loss: 0.0309
+10/01 03:10:27 AM: Update 2484: task edges-dep-ud-ewt, batch 484 (2484): mcc: 0.7163, acc: 0.5689, precision: 0.8656, recall: 0.6004, f1: 0.7090, edges-dep-ud-ewt_loss: 0.0308
+10/01 03:10:37 AM: Update 2543: task edges-dep-ud-ewt, batch 543 (2543): mcc: 0.7169, acc: 0.5699, precision: 0.8650, recall: 0.6019, f1: 0.7098, edges-dep-ud-ewt_loss: 0.0306
+10/01 03:10:47 AM: Update 2607: task edges-dep-ud-ewt, batch 607 (2607): mcc: 0.7178, acc: 0.5713, precision: 0.8647, recall: 0.6036, f1: 0.7109, edges-dep-ud-ewt_loss: 0.0304
+10/01 03:10:57 AM: Update 2660: task edges-dep-ud-ewt, batch 660 (2660): mcc: 0.7183, acc: 0.5721, precision: 0.8644, recall: 0.6046, f1: 0.7115, edges-dep-ud-ewt_loss: 0.0303
+10/01 03:11:07 AM: Update 2704: task edges-dep-ud-ewt, batch 704 (2704): mcc: 0.7192, acc: 0.5733, precision: 0.8644, recall: 0.6061, f1: 0.7125, edges-dep-ud-ewt_loss: 0.0303
+10/01 03:11:18 AM: Update 2745: task edges-dep-ud-ewt, batch 745 (2745): mcc: 0.7201, acc: 0.5745, precision: 0.8647, recall: 0.6073, f1: 0.7135, edges-dep-ud-ewt_loss: 0.0302
+10/01 03:11:28 AM: Update 2803: task edges-dep-ud-ewt, batch 803 (2803): mcc: 0.7206, acc: 0.5754, precision: 0.8644, recall: 0.6084, f1: 0.7141, edges-dep-ud-ewt_loss: 0.0301
+10/01 03:11:38 AM: Update 2861: task edges-dep-ud-ewt, batch 861 (2861): mcc: 0.7215, acc: 0.5766, precision: 0.8642, recall: 0.6100, f1: 0.7152, edges-dep-ud-ewt_loss: 0.0300
+10/01 03:11:48 AM: Update 2920: task edges-dep-ud-ewt, batch 920 (2920): mcc: 0.7219, acc: 0.5772, precision: 0.8639, recall: 0.6110, f1: 0.7157, edges-dep-ud-ewt_loss: 0.0299
+10/01 03:11:58 AM: Update 2972: task edges-dep-ud-ewt, batch 972 (2972): mcc: 0.7225, acc: 0.5782, precision: 0.8634, recall: 0.6123, f1: 0.7165, edges-dep-ud-ewt_loss: 0.0299
+10/01 03:12:02 AM: ***** Step 3000 / Validation 3 *****
+10/01 03:12:02 AM: edges-dep-ud-ewt: trained on 1000 batches, 2.551 epochs
+10/01 03:12:02 AM: Validating...
+10/01 03:12:08 AM: Evaluate: task edges-dep-ud-ewt, batch 28 (63): mcc: 0.7980, acc: 0.6771, precision: 0.9275, recall: 0.6925, f1: 0.7929, edges-dep-ud-ewt_loss: 0.0227
+10/01 03:12:15 AM: Best result seen so far for edges-dep-ud-ewt.
+10/01 03:12:15 AM: Best result seen so far for macro.
+10/01 03:12:15 AM: Updating LR scheduler:
+10/01 03:12:15 AM: 	Best result seen so far for macro_avg: 0.790
+10/01 03:12:15 AM: 	# validation passes without improvement: 0
+10/01 03:12:15 AM: edges-dep-ud-ewt_loss: training: 0.029810 validation: 0.023067
+10/01 03:12:15 AM: macro_avg: validation: 0.790002
+10/01 03:12:15 AM: micro_avg: validation: 0.000000
+10/01 03:12:15 AM: edges-dep-ud-ewt_mcc: training: 0.722812 validation: 0.795416
+10/01 03:12:15 AM: edges-dep-ud-ewt_acc: training: 0.578636 validation: 0.673118
+10/01 03:12:15 AM: edges-dep-ud-ewt_precision: training: 0.863426 validation: 0.927708
+10/01 03:12:15 AM: edges-dep-ud-ewt_recall: training: 0.612790 validation: 0.687893
+10/01 03:12:15 AM: edges-dep-ud-ewt_f1: training: 0.716831 validation: 0.790002
+10/01 03:12:15 AM: Global learning rate: 0.0001
+10/01 03:12:15 AM: Saving checkpoints to: ./experiments/dep-ud-ewt-sstrandom-top/run
+10/01 03:12:18 AM: Update 3028: task edges-dep-ud-ewt, batch 28 (3028): mcc: 0.7377, acc: 0.6050, precision: 0.8504, recall: 0.6479, f1: 0.7355, edges-dep-ud-ewt_loss: 0.0253
+10/01 03:12:28 AM: Update 3069: task edges-dep-ud-ewt, batch 69 (3069): mcc: 0.7328, acc: 0.5946, precision: 0.8576, recall: 0.6339, f1: 0.7290, edges-dep-ud-ewt_loss: 0.0274
+10/01 03:12:39 AM: Update 3131: task edges-dep-ud-ewt, batch 131 (3131): mcc: 0.7366, acc: 0.5990, precision: 0.8610, recall: 0.6379, f1: 0.7328, edges-dep-ud-ewt_loss: 0.0279
+10/01 03:12:49 AM: Update 3168: task edges-dep-ud-ewt, batch 168 (3168): mcc: 0.7355, acc: 0.5982, precision: 0.8599, recall: 0.6368, f1: 0.7317, edges-dep-ud-ewt_loss: 0.0280
+10/01 03:12:59 AM: Update 3222: task edges-dep-ud-ewt, batch 222 (3222): mcc: 0.7362, acc: 0.5988, precision: 0.8602, recall: 0.6378, f1: 0.7325, edges-dep-ud-ewt_loss: 0.0281
+10/01 03:13:09 AM: Update 3283: task edges-dep-ud-ewt, batch 283 (3283): mcc: 0.7365, acc: 0.5994, precision: 0.8599, recall: 0.6385, f1: 0.7328, edges-dep-ud-ewt_loss: 0.0280
+10/01 03:13:19 AM: Update 3347: task edges-dep-ud-ewt, batch 347 (3347): mcc: 0.7371, acc: 0.6004, precision: 0.8596, recall: 0.6398, f1: 0.7336, edges-dep-ud-ewt_loss: 0.0276
+10/01 03:13:29 AM: Update 3402: task edges-dep-ud-ewt, batch 402 (3402): mcc: 0.7373, acc: 0.6009, precision: 0.8592, recall: 0.6404, f1: 0.7338, edges-dep-ud-ewt_loss: 0.0277
+10/01 03:13:39 AM: Update 3452: task edges-dep-ud-ewt, batch 452 (3452): mcc: 0.7376, acc: 0.6012, precision: 0.8591, recall: 0.6410, f1: 0.7342, edges-dep-ud-ewt_loss: 0.0276
+10/01 03:13:49 AM: Update 3514: task edges-dep-ud-ewt, batch 514 (3514): mcc: 0.7390, acc: 0.6032, precision: 0.8596, recall: 0.6431, f1: 0.7357, edges-dep-ud-ewt_loss: 0.0276
+10/01 03:14:00 AM: Update 3549: task edges-dep-ud-ewt, batch 549 (3549): mcc: 0.7388, acc: 0.6032, precision: 0.8594, recall: 0.6428, f1: 0.7355, edges-dep-ud-ewt_loss: 0.0276
+10/01 03:14:10 AM: Update 3607: task edges-dep-ud-ewt, batch 607 (3607): mcc: 0.7390, acc: 0.6037, precision: 0.8588, recall: 0.6436, f1: 0.7358, edges-dep-ud-ewt_loss: 0.0275
+10/01 03:14:20 AM: Update 3666: task edges-dep-ud-ewt, batch 666 (3666): mcc: 0.7395, acc: 0.6043, precision: 0.8591, recall: 0.6443, f1: 0.7364, edges-dep-ud-ewt_loss: 0.0275
+10/01 03:14:30 AM: Update 3720: task edges-dep-ud-ewt, batch 720 (3720): mcc: 0.7398, acc: 0.6046, precision: 0.8589, recall: 0.6449, f1: 0.7367, edges-dep-ud-ewt_loss: 0.0275
+10/01 03:14:40 AM: Update 3787: task edges-dep-ud-ewt, batch 787 (3787): mcc: 0.7407, acc: 0.6059, precision: 0.8590, recall: 0.6463, f1: 0.7376, edges-dep-ud-ewt_loss: 0.0273
+10/01 03:14:51 AM: Update 3842: task edges-dep-ud-ewt, batch 842 (3842): mcc: 0.7409, acc: 0.6061, precision: 0.8589, recall: 0.6468, f1: 0.7379, edges-dep-ud-ewt_loss: 0.0274
+10/01 03:15:01 AM: Update 3899: task edges-dep-ud-ewt, batch 899 (3899): mcc: 0.7416, acc: 0.6071, precision: 0.8590, recall: 0.6479, f1: 0.7387, edges-dep-ud-ewt_loss: 0.0273
+10/01 03:15:12 AM: Update 3933: task edges-dep-ud-ewt, batch 933 (3933): mcc: 0.7415, acc: 0.6071, precision: 0.8589, recall: 0.6479, f1: 0.7386, edges-dep-ud-ewt_loss: 0.0273
+10/01 03:15:22 AM: Update 3994: task edges-dep-ud-ewt, batch 994 (3994): mcc: 0.7420, acc: 0.6078, precision: 0.8589, recall: 0.6488, f1: 0.7392, edges-dep-ud-ewt_loss: 0.0272
+10/01 03:15:23 AM: ***** Step 4000 / Validation 4 *****
+10/01 03:15:23 AM: edges-dep-ud-ewt: trained on 1000 batches, 2.551 epochs
+10/01 03:15:23 AM: Validating...
+10/01 03:15:32 AM: Evaluate: task edges-dep-ud-ewt, batch 40 (63): mcc: 0.8168, acc: 0.7119, precision: 0.9191, recall: 0.7316, f1: 0.8147, edges-dep-ud-ewt_loss: 0.0209
+10/01 03:15:35 AM: Best result seen so far for edges-dep-ud-ewt.
+10/01 03:15:35 AM: Best result seen so far for macro.
+10/01 03:15:35 AM: Updating LR scheduler:
+10/01 03:15:35 AM: 	Best result seen so far for macro_avg: 0.815
+10/01 03:15:35 AM: 	# validation passes without improvement: 0
+10/01 03:15:35 AM: edges-dep-ud-ewt_loss: training: 0.027243 validation: 0.020930
+10/01 03:15:35 AM: macro_avg: validation: 0.815140
+10/01 03:15:35 AM: micro_avg: validation: 0.000000
+10/01 03:15:35 AM: edges-dep-ud-ewt_mcc: training: 0.741956 validation: 0.817285
+10/01 03:15:35 AM: edges-dep-ud-ewt_acc: training: 0.607761 validation: 0.712346
+10/01 03:15:35 AM: edges-dep-ud-ewt_precision: training: 0.858773 validation: 0.920248
+10/01 03:15:35 AM: edges-dep-ud-ewt_recall: training: 0.648733 validation: 0.731581
+10/01 03:15:35 AM: edges-dep-ud-ewt_f1: training: 0.739121 validation: 0.815140
+10/01 03:15:35 AM: Global learning rate: 0.0001
+10/01 03:15:35 AM: Saving checkpoints to: ./experiments/dep-ud-ewt-sstrandom-top/run
+10/01 03:15:42 AM: Update 4039: task edges-dep-ud-ewt, batch 39 (4039): mcc: 0.7513, acc: 0.6207, precision: 0.8591, recall: 0.6647, f1: 0.7495, edges-dep-ud-ewt_loss: 0.0260
+10/01 03:15:52 AM: Update 4097: task edges-dep-ud-ewt, batch 97 (4097): mcc: 0.7509, acc: 0.6202, precision: 0.8601, recall: 0.6632, f1: 0.7490, edges-dep-ud-ewt_loss: 0.0261
+10/01 03:16:02 AM: Update 4159: task edges-dep-ud-ewt, batch 159 (4159): mcc: 0.7503, acc: 0.6195, precision: 0.8584, recall: 0.6634, f1: 0.7484, edges-dep-ud-ewt_loss: 0.0260
+10/01 03:16:12 AM: Update 4213: task edges-dep-ud-ewt, batch 213 (4213): mcc: 0.7507, acc: 0.6195, precision: 0.8589, recall: 0.6638, f1: 0.7488, edges-dep-ud-ewt_loss: 0.0262
+10/01 03:16:22 AM: Update 4258: task edges-dep-ud-ewt, batch 258 (4258): mcc: 0.7507, acc: 0.6199, precision: 0.8588, recall: 0.6638, f1: 0.7488, edges-dep-ud-ewt_loss: 0.0263
+10/01 03:16:35 AM: Update 4313: task edges-dep-ud-ewt, batch 313 (4313): mcc: 0.7519, acc: 0.6216, precision: 0.8599, recall: 0.6650, f1: 0.7500, edges-dep-ud-ewt_loss: 0.0263
+10/01 03:16:45 AM: Update 4370: task edges-dep-ud-ewt, batch 370 (4370): mcc: 0.7517, acc: 0.6214, precision: 0.8592, recall: 0.6652, f1: 0.7499, edges-dep-ud-ewt_loss: 0.0262
+10/01 03:16:55 AM: Update 4431: task edges-dep-ud-ewt, batch 431 (4431): mcc: 0.7517, acc: 0.6215, precision: 0.8587, recall: 0.6657, f1: 0.7500, edges-dep-ud-ewt_loss: 0.0262
+10/01 03:17:05 AM: Update 4490: task edges-dep-ud-ewt, batch 490 (4490): mcc: 0.7521, acc: 0.6221, precision: 0.8588, recall: 0.6664, f1: 0.7504, edges-dep-ud-ewt_loss: 0.0261
+10/01 03:17:15 AM: Update 4552: task edges-dep-ud-ewt, batch 552 (4552): mcc: 0.7522, acc: 0.6222, precision: 0.8586, recall: 0.6667, f1: 0.7506, edges-dep-ud-ewt_loss: 0.0260
+10/01 03:17:25 AM: Update 4600: task edges-dep-ud-ewt, batch 600 (4600): mcc: 0.7522, acc: 0.6222, precision: 0.8585, recall: 0.6668, f1: 0.7506, edges-dep-ud-ewt_loss: 0.0260
+10/01 03:17:35 AM: Update 4649: task edges-dep-ud-ewt, batch 649 (4649): mcc: 0.7525, acc: 0.6226, precision: 0.8587, recall: 0.6671, f1: 0.7509, edges-dep-ud-ewt_loss: 0.0261
+10/01 03:17:48 AM: Update 4705: task edges-dep-ud-ewt, batch 705 (4705): mcc: 0.7532, acc: 0.6235, precision: 0.8591, recall: 0.6680, f1: 0.7516, edges-dep-ud-ewt_loss: 0.0261
+10/01 03:17:58 AM: Update 4756: task edges-dep-ud-ewt, batch 756 (4756): mcc: 0.7534, acc: 0.6237, precision: 0.8589, recall: 0.6684, f1: 0.7518, edges-dep-ud-ewt_loss: 0.0260
+10/01 03:18:08 AM: Update 4813: task edges-dep-ud-ewt, batch 813 (4813): mcc: 0.7534, acc: 0.6238, precision: 0.8585, recall: 0.6687, f1: 0.7518, edges-dep-ud-ewt_loss: 0.0260
+10/01 03:18:18 AM: Update 4875: task edges-dep-ud-ewt, batch 875 (4875): mcc: 0.7535, acc: 0.6240, precision: 0.8584, recall: 0.6690, f1: 0.7520, edges-dep-ud-ewt_loss: 0.0259
+10/01 03:18:28 AM: Update 4935: task edges-dep-ud-ewt, batch 935 (4935): mcc: 0.7539, acc: 0.6245, precision: 0.8585, recall: 0.6696, f1: 0.7524, edges-dep-ud-ewt_loss: 0.0259
+10/01 03:18:38 AM: Update 4988: task edges-dep-ud-ewt, batch 988 (4988): mcc: 0.7541, acc: 0.6248, precision: 0.8586, recall: 0.6699, f1: 0.7526, edges-dep-ud-ewt_loss: 0.0258
+10/01 03:18:40 AM: ***** Step 5000 / Validation 5 *****
+10/01 03:18:40 AM: edges-dep-ud-ewt: trained on 1000 batches, 2.551 epochs
+10/01 03:18:40 AM: Validating...
+10/01 03:18:48 AM: Evaluate: task edges-dep-ud-ewt, batch 40 (63): mcc: 0.8289, acc: 0.7318, precision: 0.9150, recall: 0.7564, f1: 0.8282, edges-dep-ud-ewt_loss: 0.0197
+10/01 03:18:52 AM: Best result seen so far for edges-dep-ud-ewt.
+10/01 03:18:52 AM: Best result seen so far for macro.
+10/01 03:18:52 AM: Updating LR scheduler:
+10/01 03:18:52 AM: 	Best result seen so far for macro_avg: 0.828
+10/01 03:18:52 AM: 	# validation passes without improvement: 0
+10/01 03:18:52 AM: edges-dep-ud-ewt_loss: training: 0.025814 validation: 0.019729
+10/01 03:18:52 AM: macro_avg: validation: 0.827971
+10/01 03:18:52 AM: micro_avg: validation: 0.000000
+10/01 03:18:52 AM: edges-dep-ud-ewt_mcc: training: 0.754110 validation: 0.828658
+10/01 03:18:52 AM: edges-dep-ud-ewt_acc: training: 0.624866 validation: 0.732019
+10/01 03:18:52 AM: edges-dep-ud-ewt_precision: training: 0.858590 validation: 0.915272
+10/01 03:18:52 AM: edges-dep-ud-ewt_recall: training: 0.669966 validation: 0.755874
+10/01 03:18:52 AM: edges-dep-ud-ewt_f1: training: 0.752640 validation: 0.827971
+10/01 03:18:52 AM: Global learning rate: 0.0001
+10/01 03:18:52 AM: Saving checkpoints to: ./experiments/dep-ud-ewt-sstrandom-top/run
+10/01 03:18:58 AM: Update 5025: task edges-dep-ud-ewt, batch 25 (5025): mcc: 0.7577, acc: 0.6295, precision: 0.8566, recall: 0.6779, f1: 0.7569, edges-dep-ud-ewt_loss: 0.0266
+10/01 03:19:09 AM: Update 5078: task edges-dep-ud-ewt, batch 78 (5078): mcc: 0.7629, acc: 0.6373, precision: 0.8621, recall: 0.6826, f1: 0.7619, edges-dep-ud-ewt_loss: 0.0260
+10/01 03:19:19 AM: Update 5111: task edges-dep-ud-ewt, batch 111 (5111): mcc: 0.7612, acc: 0.6353, precision: 0.8611, recall: 0.6804, f1: 0.7602, edges-dep-ud-ewt_loss: 0.0260
+10/01 03:19:29 AM: Update 5181: task edges-dep-ud-ewt, batch 181 (5181): mcc: 0.7606, acc: 0.6346, precision: 0.8592, recall: 0.6809, f1: 0.7598, edges-dep-ud-ewt_loss: 0.0255
+10/01 03:19:39 AM: Update 5240: task edges-dep-ud-ewt, batch 240 (5240): mcc: 0.7600, acc: 0.6336, precision: 0.8587, recall: 0.6803, f1: 0.7591, edges-dep-ud-ewt_loss: 0.0253
+10/01 03:19:49 AM: Update 5295: task edges-dep-ud-ewt, batch 295 (5295): mcc: 0.7601, acc: 0.6335, precision: 0.8587, recall: 0.6804, f1: 0.7592, edges-dep-ud-ewt_loss: 0.0254
+10/01 03:19:59 AM: Update 5355: task edges-dep-ud-ewt, batch 355 (5355): mcc: 0.7605, acc: 0.6343, precision: 0.8586, recall: 0.6812, f1: 0.7597, edges-dep-ud-ewt_loss: 0.0252
+10/01 03:20:09 AM: Update 5402: task edges-dep-ud-ewt, batch 402 (5402): mcc: 0.7602, acc: 0.6338, precision: 0.8587, recall: 0.6806, f1: 0.7594, edges-dep-ud-ewt_loss: 0.0251
+10/01 03:20:19 AM: Update 5438: task edges-dep-ud-ewt, batch 438 (5438): mcc: 0.7603, acc: 0.6338, precision: 0.8588, recall: 0.6807, f1: 0.7595, edges-dep-ud-ewt_loss: 0.0252
+10/01 03:20:32 AM: Update 5489: task edges-dep-ud-ewt, batch 489 (5489): mcc: 0.7610, acc: 0.6349, precision: 0.8594, recall: 0.6815, f1: 0.7602, edges-dep-ud-ewt_loss: 0.0251
+10/01 03:20:42 AM: Update 5537: task edges-dep-ud-ewt, batch 537 (5537): mcc: 0.7614, acc: 0.6355, precision: 0.8595, recall: 0.6820, f1: 0.7606, edges-dep-ud-ewt_loss: 0.0250
+10/01 03:20:52 AM: Update 5587: task edges-dep-ud-ewt, batch 587 (5587): mcc: 0.7616, acc: 0.6358, precision: 0.8596, recall: 0.6823, f1: 0.7607, edges-dep-ud-ewt_loss: 0.0250
+10/01 03:21:02 AM: Update 5638: task edges-dep-ud-ewt, batch 638 (5638): mcc: 0.7619, acc: 0.6362, precision: 0.8595, recall: 0.6828, f1: 0.7611, edges-dep-ud-ewt_loss: 0.0250
+10/01 03:21:12 AM: Update 5695: task edges-dep-ud-ewt, batch 695 (5695): mcc: 0.7618, acc: 0.6362, precision: 0.8592, recall: 0.6829, f1: 0.7610, edges-dep-ud-ewt_loss: 0.0250
+10/01 03:21:22 AM: Update 5752: task edges-dep-ud-ewt, batch 752 (5752): mcc: 0.7617, acc: 0.6360, precision: 0.8591, recall: 0.6829, f1: 0.7609, edges-dep-ud-ewt_loss: 0.0250
+10/01 03:21:32 AM: Update 5807: task edges-dep-ud-ewt, batch 807 (5807): mcc: 0.7622, acc: 0.6367, precision: 0.8593, recall: 0.6836, f1: 0.7614, edges-dep-ud-ewt_loss: 0.0250
+10/01 03:21:42 AM: Update 5867: task edges-dep-ud-ewt, batch 867 (5867): mcc: 0.7625, acc: 0.6372, precision: 0.8594, recall: 0.6840, f1: 0.7617, edges-dep-ud-ewt_loss: 0.0250
+10/01 03:21:52 AM: Update 5897: task edges-dep-ud-ewt, batch 897 (5897): mcc: 0.7626, acc: 0.6374, precision: 0.8594, recall: 0.6842, f1: 0.7618, edges-dep-ud-ewt_loss: 0.0249
+10/01 03:22:03 AM: Update 5950: task edges-dep-ud-ewt, batch 950 (5950): mcc: 0.7626, acc: 0.6376, precision: 0.8593, recall: 0.6844, f1: 0.7619, edges-dep-ud-ewt_loss: 0.0249
+10/01 03:22:10 AM: ***** Step 6000 / Validation 6 *****
+10/01 03:22:10 AM: edges-dep-ud-ewt: trained on 1000 batches, 2.551 epochs
+10/01 03:22:10 AM: Validating...
+10/01 03:22:13 AM: Evaluate: task edges-dep-ud-ewt, batch 8 (63): mcc: 0.8385, acc: 0.7447, precision: 0.9246, recall: 0.7657, f1: 0.8377, edges-dep-ud-ewt_loss: 0.0186
+10/01 03:22:24 AM: Evaluate: task edges-dep-ud-ewt, batch 59 (63): mcc: 0.8373, acc: 0.7438, precision: 0.9234, recall: 0.7646, f1: 0.8365, edges-dep-ud-ewt_loss: 0.0187
+10/01 03:22:24 AM: Best result seen so far for edges-dep-ud-ewt.
+10/01 03:22:24 AM: Best result seen so far for macro.
+10/01 03:22:24 AM: Updating LR scheduler:
+10/01 03:22:24 AM: 	Best result seen so far for macro_avg: 0.837
+10/01 03:22:24 AM: 	# validation passes without improvement: 0
+10/01 03:22:24 AM: edges-dep-ud-ewt_loss: training: 0.024843 validation: 0.018673
+10/01 03:22:24 AM: macro_avg: validation: 0.837290
+10/01 03:22:24 AM: micro_avg: validation: 0.000000
+10/01 03:22:24 AM: edges-dep-ud-ewt_mcc: training: 0.763086 validation: 0.837980
+10/01 03:22:24 AM: edges-dep-ud-ewt_acc: training: 0.638244 validation: 0.745400
+10/01 03:22:24 AM: edges-dep-ud-ewt_precision: training: 0.859314 validation: 0.922996
+10/01 03:22:24 AM: edges-dep-ud-ewt_recall: training: 0.685160 validation: 0.766149
+10/01 03:22:24 AM: edges-dep-ud-ewt_f1: training: 0.762418 validation: 0.837290
+10/01 03:22:24 AM: Global learning rate: 0.0001
+10/01 03:22:24 AM: Saving checkpoints to: ./experiments/dep-ud-ewt-sstrandom-top/run
+10/01 03:22:34 AM: Update 6055: task edges-dep-ud-ewt, batch 55 (6055): mcc: 0.7662, acc: 0.6430, precision: 0.8590, recall: 0.6909, f1: 0.7658, edges-dep-ud-ewt_loss: 0.0239
+10/01 03:22:44 AM: Update 6110: task edges-dep-ud-ewt, batch 110 (6110): mcc: 0.7662, acc: 0.6427, precision: 0.8593, recall: 0.6907, f1: 0.7659, edges-dep-ud-ewt_loss: 0.0240
+10/01 03:22:54 AM: Update 6167: task edges-dep-ud-ewt, batch 167 (6167): mcc: 0.7679, acc: 0.6444, precision: 0.8613, recall: 0.6921, f1: 0.7675, edges-dep-ud-ewt_loss: 0.0240
+10/01 03:23:04 AM: Update 6205: task edges-dep-ud-ewt, batch 205 (6205): mcc: 0.7673, acc: 0.6439, precision: 0.8611, recall: 0.6911, f1: 0.7668, edges-dep-ud-ewt_loss: 0.0242
+10/01 03:23:14 AM: Update 6261: task edges-dep-ud-ewt, batch 261 (6261): mcc: 0.7693, acc: 0.6470, precision: 0.8628, recall: 0.6933, f1: 0.7689, edges-dep-ud-ewt_loss: 0.0242
+10/01 03:23:24 AM: Update 6289: task edges-dep-ud-ewt, batch 289 (6289): mcc: 0.7688, acc: 0.6462, precision: 0.8629, recall: 0.6923, f1: 0.7683, edges-dep-ud-ewt_loss: 0.0243
+10/01 03:23:35 AM: Update 6344: task edges-dep-ud-ewt, batch 344 (6344): mcc: 0.7688, acc: 0.6465, precision: 0.8625, recall: 0.6927, f1: 0.7683, edges-dep-ud-ewt_loss: 0.0243
+10/01 03:23:45 AM: Update 6407: task edges-dep-ud-ewt, batch 407 (6407): mcc: 0.7699, acc: 0.6479, precision: 0.8628, recall: 0.6944, f1: 0.7695, edges-dep-ud-ewt_loss: 0.0240
+10/01 03:23:55 AM: Update 6462: task edges-dep-ud-ewt, batch 462 (6462): mcc: 0.7689, acc: 0.6467, precision: 0.8618, recall: 0.6935, f1: 0.7685, edges-dep-ud-ewt_loss: 0.0242
+10/01 03:24:05 AM: Update 6518: task edges-dep-ud-ewt, batch 518 (6518): mcc: 0.7691, acc: 0.6468, precision: 0.8616, recall: 0.6939, f1: 0.7687, edges-dep-ud-ewt_loss: 0.0241
+10/01 03:24:15 AM: Update 6583: task edges-dep-ud-ewt, batch 583 (6583): mcc: 0.7693, acc: 0.6472, precision: 0.8620, recall: 0.6940, f1: 0.7690, edges-dep-ud-ewt_loss: 0.0240
+10/01 03:24:25 AM: Update 6625: task edges-dep-ud-ewt, batch 625 (6625): mcc: 0.7696, acc: 0.6477, precision: 0.8623, recall: 0.6944, f1: 0.7693, edges-dep-ud-ewt_loss: 0.0240
+10/01 03:24:36 AM: Update 6666: task edges-dep-ud-ewt, batch 666 (6666): mcc: 0.7698, acc: 0.6481, precision: 0.8622, recall: 0.6947, f1: 0.7694, edges-dep-ud-ewt_loss: 0.0240
+10/01 03:24:46 AM: Update 6719: task edges-dep-ud-ewt, batch 719 (6719): mcc: 0.7698, acc: 0.6482, precision: 0.8620, recall: 0.6949, f1: 0.7695, edges-dep-ud-ewt_loss: 0.0241
+10/01 03:24:56 AM: Update 6787: task edges-dep-ud-ewt, batch 787 (6787): mcc: 0.7702, acc: 0.6487, precision: 0.8620, recall: 0.6955, f1: 0.7698, edges-dep-ud-ewt_loss: 0.0239
+10/01 03:25:06 AM: Update 6845: task edges-dep-ud-ewt, batch 845 (6845): mcc: 0.7706, acc: 0.6492, precision: 0.8623, recall: 0.6960, f1: 0.7703, edges-dep-ud-ewt_loss: 0.0239
+10/01 03:25:16 AM: Update 6897: task edges-dep-ud-ewt, batch 897 (6897): mcc: 0.7707, acc: 0.6495, precision: 0.8622, recall: 0.6963, f1: 0.7704, edges-dep-ud-ewt_loss: 0.0239
+10/01 03:25:26 AM: Update 6951: task edges-dep-ud-ewt, batch 951 (6951): mcc: 0.7707, acc: 0.6495, precision: 0.8622, recall: 0.6962, f1: 0.7704, edges-dep-ud-ewt_loss: 0.0238
+10/01 03:25:36 AM: Update 6990: task edges-dep-ud-ewt, batch 990 (6990): mcc: 0.7708, acc: 0.6498, precision: 0.8621, recall: 0.6965, f1: 0.7705, edges-dep-ud-ewt_loss: 0.0238
+10/01 03:25:38 AM: ***** Step 7000 / Validation 7 *****
+10/01 03:25:38 AM: edges-dep-ud-ewt: trained on 1000 batches, 2.551 epochs
+10/01 03:25:38 AM: Validating...
+10/01 03:25:46 AM: Evaluate: task edges-dep-ud-ewt, batch 41 (63): mcc: 0.8440, acc: 0.7573, precision: 0.9152, recall: 0.7836, f1: 0.8443, edges-dep-ud-ewt_loss: 0.0180
+10/01 03:25:50 AM: Best result seen so far for edges-dep-ud-ewt.
+10/01 03:25:50 AM: Best result seen so far for macro.
+10/01 03:25:50 AM: Updating LR scheduler:
+10/01 03:25:50 AM: 	Best result seen so far for macro_avg: 0.846
+10/01 03:25:50 AM: 	# validation passes without improvement: 0
+10/01 03:25:50 AM: edges-dep-ud-ewt_loss: training: 0.023832 validation: 0.017894
+10/01 03:25:50 AM: macro_avg: validation: 0.846032
+10/01 03:25:50 AM: micro_avg: validation: 0.000000
+10/01 03:25:50 AM: edges-dep-ud-ewt_mcc: training: 0.770765 validation: 0.845657
+10/01 03:25:50 AM: edges-dep-ud-ewt_acc: training: 0.649759 validation: 0.761091
+10/01 03:25:50 AM: edges-dep-ud-ewt_precision: training: 0.862160 validation: 0.916233
+10/01 03:25:50 AM: edges-dep-ud-ewt_recall: training: 0.696450 validation: 0.785822
+10/01 03:25:50 AM: edges-dep-ud-ewt_f1: training: 0.770496 validation: 0.846032
+10/01 03:25:50 AM: Global learning rate: 0.0001
+10/01 03:25:50 AM: Saving checkpoints to: ./experiments/dep-ud-ewt-sstrandom-top/run
+10/01 03:25:56 AM: Update 7041: task edges-dep-ud-ewt, batch 41 (7041): mcc: 0.7810, acc: 0.6658, precision: 0.8666, recall: 0.7110, f1: 0.7811, edges-dep-ud-ewt_loss: 0.0235
+10/01 03:26:06 AM: Update 7075: task edges-dep-ud-ewt, batch 75 (7075): mcc: 0.7764, acc: 0.6590, precision: 0.8639, recall: 0.7051, f1: 0.7764, edges-dep-ud-ewt_loss: 0.0239
+10/01 03:26:17 AM: Update 7140: task edges-dep-ud-ewt, batch 140 (7140): mcc: 0.7755, acc: 0.6576, precision: 0.8620, recall: 0.7050, f1: 0.7757, edges-dep-ud-ewt_loss: 0.0235
+10/01 03:26:27 AM: Update 7199: task edges-dep-ud-ewt, batch 199 (7199): mcc: 0.7743, acc: 0.6557, precision: 0.8614, recall: 0.7034, f1: 0.7744, edges-dep-ud-ewt_loss: 0.0233
+10/01 03:26:37 AM: Update 7255: task edges-dep-ud-ewt, batch 255 (7255): mcc: 0.7744, acc: 0.6554, precision: 0.8619, recall: 0.7032, f1: 0.7745, edges-dep-ud-ewt_loss: 0.0233
+10/01 03:26:47 AM: Update 7319: task edges-dep-ud-ewt, batch 319 (7319): mcc: 0.7753, acc: 0.6567, precision: 0.8621, recall: 0.7045, f1: 0.7754, edges-dep-ud-ewt_loss: 0.0231
+10/01 03:26:58 AM: Update 7370: task edges-dep-ud-ewt, batch 370 (7370): mcc: 0.7747, acc: 0.6560, precision: 0.8618, recall: 0.7038, f1: 0.7748, edges-dep-ud-ewt_loss: 0.0232
+10/01 03:27:08 AM: Update 7429: task edges-dep-ud-ewt, batch 429 (7429): mcc: 0.7756, acc: 0.6575, precision: 0.8625, recall: 0.7047, f1: 0.7757, edges-dep-ud-ewt_loss: 0.0232
+10/01 03:27:18 AM: Update 7464: task edges-dep-ud-ewt, batch 464 (7464): mcc: 0.7758, acc: 0.6578, precision: 0.8628, recall: 0.7050, f1: 0.7759, edges-dep-ud-ewt_loss: 0.0233
+10/01 03:27:28 AM: Update 7525: task edges-dep-ud-ewt, batch 525 (7525): mcc: 0.7760, acc: 0.6581, precision: 0.8631, recall: 0.7050, f1: 0.7761, edges-dep-ud-ewt_loss: 0.0231
+10/01 03:27:38 AM: Update 7593: task edges-dep-ud-ewt, batch 593 (7593): mcc: 0.7769, acc: 0.6592, precision: 0.8637, recall: 0.7061, f1: 0.7770, edges-dep-ud-ewt_loss: 0.0230
+10/01 03:27:48 AM: Update 7646: task edges-dep-ud-ewt, batch 646 (7646): mcc: 0.7769, acc: 0.6592, precision: 0.8634, recall: 0.7063, f1: 0.7770, edges-dep-ud-ewt_loss: 0.0230
+10/01 03:27:58 AM: Update 7702: task edges-dep-ud-ewt, batch 702 (7702): mcc: 0.7767, acc: 0.6591, precision: 0.8634, recall: 0.7061, f1: 0.7768, edges-dep-ud-ewt_loss: 0.0230
+10/01 03:28:08 AM: Update 7758: task edges-dep-ud-ewt, batch 758 (7758): mcc: 0.7768, acc: 0.6593, precision: 0.8636, recall: 0.7061, f1: 0.7769, edges-dep-ud-ewt_loss: 0.0231
+10/01 03:28:19 AM: Update 7808: task edges-dep-ud-ewt, batch 808 (7808): mcc: 0.7772, acc: 0.6597, precision: 0.8640, recall: 0.7064, f1: 0.7773, edges-dep-ud-ewt_loss: 0.0231
+10/01 03:28:29 AM: Update 7845: task edges-dep-ud-ewt, batch 845 (7845): mcc: 0.7772, acc: 0.6598, precision: 0.8640, recall: 0.7065, f1: 0.7773, edges-dep-ud-ewt_loss: 0.0231
+10/01 03:28:39 AM: Update 7907: task edges-dep-ud-ewt, batch 907 (7907): mcc: 0.7776, acc: 0.6602, precision: 0.8641, recall: 0.7070, f1: 0.7777, edges-dep-ud-ewt_loss: 0.0231
+10/01 03:28:49 AM: Update 7967: task edges-dep-ud-ewt, batch 967 (7967): mcc: 0.7778, acc: 0.6606, precision: 0.8641, recall: 0.7074, f1: 0.7779, edges-dep-ud-ewt_loss: 0.0230
+10/01 03:28:54 AM: ***** Step 8000 / Validation 8 *****
+10/01 03:28:54 AM: edges-dep-ud-ewt: trained on 1000 batches, 2.551 epochs
+10/01 03:28:54 AM: Validating...
+10/01 03:28:59 AM: Evaluate: task edges-dep-ud-ewt, batch 24 (63): mcc: 0.8536, acc: 0.7726, precision: 0.9204, recall: 0.7968, f1: 0.8542, edges-dep-ud-ewt_loss: 0.0165
+10/01 03:29:06 AM: Best result seen so far for edges-dep-ud-ewt.
+10/01 03:29:06 AM: Best result seen so far for macro.
+10/01 03:29:06 AM: Updating LR scheduler:
+10/01 03:29:06 AM: 	Best result seen so far for macro_avg: 0.854
+10/01 03:29:06 AM: 	# validation passes without improvement: 0
+10/01 03:29:06 AM: edges-dep-ud-ewt_loss: training: 0.022971 validation: 0.017098
+10/01 03:29:06 AM: macro_avg: validation: 0.854172
+10/01 03:29:06 AM: micro_avg: validation: 0.000000
+10/01 03:29:06 AM: edges-dep-ud-ewt_mcc: training: 0.777937 validation: 0.853837
+10/01 03:29:06 AM: edges-dep-ud-ewt_acc: training: 0.660786 validation: 0.773198
+10/01 03:29:06 AM: edges-dep-ud-ewt_precision: training: 0.864075 validation: 0.923045
+10/01 03:29:06 AM: edges-dep-ud-ewt_recall: training: 0.707658 validation: 0.794863
+10/01 03:29:06 AM: edges-dep-ud-ewt_f1: training: 0.778083 validation: 0.854172
+10/01 03:29:06 AM: Global learning rate: 0.0001
+10/01 03:29:06 AM: Saving checkpoints to: ./experiments/dep-ud-ewt-sstrandom-top/run
+10/01 03:29:09 AM: Update 8019: task edges-dep-ud-ewt, batch 19 (8019): mcc: 0.7817, acc: 0.6665, precision: 0.8723, recall: 0.7075, f1: 0.7813, edges-dep-ud-ewt_loss: 0.0227
+10/01 03:29:19 AM: Update 8069: task edges-dep-ud-ewt, batch 69 (8069): mcc: 0.7787, acc: 0.6632, precision: 0.8639, recall: 0.7091, f1: 0.7789, edges-dep-ud-ewt_loss: 0.0230
+10/01 03:29:29 AM: Update 8127: task edges-dep-ud-ewt, batch 127 (8127): mcc: 0.7806, acc: 0.6666, precision: 0.8649, recall: 0.7117, f1: 0.7809, edges-dep-ud-ewt_loss: 0.0227
+10/01 03:29:39 AM: Update 8176: task edges-dep-ud-ewt, batch 176 (8176): mcc: 0.7806, acc: 0.6667, precision: 0.8652, recall: 0.7115, f1: 0.7808, edges-dep-ud-ewt_loss: 0.0226
+10/01 03:29:52 AM: Update 8233: task edges-dep-ud-ewt, batch 233 (8233): mcc: 0.7819, acc: 0.6683, precision: 0.8664, recall: 0.7128, f1: 0.7821, edges-dep-ud-ewt_loss: 0.0227
+10/01 03:30:02 AM: Update 8288: task edges-dep-ud-ewt, batch 288 (8288): mcc: 0.7813, acc: 0.6674, precision: 0.8658, recall: 0.7122, f1: 0.7815, edges-dep-ud-ewt_loss: 0.0226
+10/01 03:30:13 AM: Update 8347: task edges-dep-ud-ewt, batch 347 (8347): mcc: 0.7816, acc: 0.6680, precision: 0.8655, recall: 0.7130, f1: 0.7819, edges-dep-ud-ewt_loss: 0.0226
+10/01 03:30:23 AM: Update 8403: task edges-dep-ud-ewt, batch 403 (8403): mcc: 0.7821, acc: 0.6684, precision: 0.8659, recall: 0.7135, f1: 0.7824, edges-dep-ud-ewt_loss: 0.0225
+10/01 03:30:33 AM: Update 8462: task edges-dep-ud-ewt, batch 462 (8462): mcc: 0.7821, acc: 0.6686, precision: 0.8660, recall: 0.7136, f1: 0.7824, edges-dep-ud-ewt_loss: 0.0224
+10/01 03:30:43 AM: Update 8526: task edges-dep-ud-ewt, batch 526 (8526): mcc: 0.7828, acc: 0.6692, precision: 0.8665, recall: 0.7143, f1: 0.7831, edges-dep-ud-ewt_loss: 0.0224
+10/01 03:30:53 AM: Update 8574: task edges-dep-ud-ewt, batch 574 (8574): mcc: 0.7828, acc: 0.6692, precision: 0.8667, recall: 0.7142, f1: 0.7831, edges-dep-ud-ewt_loss: 0.0224
+10/01 03:31:06 AM: Update 8625: task edges-dep-ud-ewt, batch 625 (8625): mcc: 0.7832, acc: 0.6698, precision: 0.8669, recall: 0.7147, f1: 0.7835, edges-dep-ud-ewt_loss: 0.0224
+10/01 03:31:16 AM: Update 8675: task edges-dep-ud-ewt, batch 675 (8675): mcc: 0.7826, acc: 0.6690, precision: 0.8664, recall: 0.7140, f1: 0.7828, edges-dep-ud-ewt_loss: 0.0224
+10/01 03:31:26 AM: Update 8735: task edges-dep-ud-ewt, batch 735 (8735): mcc: 0.7829, acc: 0.6695, precision: 0.8665, recall: 0.7145, f1: 0.7832, edges-dep-ud-ewt_loss: 0.0224
+10/01 03:31:36 AM: Update 8792: task edges-dep-ud-ewt, batch 792 (8792): mcc: 0.7833, acc: 0.6702, precision: 0.8667, recall: 0.7151, f1: 0.7837, edges-dep-ud-ewt_loss: 0.0224
+10/01 03:31:47 AM: Update 8857: task edges-dep-ud-ewt, batch 857 (8857): mcc: 0.7840, acc: 0.6711, precision: 0.8672, recall: 0.7159, f1: 0.7843, edges-dep-ud-ewt_loss: 0.0224
+10/01 03:31:57 AM: Update 8919: task edges-dep-ud-ewt, batch 919 (8919): mcc: 0.7840, acc: 0.6711, precision: 0.8671, recall: 0.7161, f1: 0.7844, edges-dep-ud-ewt_loss: 0.0223
+10/01 03:32:07 AM: Update 8974: task edges-dep-ud-ewt, batch 974 (8974): mcc: 0.7843, acc: 0.6715, precision: 0.8672, recall: 0.7164, f1: 0.7846, edges-dep-ud-ewt_loss: 0.0223
+10/01 03:32:11 AM: ***** Step 9000 / Validation 9 *****
+10/01 03:32:11 AM: edges-dep-ud-ewt: trained on 1000 batches, 2.551 epochs
+10/01 03:32:11 AM: Validating...
+10/01 03:32:17 AM: Evaluate: task edges-dep-ud-ewt, batch 27 (63): mcc: 0.8620, acc: 0.7864, precision: 0.9266, recall: 0.8067, f1: 0.8625, edges-dep-ud-ewt_loss: 0.0160
+10/01 03:32:23 AM: Best result seen so far for edges-dep-ud-ewt.
+10/01 03:32:23 AM: Best result seen so far for macro.
+10/01 03:32:23 AM: Updating LR scheduler:
+10/01 03:32:23 AM: 	Best result seen so far for macro_avg: 0.861
+10/01 03:32:23 AM: 	# validation passes without improvement: 0
+10/01 03:32:23 AM: edges-dep-ud-ewt_loss: training: 0.022253 validation: 0.016455
+10/01 03:32:23 AM: macro_avg: validation: 0.860826
+10/01 03:32:23 AM: micro_avg: validation: 0.000000
+10/01 03:32:23 AM: edges-dep-ud-ewt_mcc: training: 0.784567 validation: 0.860447
+10/01 03:32:23 AM: edges-dep-ud-ewt_acc: training: 0.671904 validation: 0.784867
+10/01 03:32:23 AM: edges-dep-ud-ewt_precision: training: 0.867430 validation: 0.927432
+10/01 03:32:23 AM: edges-dep-ud-ewt_recall: training: 0.716744 validation: 0.803146
+10/01 03:32:23 AM: edges-dep-ud-ewt_f1: training: 0.784921 validation: 0.860826
+10/01 03:32:23 AM: Global learning rate: 0.0001
+10/01 03:32:23 AM: Saving checkpoints to: ./experiments/dep-ud-ewt-sstrandom-top/run
+10/01 03:32:30 AM: Update 9017: task edges-dep-ud-ewt, batch 17 (9017): mcc: 0.7841, acc: 0.6697, precision: 0.8694, recall: 0.7143, f1: 0.7843, edges-dep-ud-ewt_loss: 0.0232
+10/01 03:32:40 AM: Update 9071: task edges-dep-ud-ewt, batch 71 (9071): mcc: 0.7849, acc: 0.6717, precision: 0.8681, recall: 0.7167, f1: 0.7852, edges-dep-ud-ewt_loss: 0.0223
+10/01 03:32:50 AM: Update 9125: task edges-dep-ud-ewt, batch 125 (9125): mcc: 0.7857, acc: 0.6730, precision: 0.8685, recall: 0.7179, f1: 0.7860, edges-dep-ud-ewt_loss: 0.0220
+10/01 03:33:00 AM: Update 9190: task edges-dep-ud-ewt, batch 190 (9190): mcc: 0.7869, acc: 0.6745, precision: 0.8678, recall: 0.7206, f1: 0.7874, edges-dep-ud-ewt_loss: 0.0218
+10/01 03:33:11 AM: Update 9251: task edges-dep-ud-ewt, batch 251 (9251): mcc: 0.7883, acc: 0.6765, precision: 0.8679, recall: 0.7230, f1: 0.7889, edges-dep-ud-ewt_loss: 0.0216
+10/01 03:33:21 AM: Update 9304: task edges-dep-ud-ewt, batch 304 (9304): mcc: 0.7884, acc: 0.6766, precision: 0.8681, recall: 0.7231, f1: 0.7890, edges-dep-ud-ewt_loss: 0.0216
+10/01 03:33:31 AM: Update 9354: task edges-dep-ud-ewt, batch 354 (9354): mcc: 0.7891, acc: 0.6774, precision: 0.8689, recall: 0.7236, f1: 0.7896, edges-dep-ud-ewt_loss: 0.0217
+10/01 03:33:44 AM: Update 9409: task edges-dep-ud-ewt, batch 409 (9409): mcc: 0.7897, acc: 0.6786, precision: 0.8695, recall: 0.7242, f1: 0.7902, edges-dep-ud-ewt_loss: 0.0218
+10/01 03:33:54 AM: Update 9464: task edges-dep-ud-ewt, batch 464 (9464): mcc: 0.7896, acc: 0.6784, precision: 0.8695, recall: 0.7241, f1: 0.7901, edges-dep-ud-ewt_loss: 0.0218
+10/01 03:34:04 AM: Update 9517: task edges-dep-ud-ewt, batch 517 (9517): mcc: 0.7896, acc: 0.6785, precision: 0.8695, recall: 0.7241, f1: 0.7901, edges-dep-ud-ewt_loss: 0.0219
+10/01 03:34:14 AM: Update 9580: task edges-dep-ud-ewt, batch 580 (9580): mcc: 0.7902, acc: 0.6795, precision: 0.8701, recall: 0.7247, f1: 0.7908, edges-dep-ud-ewt_loss: 0.0217
+10/01 03:34:25 AM: Update 9635: task edges-dep-ud-ewt, batch 635 (9635): mcc: 0.7901, acc: 0.6795, precision: 0.8701, recall: 0.7246, f1: 0.7907, edges-dep-ud-ewt_loss: 0.0216
+10/01 03:34:35 AM: Update 9699: task edges-dep-ud-ewt, batch 699 (9699): mcc: 0.7904, acc: 0.6800, precision: 0.8702, recall: 0.7249, f1: 0.7909, edges-dep-ud-ewt_loss: 0.0216
+10/01 03:34:45 AM: Update 9750: task edges-dep-ud-ewt, batch 750 (9750): mcc: 0.7903, acc: 0.6799, precision: 0.8702, recall: 0.7248, f1: 0.7909, edges-dep-ud-ewt_loss: 0.0216
+10/01 03:34:58 AM: Update 9801: task edges-dep-ud-ewt, batch 801 (9801): mcc: 0.7908, acc: 0.6807, precision: 0.8706, recall: 0.7253, f1: 0.7913, edges-dep-ud-ewt_loss: 0.0216
+10/01 03:35:08 AM: Update 9858: task edges-dep-ud-ewt, batch 858 (9858): mcc: 0.7910, acc: 0.6810, precision: 0.8706, recall: 0.7257, f1: 0.7915, edges-dep-ud-ewt_loss: 0.0216
+10/01 03:35:18 AM: Update 9917: task edges-dep-ud-ewt, batch 917 (9917): mcc: 0.7913, acc: 0.6816, precision: 0.8708, recall: 0.7261, f1: 0.7919, edges-dep-ud-ewt_loss: 0.0216
+10/01 03:35:28 AM: Update 9981: task edges-dep-ud-ewt, batch 981 (9981): mcc: 0.7915, acc: 0.6818, precision: 0.8708, recall: 0.7265, f1: 0.7921, edges-dep-ud-ewt_loss: 0.0215
+10/01 03:35:31 AM: ***** Step 10000 / Validation 10 *****
+10/01 03:35:31 AM: edges-dep-ud-ewt: trained on 1000 batches, 2.551 epochs
+10/01 03:35:31 AM: Validating...
+10/01 03:35:38 AM: Evaluate: task edges-dep-ud-ewt, batch 30 (63): mcc: 0.8668, acc: 0.7935, precision: 0.9300, recall: 0.8126, f1: 0.8673, edges-dep-ud-ewt_loss: 0.0155
+10/01 03:35:44 AM: Best result seen so far for edges-dep-ud-ewt.
+10/01 03:35:44 AM: Best result seen so far for macro.
+10/01 03:35:44 AM: Updating LR scheduler:
+10/01 03:35:44 AM: 	Best result seen so far for macro_avg: 0.866
+10/01 03:35:44 AM: 	# validation passes without improvement: 0
+10/01 03:35:44 AM: edges-dep-ud-ewt_loss: training: 0.021504 validation: 0.015904
+10/01 03:35:44 AM: macro_avg: validation: 0.866296
+10/01 03:35:44 AM: micro_avg: validation: 0.000000
+10/01 03:35:44 AM: edges-dep-ud-ewt_mcc: training: 0.791513 validation: 0.865943
+10/01 03:35:44 AM: edges-dep-ud-ewt_acc: training: 0.681817 validation: 0.792473
+10/01 03:35:44 AM: edges-dep-ud-ewt_precision: training: 0.870718 validation: 0.931903
+10/01 03:35:44 AM: edges-dep-ud-ewt_recall: training: 0.726484 validation: 0.809319
+10/01 03:35:44 AM: edges-dep-ud-ewt_f1: training: 0.792089 validation: 0.866296
+10/01 03:35:44 AM: Global learning rate: 0.0001
+10/01 03:35:44 AM: Saving checkpoints to: ./experiments/dep-ud-ewt-sstrandom-top/run
+10/01 03:35:48 AM: Update 10023: task edges-dep-ud-ewt, batch 23 (10023): mcc: 0.7965, acc: 0.6877, precision: 0.8747, recall: 0.7321, f1: 0.7971, edges-dep-ud-ewt_loss: 0.0208
+10/01 03:35:58 AM: Update 10073: task edges-dep-ud-ewt, batch 73 (10073): mcc: 0.7919, acc: 0.6822, precision: 0.8721, recall: 0.7260, f1: 0.7924, edges-dep-ud-ewt_loss: 0.0217
+10/01 03:36:08 AM: Update 10118: task edges-dep-ud-ewt, batch 118 (10118): mcc: 0.7951, acc: 0.6868, precision: 0.8736, recall: 0.7306, f1: 0.7957, edges-dep-ud-ewt_loss: 0.0211
+10/01 03:36:18 AM: Update 10180: task edges-dep-ud-ewt, batch 180 (10180): mcc: 0.7954, acc: 0.6876, precision: 0.8734, recall: 0.7312, f1: 0.7960, edges-dep-ud-ewt_loss: 0.0213
+10/01 03:36:28 AM: Update 10221: task edges-dep-ud-ewt, batch 221 (10221): mcc: 0.7956, acc: 0.6883, precision: 0.8736, recall: 0.7314, f1: 0.7962, edges-dep-ud-ewt_loss: 0.0214
+10/01 03:36:39 AM: Update 10268: task edges-dep-ud-ewt, batch 268 (10268): mcc: 0.7938, acc: 0.6860, precision: 0.8717, recall: 0.7297, f1: 0.7944, edges-dep-ud-ewt_loss: 0.0214
+10/01 03:36:49 AM: Update 10329: task edges-dep-ud-ewt, batch 329 (10329): mcc: 0.7953, acc: 0.6881, precision: 0.8727, recall: 0.7317, f1: 0.7960, edges-dep-ud-ewt_loss: 0.0211
+10/01 03:36:59 AM: Update 10393: task edges-dep-ud-ewt, batch 393 (10393): mcc: 0.7963, acc: 0.6895, precision: 0.8733, recall: 0.7330, f1: 0.7970, edges-dep-ud-ewt_loss: 0.0209
+10/01 03:37:09 AM: Update 10462: task edges-dep-ud-ewt, batch 462 (10462): mcc: 0.7969, acc: 0.6902, precision: 0.8736, recall: 0.7337, f1: 0.7976, edges-dep-ud-ewt_loss: 0.0209
+10/01 03:37:19 AM: Update 10509: task edges-dep-ud-ewt, batch 509 (10509): mcc: 0.7965, acc: 0.6899, precision: 0.8733, recall: 0.7334, f1: 0.7972, edges-dep-ud-ewt_loss: 0.0209
+10/01 03:37:29 AM: Update 10570: task edges-dep-ud-ewt, batch 570 (10570): mcc: 0.7969, acc: 0.6905, precision: 0.8737, recall: 0.7338, f1: 0.7976, edges-dep-ud-ewt_loss: 0.0210
+10/01 03:37:39 AM: Update 10597: task edges-dep-ud-ewt, batch 597 (10597): mcc: 0.7967, acc: 0.6903, precision: 0.8736, recall: 0.7334, f1: 0.7974, edges-dep-ud-ewt_loss: 0.0210
+10/01 03:37:49 AM: Update 10652: task edges-dep-ud-ewt, batch 652 (10652): mcc: 0.7966, acc: 0.6902, precision: 0.8736, recall: 0.7332, f1: 0.7973, edges-dep-ud-ewt_loss: 0.0210
+10/01 03:37:59 AM: Update 10717: task edges-dep-ud-ewt, batch 717 (10717): mcc: 0.7970, acc: 0.6908, precision: 0.8738, recall: 0.7337, f1: 0.7977, edges-dep-ud-ewt_loss: 0.0208
+10/01 03:38:09 AM: Update 10781: task edges-dep-ud-ewt, batch 781 (10781): mcc: 0.7971, acc: 0.6910, precision: 0.8737, recall: 0.7341, f1: 0.7978, edges-dep-ud-ewt_loss: 0.0208
+10/01 03:38:20 AM: Update 10847: task edges-dep-ud-ewt, batch 847 (10847): mcc: 0.7973, acc: 0.6913, precision: 0.8738, recall: 0.7344, f1: 0.7981, edges-dep-ud-ewt_loss: 0.0208
+10/01 03:38:30 AM: Update 10898: task edges-dep-ud-ewt, batch 898 (10898): mcc: 0.7973, acc: 0.6912, precision: 0.8737, recall: 0.7344, f1: 0.7980, edges-dep-ud-ewt_loss: 0.0208
+10/01 03:38:40 AM: Update 10958: task edges-dep-ud-ewt, batch 958 (10958): mcc: 0.7977, acc: 0.6917, precision: 0.8740, recall: 0.7348, f1: 0.7984, edges-dep-ud-ewt_loss: 0.0208
+10/01 03:38:50 AM: Update 10994: task edges-dep-ud-ewt, batch 994 (10994): mcc: 0.7976, acc: 0.6917, precision: 0.8739, recall: 0.7348, f1: 0.7983, edges-dep-ud-ewt_loss: 0.0209
+10/01 03:38:51 AM: ***** Step 11000 / Validation 11 *****
+10/01 03:38:51 AM: edges-dep-ud-ewt: trained on 1000 batches, 2.551 epochs
+10/01 03:38:51 AM: Validating...
+10/01 03:39:00 AM: Evaluate: task edges-dep-ud-ewt, batch 43 (63): mcc: 0.8677, acc: 0.7972, precision: 0.9281, recall: 0.8160, f1: 0.8684, edges-dep-ud-ewt_loss: 0.0155
+10/01 03:39:03 AM: Best result seen so far for edges-dep-ud-ewt.
+10/01 03:39:03 AM: Best result seen so far for macro.
+10/01 03:39:03 AM: Updating LR scheduler:
+10/01 03:39:03 AM: 	Best result seen so far for macro_avg: 0.872
+10/01 03:39:03 AM: 	# validation passes without improvement: 0
+10/01 03:39:03 AM: edges-dep-ud-ewt_loss: training: 0.020893 validation: 0.015236
+10/01 03:39:03 AM: macro_avg: validation: 0.872278
+10/01 03:39:03 AM: micro_avg: validation: 0.000000
+10/01 03:39:03 AM: edges-dep-ud-ewt_mcc: training: 0.797574 validation: 0.871578
+10/01 03:39:03 AM: edges-dep-ud-ewt_acc: training: 0.691606 validation: 0.803624
+10/01 03:39:03 AM: edges-dep-ud-ewt_precision: training: 0.873932 validation: 0.930762
+10/01 03:39:03 AM: edges-dep-ud-ewt_recall: training: 0.734713 validation: 0.820709
+10/01 03:39:03 AM: edges-dep-ud-ewt_f1: training: 0.798298 validation: 0.872278
+10/01 03:39:03 AM: Global learning rate: 0.0001
+10/01 03:39:03 AM: Saving checkpoints to: ./experiments/dep-ud-ewt-sstrandom-top/run
+10/01 03:39:10 AM: Update 11041: task edges-dep-ud-ewt, batch 41 (11041): mcc: 0.7974, acc: 0.6934, precision: 0.8714, recall: 0.7365, f1: 0.7983, edges-dep-ud-ewt_loss: 0.0199
+10/01 03:39:21 AM: Update 11108: task edges-dep-ud-ewt, batch 108 (11108): mcc: 0.8011, acc: 0.6973, precision: 0.8753, recall: 0.7399, f1: 0.8019, edges-dep-ud-ewt_loss: 0.0193
+10/01 03:39:31 AM: Update 11181: task edges-dep-ud-ewt, batch 181 (11181): mcc: 0.8033, acc: 0.7004, precision: 0.8764, recall: 0.7429, f1: 0.8042, edges-dep-ud-ewt_loss: 0.0197
+10/01 03:39:41 AM: Update 11237: task edges-dep-ud-ewt, batch 237 (11237): mcc: 0.8019, acc: 0.6985, precision: 0.8754, recall: 0.7414, f1: 0.8028, edges-dep-ud-ewt_loss: 0.0199
+10/01 03:39:51 AM: Update 11291: task edges-dep-ud-ewt, batch 291 (11291): mcc: 0.8012, acc: 0.6972, precision: 0.8751, recall: 0.7403, f1: 0.8021, edges-dep-ud-ewt_loss: 0.0202
+10/01 03:40:01 AM: Update 11354: task edges-dep-ud-ewt, batch 354 (11354): mcc: 0.8020, acc: 0.6985, precision: 0.8760, recall: 0.7410, f1: 0.8029, edges-dep-ud-ewt_loss: 0.0203
+10/01 03:40:11 AM: Update 11393: task edges-dep-ud-ewt, batch 393 (11393): mcc: 0.8015, acc: 0.6979, precision: 0.8755, recall: 0.7404, f1: 0.8023, edges-dep-ud-ewt_loss: 0.0202
+10/01 03:40:21 AM: Update 11459: task edges-dep-ud-ewt, batch 459 (11459): mcc: 0.8019, acc: 0.6986, precision: 0.8758, recall: 0.7409, f1: 0.8027, edges-dep-ud-ewt_loss: 0.0201
+10/01 03:40:32 AM: Update 11518: task edges-dep-ud-ewt, batch 518 (11518): mcc: 0.8021, acc: 0.6988, precision: 0.8762, recall: 0.7410, f1: 0.8029, edges-dep-ud-ewt_loss: 0.0202
+10/01 03:40:42 AM: Update 11578: task edges-dep-ud-ewt, batch 578 (11578): mcc: 0.8020, acc: 0.6986, precision: 0.8760, recall: 0.7410, f1: 0.8028, edges-dep-ud-ewt_loss: 0.0202
+10/01 03:40:52 AM: Update 11636: task edges-dep-ud-ewt, batch 636 (11636): mcc: 0.8017, acc: 0.6981, precision: 0.8758, recall: 0.7406, f1: 0.8025, edges-dep-ud-ewt_loss: 0.0203
+10/01 03:41:02 AM: Update 11694: task edges-dep-ud-ewt, batch 694 (11694): mcc: 0.8021, acc: 0.6987, precision: 0.8761, recall: 0.7411, f1: 0.8030, edges-dep-ud-ewt_loss: 0.0202
+10/01 03:41:12 AM: Update 11756: task edges-dep-ud-ewt, batch 756 (11756): mcc: 0.8025, acc: 0.6993, precision: 0.8764, recall: 0.7414, f1: 0.8033, edges-dep-ud-ewt_loss: 0.0203
+10/01 03:41:22 AM: Update 11792: task edges-dep-ud-ewt, batch 792 (11792): mcc: 0.8021, acc: 0.6988, precision: 0.8762, recall: 0.7409, f1: 0.8029, edges-dep-ud-ewt_loss: 0.0203
+10/01 03:41:32 AM: Update 11853: task edges-dep-ud-ewt, batch 853 (11853): mcc: 0.8021, acc: 0.6988, precision: 0.8761, recall: 0.7410, f1: 0.8029, edges-dep-ud-ewt_loss: 0.0203
+10/01 03:41:42 AM: Update 11920: task edges-dep-ud-ewt, batch 920 (11920): mcc: 0.8024, acc: 0.6993, precision: 0.8762, recall: 0.7414, f1: 0.8032, edges-dep-ud-ewt_loss: 0.0202
+10/01 03:41:52 AM: Update 11982: task edges-dep-ud-ewt, batch 982 (11982): mcc: 0.8027, acc: 0.6997, precision: 0.8764, recall: 0.7418, f1: 0.8035, edges-dep-ud-ewt_loss: 0.0202
+10/01 03:41:56 AM: ***** Step 12000 / Validation 12 *****
+10/01 03:41:56 AM: edges-dep-ud-ewt: trained on 1000 batches, 2.551 epochs
+10/01 03:41:56 AM: Validating...
+10/01 03:42:03 AM: Evaluate: task edges-dep-ud-ewt, batch 32 (63): mcc: 0.8786, acc: 0.8144, precision: 0.9279, recall: 0.8364, f1: 0.8797, edges-dep-ud-ewt_loss: 0.0144
+10/01 03:42:07 AM: Best result seen so far for edges-dep-ud-ewt.
+10/01 03:42:07 AM: Best result seen so far for macro.
+10/01 03:42:07 AM: Updating LR scheduler:
+10/01 03:42:07 AM: 	Best result seen so far for macro_avg: 0.878
+10/01 03:42:07 AM: 	# validation passes without improvement: 0
+10/01 03:42:07 AM: edges-dep-ud-ewt_loss: training: 0.020169 validation: 0.014799
+10/01 03:42:07 AM: macro_avg: validation: 0.878386
+10/01 03:42:07 AM: micro_avg: validation: 0.000000
+10/01 03:42:07 AM: edges-dep-ud-ewt_mcc: training: 0.802555 validation: 0.877347
+10/01 03:42:07 AM: edges-dep-ud-ewt_acc: training: 0.699616 validation: 0.813262
+10/01 03:42:07 AM: edges-dep-ud-ewt_precision: training: 0.876316 validation: 0.928984
+10/01 03:42:07 AM: edges-dep-ud-ewt_recall: training: 0.741711 validation: 0.833015
+10/01 03:42:07 AM: edges-dep-ud-ewt_f1: training: 0.803414 validation: 0.878386
+10/01 03:42:07 AM: Global learning rate: 0.0001
+10/01 03:42:07 AM: Saving checkpoints to: ./experiments/dep-ud-ewt-sstrandom-top/run
+10/01 03:42:13 AM: Update 12032: task edges-dep-ud-ewt, batch 32 (12032): mcc: 0.8063, acc: 0.7056, precision: 0.8773, recall: 0.7476, f1: 0.8073, edges-dep-ud-ewt_loss: 0.0191
+10/01 03:42:23 AM: Update 12082: task edges-dep-ud-ewt, batch 82 (12082): mcc: 0.8027, acc: 0.7013, precision: 0.8750, recall: 0.7430, f1: 0.8036, edges-dep-ud-ewt_loss: 0.0202
+10/01 03:42:33 AM: Update 12146: task edges-dep-ud-ewt, batch 146 (12146): mcc: 0.8059, acc: 0.7058, precision: 0.8778, recall: 0.7465, f1: 0.8069, edges-dep-ud-ewt_loss: 0.0203
+10/01 03:42:43 AM: Update 12180: task edges-dep-ud-ewt, batch 180 (12180): mcc: 0.8036, acc: 0.7030, precision: 0.8761, recall: 0.7438, f1: 0.8046, edges-dep-ud-ewt_loss: 0.0205
+10/01 03:42:53 AM: Update 12239: task edges-dep-ud-ewt, batch 239 (12239): mcc: 0.8046, acc: 0.7037, precision: 0.8774, recall: 0.7444, f1: 0.8055, edges-dep-ud-ewt_loss: 0.0203
+10/01 03:43:03 AM: Update 12300: task edges-dep-ud-ewt, batch 300 (12300): mcc: 0.8056, acc: 0.7050, precision: 0.8780, recall: 0.7458, f1: 0.8065, edges-dep-ud-ewt_loss: 0.0201
+10/01 03:43:13 AM: Update 12354: task edges-dep-ud-ewt, batch 354 (12354): mcc: 0.8054, acc: 0.7046, precision: 0.8776, recall: 0.7459, f1: 0.8064, edges-dep-ud-ewt_loss: 0.0201
+10/01 03:43:23 AM: Update 12420: task edges-dep-ud-ewt, batch 420 (12420): mcc: 0.8062, acc: 0.7056, precision: 0.8783, recall: 0.7467, f1: 0.8072, edges-dep-ud-ewt_loss: 0.0199
+10/01 03:43:34 AM: Update 12473: task edges-dep-ud-ewt, batch 473 (12473): mcc: 0.8059, acc: 0.7052, precision: 0.8780, recall: 0.7464, f1: 0.8069, edges-dep-ud-ewt_loss: 0.0199
+10/01 03:43:44 AM: Update 12534: task edges-dep-ud-ewt, batch 534 (12534): mcc: 0.8064, acc: 0.7060, precision: 0.8783, recall: 0.7470, f1: 0.8074, edges-dep-ud-ewt_loss: 0.0200
+10/01 03:43:54 AM: Update 12569: task edges-dep-ud-ewt, batch 569 (12569): mcc: 0.8059, acc: 0.7053, precision: 0.8779, recall: 0.7464, f1: 0.8068, edges-dep-ud-ewt_loss: 0.0201
+10/01 03:44:04 AM: Update 12632: task edges-dep-ud-ewt, batch 632 (12632): mcc: 0.8063, acc: 0.7059, precision: 0.8781, recall: 0.7470, f1: 0.8073, edges-dep-ud-ewt_loss: 0.0200
+10/01 03:44:14 AM: Update 12692: task edges-dep-ud-ewt, batch 692 (12692): mcc: 0.8063, acc: 0.7059, precision: 0.8781, recall: 0.7469, f1: 0.8072, edges-dep-ud-ewt_loss: 0.0199
+10/01 03:44:24 AM: Update 12747: task edges-dep-ud-ewt, batch 747 (12747): mcc: 0.8065, acc: 0.7060, precision: 0.8783, recall: 0.7471, f1: 0.8074, edges-dep-ud-ewt_loss: 0.0199
+10/01 03:44:34 AM: Update 12812: task edges-dep-ud-ewt, batch 812 (12812): mcc: 0.8066, acc: 0.7062, precision: 0.8785, recall: 0.7472, f1: 0.8075, edges-dep-ud-ewt_loss: 0.0199
+10/01 03:44:45 AM: Update 12870: task edges-dep-ud-ewt, batch 870 (12870): mcc: 0.8069, acc: 0.7066, precision: 0.8786, recall: 0.7476, f1: 0.8078, edges-dep-ud-ewt_loss: 0.0198
+10/01 03:44:55 AM: Update 12931: task edges-dep-ud-ewt, batch 931 (12931): mcc: 0.8073, acc: 0.7072, precision: 0.8788, recall: 0.7481, f1: 0.8082, edges-dep-ud-ewt_loss: 0.0198
+10/01 03:45:05 AM: Update 12972: task edges-dep-ud-ewt, batch 972 (12972): mcc: 0.8070, acc: 0.7069, precision: 0.8787, recall: 0.7478, f1: 0.8080, edges-dep-ud-ewt_loss: 0.0198
+10/01 03:45:11 AM: ***** Step 13000 / Validation 13 *****
+10/01 03:45:11 AM: edges-dep-ud-ewt: trained on 1000 batches, 2.551 epochs
+10/01 03:45:11 AM: Validating...
+10/01 03:45:15 AM: Evaluate: task edges-dep-ud-ewt, batch 13 (63): mcc: 0.8787, acc: 0.8144, precision: 0.9266, recall: 0.8376, f1: 0.8799, edges-dep-ud-ewt_loss: 0.0142
+10/01 03:45:25 AM: Evaluate: task edges-dep-ud-ewt, batch 60 (63): mcc: 0.8790, acc: 0.8160, precision: 0.9295, recall: 0.8356, f1: 0.8801, edges-dep-ud-ewt_loss: 0.0145
+10/01 03:45:26 AM: Best result seen so far for edges-dep-ud-ewt.
+10/01 03:45:26 AM: Best result seen so far for macro.
+10/01 03:45:26 AM: Updating LR scheduler:
+10/01 03:45:26 AM: 	Best result seen so far for macro_avg: 0.881
+10/01 03:45:26 AM: 	# validation passes without improvement: 0
+10/01 03:45:26 AM: edges-dep-ud-ewt_loss: training: 0.019771 validation: 0.014466
+10/01 03:45:26 AM: macro_avg: validation: 0.880641
+10/01 03:45:26 AM: micro_avg: validation: 0.000000
+10/01 03:45:26 AM: edges-dep-ud-ewt_mcc: training: 0.807029 validation: 0.879550
+10/01 03:45:26 AM: edges-dep-ud-ewt_acc: training: 0.706926 validation: 0.817125
+10/01 03:45:26 AM: edges-dep-ud-ewt_precision: training: 0.878711 validation: 0.929478
+10/01 03:45:26 AM: edges-dep-ud-ewt_recall: training: 0.747790 validation: 0.836679
+10/01 03:45:26 AM: edges-dep-ud-ewt_f1: training: 0.807982 validation: 0.880641
+10/01 03:45:26 AM: Global learning rate: 0.0001
+10/01 03:45:26 AM: Saving checkpoints to: ./experiments/dep-ud-ewt-sstrandom-top/run
+10/01 03:45:36 AM: Update 13045: task edges-dep-ud-ewt, batch 45 (13045): mcc: 0.8146, acc: 0.7172, precision: 0.8822, recall: 0.7586, f1: 0.8158, edges-dep-ud-ewt_loss: 0.0194
+10/01 03:45:46 AM: Update 13091: task edges-dep-ud-ewt, batch 91 (13091): mcc: 0.8124, acc: 0.7145, precision: 0.8812, recall: 0.7555, f1: 0.8135, edges-dep-ud-ewt_loss: 0.0198
+10/01 03:45:56 AM: Update 13143: task edges-dep-ud-ewt, batch 143 (13143): mcc: 0.8098, acc: 0.7116, precision: 0.8791, recall: 0.7526, f1: 0.8109, edges-dep-ud-ewt_loss: 0.0195
+10/01 03:46:06 AM: Update 13195: task edges-dep-ud-ewt, batch 195 (13195): mcc: 0.8106, acc: 0.7124, precision: 0.8800, recall: 0.7532, f1: 0.8117, edges-dep-ud-ewt_loss: 0.0194
+10/01 03:46:16 AM: Update 13236: task edges-dep-ud-ewt, batch 236 (13236): mcc: 0.8096, acc: 0.7107, precision: 0.8792, recall: 0.7520, f1: 0.8107, edges-dep-ud-ewt_loss: 0.0194
+10/01 03:46:26 AM: Update 13264: task edges-dep-ud-ewt, batch 264 (13264): mcc: 0.8079, acc: 0.7088, precision: 0.8777, recall: 0.7502, f1: 0.8090, edges-dep-ud-ewt_loss: 0.0196
+10/01 03:46:36 AM: Update 13314: task edges-dep-ud-ewt, batch 314 (13314): mcc: 0.8093, acc: 0.7110, precision: 0.8788, recall: 0.7519, f1: 0.8104, edges-dep-ud-ewt_loss: 0.0196
+10/01 03:46:46 AM: Update 13340: task edges-dep-ud-ewt, batch 340 (13340): mcc: 0.8093, acc: 0.7109, precision: 0.8788, recall: 0.7518, f1: 0.8104, edges-dep-ud-ewt_loss: 0.0196
+10/01 03:46:56 AM: Update 13383: task edges-dep-ud-ewt, batch 383 (13383): mcc: 0.8093, acc: 0.7108, precision: 0.8789, recall: 0.7518, f1: 0.8104, edges-dep-ud-ewt_loss: 0.0195
+10/01 03:47:07 AM: Update 13424: task edges-dep-ud-ewt, batch 424 (13424): mcc: 0.8089, acc: 0.7106, precision: 0.8787, recall: 0.7512, f1: 0.8100, edges-dep-ud-ewt_loss: 0.0196
+10/01 03:47:17 AM: Update 13477: task edges-dep-ud-ewt, batch 477 (13477): mcc: 0.8094, acc: 0.7111, precision: 0.8790, recall: 0.7518, f1: 0.8104, edges-dep-ud-ewt_loss: 0.0195
+10/01 03:47:27 AM: Update 13522: task edges-dep-ud-ewt, batch 522 (13522): mcc: 0.8090, acc: 0.7106, precision: 0.8789, recall: 0.7512, f1: 0.8100, edges-dep-ud-ewt_loss: 0.0194
+10/01 03:47:37 AM: Update 13573: task edges-dep-ud-ewt, batch 573 (13573): mcc: 0.8095, acc: 0.7112, precision: 0.8793, recall: 0.7517, f1: 0.8105, edges-dep-ud-ewt_loss: 0.0194
+10/01 03:47:47 AM: Update 13623: task edges-dep-ud-ewt, batch 623 (13623): mcc: 0.8099, acc: 0.7117, precision: 0.8796, recall: 0.7523, f1: 0.8110, edges-dep-ud-ewt_loss: 0.0194
+10/01 03:47:58 AM: Update 13660: task edges-dep-ud-ewt, batch 660 (13660): mcc: 0.8100, acc: 0.7118, precision: 0.8797, recall: 0.7523, f1: 0.8110, edges-dep-ud-ewt_loss: 0.0194
+10/01 03:48:08 AM: Update 13708: task edges-dep-ud-ewt, batch 708 (13708): mcc: 0.8104, acc: 0.7125, precision: 0.8800, recall: 0.7529, f1: 0.8115, edges-dep-ud-ewt_loss: 0.0194
+10/01 03:48:18 AM: Update 13728: task edges-dep-ud-ewt, batch 728 (13728): mcc: 0.8101, acc: 0.7121, precision: 0.8798, recall: 0.7524, f1: 0.8112, edges-dep-ud-ewt_loss: 0.0194
+10/01 03:48:28 AM: Update 13781: task edges-dep-ud-ewt, batch 781 (13781): mcc: 0.8105, acc: 0.7127, precision: 0.8801, recall: 0.7529, f1: 0.8116, edges-dep-ud-ewt_loss: 0.0193
+10/01 03:48:38 AM: Update 13830: task edges-dep-ud-ewt, batch 830 (13830): mcc: 0.8106, acc: 0.7127, precision: 0.8801, recall: 0.7530, f1: 0.8116, edges-dep-ud-ewt_loss: 0.0193
+10/01 03:48:48 AM: Update 13877: task edges-dep-ud-ewt, batch 877 (13877): mcc: 0.8108, acc: 0.7131, precision: 0.8802, recall: 0.7534, f1: 0.8119, edges-dep-ud-ewt_loss: 0.0193
+10/01 03:48:59 AM: Update 13924: task edges-dep-ud-ewt, batch 924 (13924): mcc: 0.8108, acc: 0.7131, precision: 0.8802, recall: 0.7534, f1: 0.8119, edges-dep-ud-ewt_loss: 0.0193
+10/01 03:49:09 AM: Update 13971: task edges-dep-ud-ewt, batch 971 (13971): mcc: 0.8109, acc: 0.7131, precision: 0.8803, recall: 0.7534, f1: 0.8119, edges-dep-ud-ewt_loss: 0.0193
+10/01 03:49:15 AM: ***** Step 14000 / Validation 14 *****
+10/01 03:49:15 AM: edges-dep-ud-ewt: trained on 1000 batches, 2.551 epochs
+10/01 03:49:15 AM: Validating...
+10/01 03:49:19 AM: Evaluate: task edges-dep-ud-ewt, batch 12 (63): mcc: 0.8769, acc: 0.8136, precision: 0.9273, recall: 0.8337, f1: 0.8781, edges-dep-ud-ewt_loss: 0.0143
+10/01 03:49:29 AM: Evaluate: task edges-dep-ud-ewt, batch 52 (63): mcc: 0.8782, acc: 0.8141, precision: 0.9320, recall: 0.8319, f1: 0.8791, edges-dep-ud-ewt_loss: 0.0144
+10/01 03:49:31 AM: Best result seen so far for edges-dep-ud-ewt.
+10/01 03:49:31 AM: Best result seen so far for macro.
+10/01 03:49:31 AM: Updating LR scheduler:
+10/01 03:49:31 AM: 	Best result seen so far for macro_avg: 0.882
+10/01 03:49:31 AM: 	# validation passes without improvement: 0
+10/01 03:49:31 AM: edges-dep-ud-ewt_loss: training: 0.019258 validation: 0.014145
+10/01 03:49:31 AM: macro_avg: validation: 0.881683
+10/01 03:49:31 AM: micro_avg: validation: 0.000000
+10/01 03:49:31 AM: edges-dep-ud-ewt_mcc: training: 0.811120 validation: 0.880763
+10/01 03:49:31 AM: edges-dep-ud-ewt_acc: training: 0.713513 validation: 0.818757
+10/01 03:49:31 AM: edges-dep-ud-ewt_precision: training: 0.880340 validation: 0.933390
+10/01 03:49:31 AM: edges-dep-ud-ewt_recall: training: 0.753844 validation: 0.835404
+10/01 03:49:31 AM: edges-dep-ud-ewt_f1: training: 0.812196 validation: 0.881683
+10/01 03:49:31 AM: Global learning rate: 0.0001
+10/01 03:49:31 AM: Saving checkpoints to: ./experiments/dep-ud-ewt-sstrandom-top/run
+10/01 03:49:40 AM: Update 14034: task edges-dep-ud-ewt, batch 34 (14034): mcc: 0.8019, acc: 0.7010, precision: 0.8725, recall: 0.7437, f1: 0.8030, edges-dep-ud-ewt_loss: 0.0197
+10/01 03:49:50 AM: Update 14082: task edges-dep-ud-ewt, batch 82 (14082): mcc: 0.8097, acc: 0.7120, precision: 0.8793, recall: 0.7521, f1: 0.8107, edges-dep-ud-ewt_loss: 0.0198
+10/01 03:50:01 AM: Update 14113: task edges-dep-ud-ewt, batch 113 (14113): mcc: 0.8097, acc: 0.7119, precision: 0.8800, recall: 0.7515, f1: 0.8107, edges-dep-ud-ewt_loss: 0.0199
+10/01 03:50:11 AM: Update 14162: task edges-dep-ud-ewt, batch 162 (14162): mcc: 0.8112, acc: 0.7140, precision: 0.8810, recall: 0.7534, f1: 0.8122, edges-dep-ud-ewt_loss: 0.0193
+10/01 03:50:21 AM: Update 14208: task edges-dep-ud-ewt, batch 208 (14208): mcc: 0.8121, acc: 0.7150, precision: 0.8813, recall: 0.7548, f1: 0.8132, edges-dep-ud-ewt_loss: 0.0191
+10/01 03:50:32 AM: Update 14257: task edges-dep-ud-ewt, batch 257 (14257): mcc: 0.8126, acc: 0.7155, precision: 0.8815, recall: 0.7556, f1: 0.8137, edges-dep-ud-ewt_loss: 0.0190
+10/01 03:50:42 AM: Update 14305: task edges-dep-ud-ewt, batch 305 (14305): mcc: 0.8130, acc: 0.7159, precision: 0.8816, recall: 0.7561, f1: 0.8140, edges-dep-ud-ewt_loss: 0.0190
+10/01 03:50:52 AM: Update 14347: task edges-dep-ud-ewt, batch 347 (14347): mcc: 0.8125, acc: 0.7154, precision: 0.8813, recall: 0.7556, f1: 0.8136, edges-dep-ud-ewt_loss: 0.0192
+10/01 03:51:02 AM: Update 14394: task edges-dep-ud-ewt, batch 394 (14394): mcc: 0.8126, acc: 0.7155, precision: 0.8815, recall: 0.7555, f1: 0.8137, edges-dep-ud-ewt_loss: 0.0192
+10/01 03:51:12 AM: Update 14427: task edges-dep-ud-ewt, batch 427 (14427): mcc: 0.8121, acc: 0.7148, precision: 0.8813, recall: 0.7549, f1: 0.8132, edges-dep-ud-ewt_loss: 0.0191
+10/01 03:51:22 AM: Update 14474: task edges-dep-ud-ewt, batch 474 (14474): mcc: 0.8128, acc: 0.7159, precision: 0.8817, recall: 0.7558, f1: 0.8139, edges-dep-ud-ewt_loss: 0.0192
+10/01 03:51:33 AM: Update 14505: task edges-dep-ud-ewt, batch 505 (14505): mcc: 0.8128, acc: 0.7159, precision: 0.8816, recall: 0.7558, f1: 0.8139, edges-dep-ud-ewt_loss: 0.0192
+10/01 03:51:44 AM: Update 14543: task edges-dep-ud-ewt, batch 543 (14543): mcc: 0.8124, acc: 0.7153, precision: 0.8818, recall: 0.7550, f1: 0.8135, edges-dep-ud-ewt_loss: 0.0192
+10/01 03:51:54 AM: Update 14587: task edges-dep-ud-ewt, batch 587 (14587): mcc: 0.8123, acc: 0.7152, precision: 0.8816, recall: 0.7549, f1: 0.8133, edges-dep-ud-ewt_loss: 0.0192
+10/01 03:52:04 AM: Update 14635: task edges-dep-ud-ewt, batch 635 (14635): mcc: 0.8124, acc: 0.7155, precision: 0.8816, recall: 0.7551, f1: 0.8135, edges-dep-ud-ewt_loss: 0.0192
+10/01 03:52:14 AM: Update 14684: task edges-dep-ud-ewt, batch 684 (14684): mcc: 0.8130, acc: 0.7163, precision: 0.8822, recall: 0.7557, f1: 0.8141, edges-dep-ud-ewt_loss: 0.0191
+10/01 03:52:24 AM: Update 14729: task edges-dep-ud-ewt, batch 729 (14729): mcc: 0.8132, acc: 0.7166, precision: 0.8822, recall: 0.7561, f1: 0.8143, edges-dep-ud-ewt_loss: 0.0191
+10/01 03:52:34 AM: Update 14780: task edges-dep-ud-ewt, batch 780 (14780): mcc: 0.8133, acc: 0.7167, precision: 0.8821, recall: 0.7563, f1: 0.8144, edges-dep-ud-ewt_loss: 0.0191
+10/01 03:52:44 AM: Update 14819: task edges-dep-ud-ewt, batch 819 (14819): mcc: 0.8133, acc: 0.7166, precision: 0.8821, recall: 0.7563, f1: 0.8144, edges-dep-ud-ewt_loss: 0.0190
+10/01 03:52:54 AM: Update 14866: task edges-dep-ud-ewt, batch 866 (14866): mcc: 0.8135, acc: 0.7169, precision: 0.8822, recall: 0.7566, f1: 0.8146, edges-dep-ud-ewt_loss: 0.0191
+10/01 03:53:05 AM: Update 14897: task edges-dep-ud-ewt, batch 897 (14897): mcc: 0.8138, acc: 0.7173, precision: 0.8824, recall: 0.7569, f1: 0.8148, edges-dep-ud-ewt_loss: 0.0191
+10/01 03:53:15 AM: Update 14940: task edges-dep-ud-ewt, batch 940 (14940): mcc: 0.8137, acc: 0.7172, precision: 0.8823, recall: 0.7569, f1: 0.8148, edges-dep-ud-ewt_loss: 0.0190
+10/01 03:53:26 AM: Update 14986: task edges-dep-ud-ewt, batch 986 (14986): mcc: 0.8137, acc: 0.7172, precision: 0.8822, recall: 0.7569, f1: 0.8148, edges-dep-ud-ewt_loss: 0.0190
+10/01 03:53:28 AM: ***** Step 15000 / Validation 15 *****
+10/01 03:53:28 AM: edges-dep-ud-ewt: trained on 1000 batches, 2.551 epochs
+10/01 03:53:28 AM: Validating...
+10/01 03:53:36 AM: Evaluate: task edges-dep-ud-ewt, batch 31 (63): mcc: 0.8851, acc: 0.8277, precision: 0.9237, recall: 0.8524, f1: 0.8866, edges-dep-ud-ewt_loss: 0.0136
+10/01 03:53:42 AM: Best result seen so far for edges-dep-ud-ewt.
+10/01 03:53:42 AM: Best result seen so far for macro.
+10/01 03:53:42 AM: Updating LR scheduler:
+10/01 03:53:42 AM: 	Best result seen so far for macro_avg: 0.886
+10/01 03:53:42 AM: 	# validation passes without improvement: 0
+10/01 03:53:42 AM: edges-dep-ud-ewt_loss: training: 0.018990 validation: 0.013875
+10/01 03:53:42 AM: macro_avg: validation: 0.886074
+10/01 03:53:42 AM: micro_avg: validation: 0.000000
+10/01 03:53:42 AM: edges-dep-ud-ewt_mcc: training: 0.813777 validation: 0.884644
+10/01 03:53:42 AM: edges-dep-ud-ewt_acc: training: 0.717356 validation: 0.827519
+10/01 03:53:42 AM: edges-dep-ud-ewt_precision: training: 0.882297 validation: 0.925606
+10/01 03:53:42 AM: edges-dep-ud-ewt_recall: training: 0.757000 validation: 0.849781
+10/01 03:53:42 AM: edges-dep-ud-ewt_f1: training: 0.814860 validation: 0.886074
+10/01 03:53:42 AM: Global learning rate: 0.0001
+10/01 03:53:42 AM: Saving checkpoints to: ./experiments/dep-ud-ewt-sstrandom-top/run
+10/01 03:53:46 AM: Update 15017: task edges-dep-ud-ewt, batch 17 (15017): mcc: 0.8171, acc: 0.7233, precision: 0.8821, recall: 0.7633, f1: 0.8184, edges-dep-ud-ewt_loss: 0.0185
+10/01 03:53:56 AM: Update 15066: task edges-dep-ud-ewt, batch 66 (15066): mcc: 0.8183, acc: 0.7234, precision: 0.8860, recall: 0.7619, f1: 0.8193, edges-dep-ud-ewt_loss: 0.0179
+10/01 03:54:07 AM: Update 15108: task edges-dep-ud-ewt, batch 108 (15108): mcc: 0.8160, acc: 0.7211, precision: 0.8834, recall: 0.7601, f1: 0.8171, edges-dep-ud-ewt_loss: 0.0189
+10/01 03:54:17 AM: Update 15160: task edges-dep-ud-ewt, batch 160 (15160): mcc: 0.8173, acc: 0.7231, precision: 0.8844, recall: 0.7617, f1: 0.8185, edges-dep-ud-ewt_loss: 0.0185
+10/01 03:54:27 AM: Update 15207: task edges-dep-ud-ewt, batch 207 (15207): mcc: 0.8179, acc: 0.7238, precision: 0.8846, recall: 0.7624, f1: 0.8190, edges-dep-ud-ewt_loss: 0.0185
+10/01 03:54:38 AM: Update 15251: task edges-dep-ud-ewt, batch 251 (15251): mcc: 0.8179, acc: 0.7239, precision: 0.8846, recall: 0.7626, f1: 0.8191, edges-dep-ud-ewt_loss: 0.0186
+10/01 03:54:51 AM: Update 15289: task edges-dep-ud-ewt, batch 289 (15289): mcc: 0.8177, acc: 0.7237, precision: 0.8844, recall: 0.7624, f1: 0.8189, edges-dep-ud-ewt_loss: 0.0187
+10/01 03:55:02 AM: Update 15332: task edges-dep-ud-ewt, batch 332 (15332): mcc: 0.8168, acc: 0.7226, precision: 0.8839, recall: 0.7612, f1: 0.8180, edges-dep-ud-ewt_loss: 0.0188
+10/01 03:55:12 AM: Update 15388: task edges-dep-ud-ewt, batch 388 (15388): mcc: 0.8177, acc: 0.7236, precision: 0.8846, recall: 0.7622, f1: 0.8188, edges-dep-ud-ewt_loss: 0.0186
+10/01 03:55:22 AM: Update 15432: task edges-dep-ud-ewt, batch 432 (15432): mcc: 0.8177, acc: 0.7237, precision: 0.8846, recall: 0.7622, f1: 0.8188, edges-dep-ud-ewt_loss: 0.0186
+10/01 03:55:32 AM: Update 15473: task edges-dep-ud-ewt, batch 473 (15473): mcc: 0.8173, acc: 0.7231, precision: 0.8840, recall: 0.7619, f1: 0.8184, edges-dep-ud-ewt_loss: 0.0186
+10/01 03:55:42 AM: Update 15523: task edges-dep-ud-ewt, batch 523 (15523): mcc: 0.8177, acc: 0.7239, precision: 0.8843, recall: 0.7625, f1: 0.8189, edges-dep-ud-ewt_loss: 0.0186
+10/01 03:55:52 AM: Update 15573: task edges-dep-ud-ewt, batch 573 (15573): mcc: 0.8180, acc: 0.7242, precision: 0.8844, recall: 0.7628, f1: 0.8191, edges-dep-ud-ewt_loss: 0.0186
+10/01 03:56:02 AM: Update 15602: task edges-dep-ud-ewt, batch 602 (15602): mcc: 0.8176, acc: 0.7237, precision: 0.8842, recall: 0.7623, f1: 0.8187, edges-dep-ud-ewt_loss: 0.0185
+10/01 03:56:12 AM: Update 15648: task edges-dep-ud-ewt, batch 648 (15648): mcc: 0.8178, acc: 0.7241, precision: 0.8844, recall: 0.7626, f1: 0.8190, edges-dep-ud-ewt_loss: 0.0186
+10/01 03:56:24 AM: Update 15681: task edges-dep-ud-ewt, batch 681 (15681): mcc: 0.8179, acc: 0.7243, precision: 0.8844, recall: 0.7627, f1: 0.8191, edges-dep-ud-ewt_loss: 0.0186
+10/01 03:56:34 AM: Update 15727: task edges-dep-ud-ewt, batch 727 (15727): mcc: 0.8178, acc: 0.7242, precision: 0.8843, recall: 0.7627, f1: 0.8190, edges-dep-ud-ewt_loss: 0.0186
+10/01 03:56:44 AM: Update 15778: task edges-dep-ud-ewt, batch 778 (15778): mcc: 0.8182, acc: 0.7247, precision: 0.8846, recall: 0.7631, f1: 0.8194, edges-dep-ud-ewt_loss: 0.0186
+10/01 03:56:54 AM: Update 15822: task edges-dep-ud-ewt, batch 822 (15822): mcc: 0.8180, acc: 0.7243, precision: 0.8844, recall: 0.7629, f1: 0.8192, edges-dep-ud-ewt_loss: 0.0186
+10/01 03:57:04 AM: Update 15871: task edges-dep-ud-ewt, batch 871 (15871): mcc: 0.8180, acc: 0.7244, precision: 0.8844, recall: 0.7630, f1: 0.8192, edges-dep-ud-ewt_loss: 0.0186
+10/01 03:57:14 AM: Update 15916: task edges-dep-ud-ewt, batch 916 (15916): mcc: 0.8179, acc: 0.7241, precision: 0.8842, recall: 0.7628, f1: 0.8190, edges-dep-ud-ewt_loss: 0.0186
+10/01 03:57:25 AM: Update 15966: task edges-dep-ud-ewt, batch 966 (15966): mcc: 0.8180, acc: 0.7242, precision: 0.8844, recall: 0.7628, f1: 0.8191, edges-dep-ud-ewt_loss: 0.0185
+10/01 03:57:35 AM: ***** Step 16000 / Validation 16 *****
+10/01 03:57:35 AM: edges-dep-ud-ewt: trained on 1000 batches, 2.551 epochs
+10/01 03:57:35 AM: Validating...
+10/01 03:57:35 AM: Evaluate: task edges-dep-ud-ewt, batch 1 (63): mcc: 0.8953, acc: 0.8327, precision: 0.9445, recall: 0.8524, f1: 0.8961, edges-dep-ud-ewt_loss: 0.0141
+10/01 03:57:45 AM: Evaluate: task edges-dep-ud-ewt, batch 39 (63): mcc: 0.8850, acc: 0.8264, precision: 0.9300, recall: 0.8464, f1: 0.8862, edges-dep-ud-ewt_loss: 0.0136
+10/01 03:57:50 AM: Best result seen so far for edges-dep-ud-ewt.
+10/01 03:57:50 AM: Best result seen so far for macro.
+10/01 03:57:50 AM: Updating LR scheduler:
+10/01 03:57:50 AM: 	Best result seen so far for macro_avg: 0.887
+10/01 03:57:50 AM: 	# validation passes without improvement: 0
+10/01 03:57:50 AM: edges-dep-ud-ewt_loss: training: 0.018528 validation: 0.013630
+10/01 03:57:50 AM: macro_avg: validation: 0.887105
+10/01 03:57:50 AM: micro_avg: validation: 0.000000
+10/01 03:57:50 AM: edges-dep-ud-ewt_mcc: training: 0.817860 validation: 0.885893
+10/01 03:57:50 AM: edges-dep-ud-ewt_acc: training: 0.723891 validation: 0.828554
+10/01 03:57:50 AM: edges-dep-ud-ewt_precision: training: 0.884392 validation: 0.931060
+10/01 03:57:50 AM: edges-dep-ud-ewt_recall: training: 0.762650 validation: 0.847113
+10/01 03:57:50 AM: edges-dep-ud-ewt_f1: training: 0.819022 validation: 0.887105
+10/01 03:57:50 AM: Global learning rate: 0.0001
+10/01 03:57:50 AM: Saving checkpoints to: ./experiments/dep-ud-ewt-sstrandom-top/run
+10/01 03:57:55 AM: Update 16025: task edges-dep-ud-ewt, batch 25 (16025): mcc: 0.8211, acc: 0.7292, precision: 0.8873, recall: 0.7661, f1: 0.8223, edges-dep-ud-ewt_loss: 0.0192
+10/01 03:58:10 AM: Update 16073: task edges-dep-ud-ewt, batch 73 (16073): mcc: 0.8225, acc: 0.7305, precision: 0.8883, recall: 0.7677, f1: 0.8236, edges-dep-ud-ewt_loss: 0.0192
+10/01 03:58:20 AM: Update 16119: task edges-dep-ud-ewt, batch 119 (16119): mcc: 0.8194, acc: 0.7266, precision: 0.8854, recall: 0.7645, f1: 0.8206, edges-dep-ud-ewt_loss: 0.0188
+10/01 03:58:30 AM: Update 16159: task edges-dep-ud-ewt, batch 159 (16159): mcc: 0.8190, acc: 0.7257, precision: 0.8847, recall: 0.7643, f1: 0.8202, edges-dep-ud-ewt_loss: 0.0190
+10/01 03:58:40 AM: Update 16212: task edges-dep-ud-ewt, batch 212 (16212): mcc: 0.8207, acc: 0.7276, precision: 0.8863, recall: 0.7662, f1: 0.8219, edges-dep-ud-ewt_loss: 0.0185
+10/01 03:58:51 AM: Update 16266: task edges-dep-ud-ewt, batch 266 (16266): mcc: 0.8202, acc: 0.7267, precision: 0.8861, recall: 0.7654, f1: 0.8214, edges-dep-ud-ewt_loss: 0.0184
+10/01 03:59:01 AM: Update 16312: task edges-dep-ud-ewt, batch 312 (16312): mcc: 0.8208, acc: 0.7278, precision: 0.8860, recall: 0.7666, f1: 0.8220, edges-dep-ud-ewt_loss: 0.0184
+10/01 03:59:11 AM: Update 16360: task edges-dep-ud-ewt, batch 360 (16360): mcc: 0.8204, acc: 0.7273, precision: 0.8855, recall: 0.7664, f1: 0.8216, edges-dep-ud-ewt_loss: 0.0184
+10/01 03:59:21 AM: Update 16393: task edges-dep-ud-ewt, batch 393 (16393): mcc: 0.8201, acc: 0.7271, precision: 0.8853, recall: 0.7661, f1: 0.8214, edges-dep-ud-ewt_loss: 0.0183
+10/01 03:59:31 AM: Update 16439: task edges-dep-ud-ewt, batch 439 (16439): mcc: 0.8205, acc: 0.7277, precision: 0.8856, recall: 0.7664, f1: 0.8217, edges-dep-ud-ewt_loss: 0.0184
+10/01 03:59:42 AM: Update 16466: task edges-dep-ud-ewt, batch 466 (16466): mcc: 0.8201, acc: 0.7273, precision: 0.8852, recall: 0.7660, f1: 0.8213, edges-dep-ud-ewt_loss: 0.0184
+10/01 03:59:52 AM: Update 16514: task edges-dep-ud-ewt, batch 514 (16514): mcc: 0.8204, acc: 0.7276, precision: 0.8854, recall: 0.7664, f1: 0.8216, edges-dep-ud-ewt_loss: 0.0184
+10/01 04:00:02 AM: Update 16564: task edges-dep-ud-ewt, batch 564 (16564): mcc: 0.8205, acc: 0.7277, precision: 0.8853, recall: 0.7667, f1: 0.8217, edges-dep-ud-ewt_loss: 0.0183
+10/01 04:00:12 AM: Update 16615: task edges-dep-ud-ewt, batch 615 (16615): mcc: 0.8208, acc: 0.7282, precision: 0.8855, recall: 0.7671, f1: 0.8220, edges-dep-ud-ewt_loss: 0.0182
+10/01 04:00:22 AM: Update 16662: task edges-dep-ud-ewt, batch 662 (16662): mcc: 0.8206, acc: 0.7279, precision: 0.8853, recall: 0.7669, f1: 0.8219, edges-dep-ud-ewt_loss: 0.0182
+10/01 04:00:32 AM: Update 16702: task edges-dep-ud-ewt, batch 702 (16702): mcc: 0.8202, acc: 0.7274, precision: 0.8850, recall: 0.7663, f1: 0.8214, edges-dep-ud-ewt_loss: 0.0183
+10/01 04:00:42 AM: Update 16749: task edges-dep-ud-ewt, batch 749 (16749): mcc: 0.8199, acc: 0.7270, precision: 0.8849, recall: 0.7660, f1: 0.8212, edges-dep-ud-ewt_loss: 0.0183
+10/01 04:00:53 AM: Update 16782: task edges-dep-ud-ewt, batch 782 (16782): mcc: 0.8199, acc: 0.7269, precision: 0.8848, recall: 0.7659, f1: 0.8211, edges-dep-ud-ewt_loss: 0.0183
+10/01 04:01:03 AM: Update 16826: task edges-dep-ud-ewt, batch 826 (16826): mcc: 0.8200, acc: 0.7271, precision: 0.8849, recall: 0.7662, f1: 0.8213, edges-dep-ud-ewt_loss: 0.0184
+10/01 04:01:13 AM: Update 16857: task edges-dep-ud-ewt, batch 857 (16857): mcc: 0.8202, acc: 0.7274, precision: 0.8850, recall: 0.7664, f1: 0.8214, edges-dep-ud-ewt_loss: 0.0184
+10/01 04:01:24 AM: Update 16902: task edges-dep-ud-ewt, batch 902 (16902): mcc: 0.8199, acc: 0.7269, precision: 0.8849, recall: 0.7659, f1: 0.8211, edges-dep-ud-ewt_loss: 0.0184
+10/01 04:01:34 AM: Update 16947: task edges-dep-ud-ewt, batch 947 (16947): mcc: 0.8199, acc: 0.7270, precision: 0.8849, recall: 0.7660, f1: 0.8212, edges-dep-ud-ewt_loss: 0.0183
+10/01 04:01:44 AM: Update 17000: task edges-dep-ud-ewt, batch 1000 (17000): mcc: 0.8200, acc: 0.7270, precision: 0.8849, recall: 0.7661, f1: 0.8213, edges-dep-ud-ewt_loss: 0.0182
+10/01 04:01:44 AM: ***** Step 17000 / Validation 17 *****
+10/01 04:01:44 AM: edges-dep-ud-ewt: trained on 1000 batches, 2.551 epochs
+10/01 04:01:44 AM: Validating...
+10/01 04:01:54 AM: Evaluate: task edges-dep-ud-ewt, batch 40 (63): mcc: 0.8872, acc: 0.8317, precision: 0.9235, recall: 0.8565, f1: 0.8887, edges-dep-ud-ewt_loss: 0.0134
+10/01 04:01:59 AM: Best result seen so far for edges-dep-ud-ewt.
+10/01 04:01:59 AM: Best result seen so far for macro.
+10/01 04:01:59 AM: Updating LR scheduler:
+10/01 04:01:59 AM: 	Best result seen so far for macro_avg: 0.890
+10/01 04:01:59 AM: 	# validation passes without improvement: 0
+10/01 04:01:59 AM: edges-dep-ud-ewt_loss: training: 0.018244 validation: 0.013360
+10/01 04:01:59 AM: macro_avg: validation: 0.889748
+10/01 04:01:59 AM: micro_avg: validation: 0.000000
+10/01 04:01:59 AM: edges-dep-ud-ewt_mcc: training: 0.820009 validation: 0.888239
+10/01 04:01:59 AM: edges-dep-ud-ewt_acc: training: 0.727034 validation: 0.834170
+10/01 04:01:59 AM: edges-dep-ud-ewt_precision: training: 0.884934 validation: 0.925669
+10/01 04:01:59 AM: edges-dep-ud-ewt_recall: training: 0.766118 validation: 0.856511
+10/01 04:01:59 AM: edges-dep-ud-ewt_f1: training: 0.821251 validation: 0.889748
+10/01 04:01:59 AM: Global learning rate: 0.0001
+10/01 04:01:59 AM: Saving checkpoints to: ./experiments/dep-ud-ewt-sstrandom-top/run
+10/01 04:02:04 AM: Update 17026: task edges-dep-ud-ewt, batch 26 (17026): mcc: 0.8219, acc: 0.7292, precision: 0.8868, recall: 0.7680, f1: 0.8231, edges-dep-ud-ewt_loss: 0.0191
+10/01 04:02:14 AM: Update 17070: task edges-dep-ud-ewt, batch 70 (17070): mcc: 0.8193, acc: 0.7260, precision: 0.8833, recall: 0.7663, f1: 0.8206, edges-dep-ud-ewt_loss: 0.0185
+10/01 04:02:25 AM: Update 17114: task edges-dep-ud-ewt, batch 114 (17114): mcc: 0.8195, acc: 0.7265, precision: 0.8835, recall: 0.7664, f1: 0.8208, edges-dep-ud-ewt_loss: 0.0186
+10/01 04:02:35 AM: Update 17167: task edges-dep-ud-ewt, batch 167 (17167): mcc: 0.8219, acc: 0.7296, precision: 0.8853, recall: 0.7692, f1: 0.8232, edges-dep-ud-ewt_loss: 0.0182
+10/01 04:02:45 AM: Update 17203: task edges-dep-ud-ewt, batch 203 (17203): mcc: 0.8218, acc: 0.7297, precision: 0.8854, recall: 0.7691, f1: 0.8231, edges-dep-ud-ewt_loss: 0.0183
+10/01 04:03:00 AM: Update 17249: task edges-dep-ud-ewt, batch 249 (17249): mcc: 0.8220, acc: 0.7303, precision: 0.8855, recall: 0.7693, f1: 0.8233, edges-dep-ud-ewt_loss: 0.0184
+10/01 04:03:10 AM: Update 17292: task edges-dep-ud-ewt, batch 292 (17292): mcc: 0.8213, acc: 0.7296, precision: 0.8853, recall: 0.7682, f1: 0.8226, edges-dep-ud-ewt_loss: 0.0183
+10/01 04:03:20 AM: Update 17333: task edges-dep-ud-ewt, batch 333 (17333): mcc: 0.8207, acc: 0.7286, precision: 0.8847, recall: 0.7676, f1: 0.8220, edges-dep-ud-ewt_loss: 0.0184
+10/01 04:03:30 AM: Update 17380: task edges-dep-ud-ewt, batch 380 (17380): mcc: 0.8213, acc: 0.7292, precision: 0.8852, recall: 0.7682, f1: 0.8226, edges-dep-ud-ewt_loss: 0.0183
+10/01 04:03:40 AM: Update 17435: task edges-dep-ud-ewt, batch 435 (17435): mcc: 0.8220, acc: 0.7302, precision: 0.8857, recall: 0.7692, f1: 0.8233, edges-dep-ud-ewt_loss: 0.0181
+10/01 04:03:51 AM: Update 17480: task edges-dep-ud-ewt, batch 480 (17480): mcc: 0.8218, acc: 0.7299, precision: 0.8856, recall: 0.7689, f1: 0.8231, edges-dep-ud-ewt_loss: 0.0181
+10/01 04:04:01 AM: Update 17528: task edges-dep-ud-ewt, batch 528 (17528): mcc: 0.8221, acc: 0.7304, precision: 0.8858, recall: 0.7692, f1: 0.8234, edges-dep-ud-ewt_loss: 0.0182
+10/01 04:04:11 AM: Update 17572: task edges-dep-ud-ewt, batch 572 (17572): mcc: 0.8220, acc: 0.7303, precision: 0.8856, recall: 0.7691, f1: 0.8233, edges-dep-ud-ewt_loss: 0.0181
+10/01 04:04:21 AM: Update 17618: task edges-dep-ud-ewt, batch 618 (17618): mcc: 0.8222, acc: 0.7307, precision: 0.8858, recall: 0.7694, f1: 0.8235, edges-dep-ud-ewt_loss: 0.0182
+10/01 04:04:32 AM: Update 17641: task edges-dep-ud-ewt, batch 641 (17641): mcc: 0.8223, acc: 0.7308, precision: 0.8860, recall: 0.7694, f1: 0.8236, edges-dep-ud-ewt_loss: 0.0182
+10/01 04:04:42 AM: Update 17687: task edges-dep-ud-ewt, batch 687 (17687): mcc: 0.8223, acc: 0.7308, precision: 0.8860, recall: 0.7693, f1: 0.8235, edges-dep-ud-ewt_loss: 0.0182
+10/01 04:04:52 AM: Update 17727: task edges-dep-ud-ewt, batch 727 (17727): mcc: 0.8221, acc: 0.7306, precision: 0.8858, recall: 0.7692, f1: 0.8234, edges-dep-ud-ewt_loss: 0.0182
+10/01 04:05:03 AM: Update 17778: task edges-dep-ud-ewt, batch 778 (17778): mcc: 0.8223, acc: 0.7309, precision: 0.8861, recall: 0.7694, f1: 0.8236, edges-dep-ud-ewt_loss: 0.0182
+10/01 04:05:13 AM: Update 17831: task edges-dep-ud-ewt, batch 831 (17831): mcc: 0.8227, acc: 0.7313, precision: 0.8863, recall: 0.7698, f1: 0.8239, edges-dep-ud-ewt_loss: 0.0181
+10/01 04:05:23 AM: Update 17878: task edges-dep-ud-ewt, batch 878 (17878): mcc: 0.8228, acc: 0.7316, precision: 0.8864, recall: 0.7700, f1: 0.8241, edges-dep-ud-ewt_loss: 0.0181
+10/01 04:05:33 AM: Update 17925: task edges-dep-ud-ewt, batch 925 (17925): mcc: 0.8229, acc: 0.7316, precision: 0.8865, recall: 0.7700, f1: 0.8241, edges-dep-ud-ewt_loss: 0.0181
+10/01 04:05:43 AM: Update 17963: task edges-dep-ud-ewt, batch 963 (17963): mcc: 0.8226, acc: 0.7312, precision: 0.8863, recall: 0.7697, f1: 0.8239, edges-dep-ud-ewt_loss: 0.0180
+10/01 04:05:51 AM: ***** Step 18000 / Validation 18 *****
+10/01 04:05:51 AM: edges-dep-ud-ewt: trained on 1000 batches, 2.551 epochs
+10/01 04:05:51 AM: Validating...
+10/01 04:05:53 AM: Evaluate: task edges-dep-ud-ewt, batch 7 (63): mcc: 0.8934, acc: 0.8403, precision: 0.9294, recall: 0.8627, f1: 0.8948, edges-dep-ud-ewt_loss: 0.0131
+10/01 04:06:04 AM: Evaluate: task edges-dep-ud-ewt, batch 52 (63): mcc: 0.8867, acc: 0.8316, precision: 0.9272, recall: 0.8522, f1: 0.8881, edges-dep-ud-ewt_loss: 0.0135
+10/01 04:06:06 AM: Best result seen so far for edges-dep-ud-ewt.
+10/01 04:06:06 AM: Best result seen so far for macro.
+10/01 04:06:06 AM: Updating LR scheduler:
+10/01 04:06:06 AM: 	Best result seen so far for macro_avg: 0.891
+10/01 04:06:06 AM: 	# validation passes without improvement: 0
+10/01 04:06:06 AM: edges-dep-ud-ewt_loss: training: 0.018037 validation: 0.013196
+10/01 04:06:06 AM: macro_avg: validation: 0.890598
+10/01 04:06:06 AM: micro_avg: validation: 0.000000
+10/01 04:06:06 AM: edges-dep-ud-ewt_mcc: training: 0.822770 validation: 0.889190
+10/01 04:06:06 AM: edges-dep-ud-ewt_acc: training: 0.731434 validation: 0.836161
+10/01 04:06:06 AM: edges-dep-ud-ewt_precision: training: 0.886398 validation: 0.928633
+10/01 04:06:06 AM: edges-dep-ud-ewt_recall: training: 0.769907 validation: 0.855556
+10/01 04:06:06 AM: edges-dep-ud-ewt_f1: training: 0.824056 validation: 0.890598
+10/01 04:06:06 AM: Global learning rate: 0.0001
+10/01 04:06:06 AM: Saving checkpoints to: ./experiments/dep-ud-ewt-sstrandom-top/run
+10/01 04:06:18 AM: Update 18033: task edges-dep-ud-ewt, batch 33 (18033): mcc: 0.8283, acc: 0.7401, precision: 0.8905, recall: 0.7765, f1: 0.8296, edges-dep-ud-ewt_loss: 0.0187
+10/01 04:06:28 AM: Update 18075: task edges-dep-ud-ewt, batch 75 (18075): mcc: 0.8237, acc: 0.7341, precision: 0.8855, recall: 0.7724, f1: 0.8251, edges-dep-ud-ewt_loss: 0.0183
+10/01 04:06:39 AM: Update 18121: task edges-dep-ud-ewt, batch 121 (18121): mcc: 0.8236, acc: 0.7333, precision: 0.8867, recall: 0.7711, f1: 0.8249, edges-dep-ud-ewt_loss: 0.0184
+10/01 04:06:49 AM: Update 18170: task edges-dep-ud-ewt, batch 170 (18170): mcc: 0.8233, acc: 0.7330, precision: 0.8862, recall: 0.7711, f1: 0.8246, edges-dep-ud-ewt_loss: 0.0183
+10/01 04:06:59 AM: Update 18222: task edges-dep-ud-ewt, batch 222 (18222): mcc: 0.8248, acc: 0.7342, precision: 0.8879, recall: 0.7723, f1: 0.8261, edges-dep-ud-ewt_loss: 0.0178
+10/01 04:07:09 AM: Update 18264: task edges-dep-ud-ewt, batch 264 (18264): mcc: 0.8244, acc: 0.7335, precision: 0.8874, recall: 0.7720, f1: 0.8257, edges-dep-ud-ewt_loss: 0.0179
+10/01 04:07:19 AM: Update 18311: task edges-dep-ud-ewt, batch 311 (18311): mcc: 0.8248, acc: 0.7340, precision: 0.8879, recall: 0.7724, f1: 0.8261, edges-dep-ud-ewt_loss: 0.0177
+10/01 04:07:30 AM: Update 18346: task edges-dep-ud-ewt, batch 346 (18346): mcc: 0.8245, acc: 0.7337, precision: 0.8873, recall: 0.7723, f1: 0.8258, edges-dep-ud-ewt_loss: 0.0177
+10/01 04:07:40 AM: Update 18390: task edges-dep-ud-ewt, batch 390 (18390): mcc: 0.8245, acc: 0.7340, precision: 0.8871, recall: 0.7724, f1: 0.8258, edges-dep-ud-ewt_loss: 0.0178
+10/01 04:07:52 AM: Update 18425: task edges-dep-ud-ewt, batch 425 (18425): mcc: 0.8249, acc: 0.7347, precision: 0.8875, recall: 0.7729, f1: 0.8262, edges-dep-ud-ewt_loss: 0.0178
+10/01 04:08:02 AM: Update 18471: task edges-dep-ud-ewt, batch 471 (18471): mcc: 0.8244, acc: 0.7342, precision: 0.8873, recall: 0.7722, f1: 0.8257, edges-dep-ud-ewt_loss: 0.0178
+10/01 04:08:12 AM: Update 18519: task edges-dep-ud-ewt, batch 519 (18519): mcc: 0.8245, acc: 0.7344, precision: 0.8874, recall: 0.7722, f1: 0.8258, edges-dep-ud-ewt_loss: 0.0178
+10/01 04:08:22 AM: Update 18566: task edges-dep-ud-ewt, batch 566 (18566): mcc: 0.8246, acc: 0.7346, precision: 0.8874, recall: 0.7724, f1: 0.8259, edges-dep-ud-ewt_loss: 0.0177
+10/01 04:08:33 AM: Update 18608: task edges-dep-ud-ewt, batch 608 (18608): mcc: 0.8244, acc: 0.7342, precision: 0.8873, recall: 0.7722, f1: 0.8257, edges-dep-ud-ewt_loss: 0.0177
+10/01 04:08:43 AM: Update 18655: task edges-dep-ud-ewt, batch 655 (18655): mcc: 0.8246, acc: 0.7344, precision: 0.8873, recall: 0.7724, f1: 0.8259, edges-dep-ud-ewt_loss: 0.0177
+10/01 04:08:53 AM: Update 18708: task edges-dep-ud-ewt, batch 708 (18708): mcc: 0.8248, acc: 0.7346, precision: 0.8876, recall: 0.7725, f1: 0.8261, edges-dep-ud-ewt_loss: 0.0177
+10/01 04:09:03 AM: Update 18743: task edges-dep-ud-ewt, batch 743 (18743): mcc: 0.8245, acc: 0.7343, precision: 0.8873, recall: 0.7723, f1: 0.8258, edges-dep-ud-ewt_loss: 0.0177
+10/01 04:09:13 AM: Update 18793: task edges-dep-ud-ewt, batch 793 (18793): mcc: 0.8250, acc: 0.7349, precision: 0.8878, recall: 0.7728, f1: 0.8263, edges-dep-ud-ewt_loss: 0.0177
+10/01 04:09:23 AM: Update 18817: task edges-dep-ud-ewt, batch 817 (18817): mcc: 0.8250, acc: 0.7349, precision: 0.8877, recall: 0.7728, f1: 0.8263, edges-dep-ud-ewt_loss: 0.0178
+10/01 04:09:33 AM: Update 18863: task edges-dep-ud-ewt, batch 863 (18863): mcc: 0.8248, acc: 0.7346, precision: 0.8875, recall: 0.7727, f1: 0.8261, edges-dep-ud-ewt_loss: 0.0177
+10/01 04:09:44 AM: Update 18912: task edges-dep-ud-ewt, batch 912 (18912): mcc: 0.8249, acc: 0.7348, precision: 0.8875, recall: 0.7727, f1: 0.8262, edges-dep-ud-ewt_loss: 0.0177
+10/01 04:09:54 AM: Update 18956: task edges-dep-ud-ewt, batch 956 (18956): mcc: 0.8248, acc: 0.7348, precision: 0.8876, recall: 0.7727, f1: 0.8262, edges-dep-ud-ewt_loss: 0.0177
+10/01 04:10:03 AM: ***** Step 19000 / Validation 19 *****
+10/01 04:10:03 AM: edges-dep-ud-ewt: trained on 1000 batches, 2.551 epochs
+10/01 04:10:03 AM: Validating...
+10/01 04:10:04 AM: Evaluate: task edges-dep-ud-ewt, batch 1 (63): mcc: 0.8920, acc: 0.8327, precision: 0.9377, recall: 0.8524, f1: 0.8930, edges-dep-ud-ewt_loss: 0.0137
+10/01 04:10:14 AM: Evaluate: task edges-dep-ud-ewt, batch 42 (63): mcc: 0.8882, acc: 0.8328, precision: 0.9303, recall: 0.8522, f1: 0.8895, edges-dep-ud-ewt_loss: 0.0132
+10/01 04:10:18 AM: Best result seen so far for edges-dep-ud-ewt.
+10/01 04:10:18 AM: Best result seen so far for macro.
+10/01 04:10:18 AM: Updating LR scheduler:
+10/01 04:10:18 AM: 	Best result seen so far for macro_avg: 0.891
+10/01 04:10:18 AM: 	# validation passes without improvement: 0
+10/01 04:10:18 AM: edges-dep-ud-ewt_loss: training: 0.017704 validation: 0.013007
+10/01 04:10:18 AM: macro_avg: validation: 0.891400
+10/01 04:10:18 AM: micro_avg: validation: 0.000000
+10/01 04:10:18 AM: edges-dep-ud-ewt_mcc: training: 0.824684 validation: 0.890093
+10/01 04:10:18 AM: edges-dep-ud-ewt_acc: training: 0.734551 validation: 0.836241
+10/01 04:10:18 AM: edges-dep-ud-ewt_precision: training: 0.887446 validation: 0.931464
+10/01 04:10:18 AM: edges-dep-ud-ewt_recall: training: 0.772505 validation: 0.854640
+10/01 04:10:18 AM: edges-dep-ud-ewt_f1: training: 0.825996 validation: 0.891400
+10/01 04:10:18 AM: Global learning rate: 0.0001
+10/01 04:10:18 AM: Saving checkpoints to: ./experiments/dep-ud-ewt-sstrandom-top/run
+10/01 04:10:24 AM: Update 19029: task edges-dep-ud-ewt, batch 29 (19029): mcc: 0.8260, acc: 0.7366, precision: 0.8871, recall: 0.7753, f1: 0.8274, edges-dep-ud-ewt_loss: 0.0179
+10/01 04:10:34 AM: Update 19077: task edges-dep-ud-ewt, batch 77 (19077): mcc: 0.8284, acc: 0.7386, precision: 0.8900, recall: 0.7770, f1: 0.8297, edges-dep-ud-ewt_loss: 0.0178
+10/01 04:10:44 AM: Update 19127: task edges-dep-ud-ewt, batch 127 (19127): mcc: 0.8269, acc: 0.7366, precision: 0.8895, recall: 0.7749, f1: 0.8282, edges-dep-ud-ewt_loss: 0.0175
+10/01 04:10:54 AM: Update 19170: task edges-dep-ud-ewt, batch 170 (19170): mcc: 0.8277, acc: 0.7375, precision: 0.8902, recall: 0.7756, f1: 0.8289, edges-dep-ud-ewt_loss: 0.0176
+10/01 04:11:08 AM: Update 19209: task edges-dep-ud-ewt, batch 209 (19209): mcc: 0.8273, acc: 0.7374, precision: 0.8898, recall: 0.7752, f1: 0.8286, edges-dep-ud-ewt_loss: 0.0178
+10/01 04:11:18 AM: Update 19247: task edges-dep-ud-ewt, batch 247 (19247): mcc: 0.8261, acc: 0.7359, precision: 0.8891, recall: 0.7737, f1: 0.8274, edges-dep-ud-ewt_loss: 0.0179
+10/01 04:11:28 AM: Update 19291: task edges-dep-ud-ewt, batch 291 (19291): mcc: 0.8261, acc: 0.7361, precision: 0.8887, recall: 0.7740, f1: 0.8274, edges-dep-ud-ewt_loss: 0.0180
+10/01 04:11:38 AM: Update 19345: task edges-dep-ud-ewt, batch 345 (19345): mcc: 0.8266, acc: 0.7370, precision: 0.8890, recall: 0.7746, f1: 0.8279, edges-dep-ud-ewt_loss: 0.0177
+10/01 04:11:49 AM: Update 19390: task edges-dep-ud-ewt, batch 390 (19390): mcc: 0.8258, acc: 0.7359, precision: 0.8883, recall: 0.7739, f1: 0.8271, edges-dep-ud-ewt_loss: 0.0176
+10/01 04:11:59 AM: Update 19441: task edges-dep-ud-ewt, batch 441 (19441): mcc: 0.8263, acc: 0.7366, precision: 0.8888, recall: 0.7743, f1: 0.8276, edges-dep-ud-ewt_loss: 0.0176
+10/01 04:12:09 AM: Update 19487: task edges-dep-ud-ewt, batch 487 (19487): mcc: 0.8260, acc: 0.7360, precision: 0.8884, recall: 0.7740, f1: 0.8273, edges-dep-ud-ewt_loss: 0.0176
+10/01 04:12:19 AM: Update 19530: task edges-dep-ud-ewt, batch 530 (19530): mcc: 0.8260, acc: 0.7361, precision: 0.8884, recall: 0.7741, f1: 0.8273, edges-dep-ud-ewt_loss: 0.0176
+10/01 04:12:29 AM: Update 19581: task edges-dep-ud-ewt, batch 581 (19581): mcc: 0.8265, acc: 0.7370, precision: 0.8886, recall: 0.7749, f1: 0.8279, edges-dep-ud-ewt_loss: 0.0176
+10/01 04:12:39 AM: Update 19603: task edges-dep-ud-ewt, batch 603 (19603): mcc: 0.8262, acc: 0.7365, precision: 0.8884, recall: 0.7744, f1: 0.8275, edges-dep-ud-ewt_loss: 0.0177
+10/01 04:12:49 AM: Update 19652: task edges-dep-ud-ewt, batch 652 (19652): mcc: 0.8261, acc: 0.7363, precision: 0.8884, recall: 0.7742, f1: 0.8274, edges-dep-ud-ewt_loss: 0.0176
+10/01 04:12:59 AM: Update 19702: task edges-dep-ud-ewt, batch 702 (19702): mcc: 0.8264, acc: 0.7368, precision: 0.8887, recall: 0.7745, f1: 0.8277, edges-dep-ud-ewt_loss: 0.0176
+10/01 04:13:10 AM: Update 19749: task edges-dep-ud-ewt, batch 749 (19749): mcc: 0.8266, acc: 0.7370, precision: 0.8889, recall: 0.7748, f1: 0.8279, edges-dep-ud-ewt_loss: 0.0176
+10/01 04:13:20 AM: Update 19793: task edges-dep-ud-ewt, batch 793 (19793): mcc: 0.8266, acc: 0.7370, precision: 0.8888, recall: 0.7748, f1: 0.8279, edges-dep-ud-ewt_loss: 0.0176
+10/01 04:13:30 AM: Update 19845: task edges-dep-ud-ewt, batch 845 (19845): mcc: 0.8267, acc: 0.7371, precision: 0.8888, recall: 0.7750, f1: 0.8280, edges-dep-ud-ewt_loss: 0.0175
+10/01 04:13:40 AM: Update 19889: task edges-dep-ud-ewt, batch 889 (19889): mcc: 0.8263, acc: 0.7366, precision: 0.8884, recall: 0.7746, f1: 0.8276, edges-dep-ud-ewt_loss: 0.0175
+10/01 04:13:50 AM: Update 19922: task edges-dep-ud-ewt, batch 922 (19922): mcc: 0.8262, acc: 0.7366, precision: 0.8883, recall: 0.7745, f1: 0.8275, edges-dep-ud-ewt_loss: 0.0175
+10/01 04:14:01 AM: Update 19973: task edges-dep-ud-ewt, batch 973 (19973): mcc: 0.8266, acc: 0.7372, precision: 0.8885, recall: 0.7750, f1: 0.8279, edges-dep-ud-ewt_loss: 0.0175
+10/01 04:14:11 AM: Update 19996: task edges-dep-ud-ewt, batch 996 (19996): mcc: 0.8265, acc: 0.7371, precision: 0.8885, recall: 0.7749, f1: 0.8278, edges-dep-ud-ewt_loss: 0.0176
+10/01 04:14:12 AM: ***** Step 20000 / Validation 20 *****
+10/01 04:14:12 AM: edges-dep-ud-ewt: trained on 1000 batches, 2.551 epochs
+10/01 04:14:12 AM: Validating...
+10/01 04:14:21 AM: Evaluate: task edges-dep-ud-ewt, batch 36 (63): mcc: 0.8901, acc: 0.8374, precision: 0.9279, recall: 0.8579, f1: 0.8915, edges-dep-ud-ewt_loss: 0.0128
+10/01 04:14:26 AM: Best result seen so far for edges-dep-ud-ewt.
+10/01 04:14:26 AM: Best result seen so far for macro.
+10/01 04:14:26 AM: Updating LR scheduler:
+10/01 04:14:26 AM: 	Best result seen so far for macro_avg: 0.893
+10/01 04:14:26 AM: 	# validation passes without improvement: 0
+10/01 04:14:26 AM: edges-dep-ud-ewt_loss: training: 0.017568 validation: 0.012890
+10/01 04:14:26 AM: macro_avg: validation: 0.892545
+10/01 04:14:26 AM: micro_avg: validation: 0.000000
+10/01 04:14:26 AM: edges-dep-ud-ewt_mcc: training: 0.826467 validation: 0.891162
+10/01 04:14:26 AM: edges-dep-ud-ewt_acc: training: 0.737137 validation: 0.839546
+10/01 04:14:26 AM: edges-dep-ud-ewt_precision: training: 0.888463 validation: 0.930287
+10/01 04:14:26 AM: edges-dep-ud-ewt_recall: training: 0.774893 validation: 0.857746
+10/01 04:14:26 AM: edges-dep-ud-ewt_f1: training: 0.827801 validation: 0.892545
+10/01 04:14:26 AM: Global learning rate: 0.0001
+10/01 04:14:26 AM: Saving checkpoints to: ./experiments/dep-ud-ewt-sstrandom-top/run
+10/01 04:14:31 AM: Update 20021: task edges-dep-ud-ewt, batch 21 (20021): mcc: 0.8287, acc: 0.7407, precision: 0.8899, recall: 0.7777, f1: 0.8300, edges-dep-ud-ewt_loss: 0.0182
+10/01 04:14:41 AM: Update 20070: task edges-dep-ud-ewt, batch 70 (20070): mcc: 0.8285, acc: 0.7403, precision: 0.8898, recall: 0.7774, f1: 0.8298, edges-dep-ud-ewt_loss: 0.0176
+10/01 04:14:51 AM: Update 20118: task edges-dep-ud-ewt, batch 118 (20118): mcc: 0.8277, acc: 0.7393, precision: 0.8887, recall: 0.7771, f1: 0.8291, edges-dep-ud-ewt_loss: 0.0175
+10/01 04:15:01 AM: Update 20161: task edges-dep-ud-ewt, batch 161 (20161): mcc: 0.8259, acc: 0.7369, precision: 0.8872, recall: 0.7749, f1: 0.8273, edges-dep-ud-ewt_loss: 0.0174
+10/01 04:15:11 AM: Update 20212: task edges-dep-ud-ewt, batch 212 (20212): mcc: 0.8274, acc: 0.7387, precision: 0.8883, recall: 0.7768, f1: 0.8288, edges-dep-ud-ewt_loss: 0.0172
+10/01 04:15:21 AM: Update 20260: task edges-dep-ud-ewt, batch 260 (20260): mcc: 0.8277, acc: 0.7392, precision: 0.8887, recall: 0.7770, f1: 0.8291, edges-dep-ud-ewt_loss: 0.0170
+10/01 04:15:32 AM: Update 20306: task edges-dep-ud-ewt, batch 306 (20306): mcc: 0.8276, acc: 0.7391, precision: 0.8886, recall: 0.7769, f1: 0.8290, edges-dep-ud-ewt_loss: 0.0172
+10/01 04:15:43 AM: Update 20350: task edges-dep-ud-ewt, batch 350 (20350): mcc: 0.8279, acc: 0.7396, precision: 0.8887, recall: 0.7774, f1: 0.8293, edges-dep-ud-ewt_loss: 0.0173
+10/01 04:15:54 AM: Update 20385: task edges-dep-ud-ewt, batch 385 (20385): mcc: 0.8285, acc: 0.7405, precision: 0.8891, recall: 0.7780, f1: 0.8299, edges-dep-ud-ewt_loss: 0.0173
+10/01 04:16:04 AM: Update 20434: task edges-dep-ud-ewt, batch 434 (20434): mcc: 0.8283, acc: 0.7403, precision: 0.8891, recall: 0.7777, f1: 0.8297, edges-dep-ud-ewt_loss: 0.0173
+10/01 04:16:14 AM: Update 20483: task edges-dep-ud-ewt, batch 483 (20483): mcc: 0.8285, acc: 0.7405, precision: 0.8891, recall: 0.7780, f1: 0.8298, edges-dep-ud-ewt_loss: 0.0172
+10/01 04:16:25 AM: Update 20527: task edges-dep-ud-ewt, batch 527 (20527): mcc: 0.8282, acc: 0.7403, precision: 0.8889, recall: 0.7777, f1: 0.8296, edges-dep-ud-ewt_loss: 0.0172
+10/01 04:16:35 AM: Update 20572: task edges-dep-ud-ewt, batch 572 (20572): mcc: 0.8278, acc: 0.7397, precision: 0.8883, recall: 0.7775, f1: 0.8293, edges-dep-ud-ewt_loss: 0.0172
+10/01 04:16:45 AM: Update 20622: task edges-dep-ud-ewt, batch 622 (20622): mcc: 0.8282, acc: 0.7401, precision: 0.8886, recall: 0.7779, f1: 0.8296, edges-dep-ud-ewt_loss: 0.0172
+10/01 04:16:55 AM: Update 20666: task edges-dep-ud-ewt, batch 666 (20666): mcc: 0.8281, acc: 0.7401, precision: 0.8885, recall: 0.7779, f1: 0.8295, edges-dep-ud-ewt_loss: 0.0172
